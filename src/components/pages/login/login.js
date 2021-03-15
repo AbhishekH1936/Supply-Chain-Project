@@ -92,7 +92,7 @@ export default class login extends Component {
           .call({ from: this.state.account })
           .then((valid) => {
             if (valid) {
-              this.props.history.push(`/main/GoverningAuthority`);
+              this.props.history.push(`/main/${this.state.publickey}`);
             } else {
               alert("You are not authorized");
             }
