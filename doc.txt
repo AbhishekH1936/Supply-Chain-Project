@@ -1,4 +1,9 @@
-git push -u origin master
+git commands
+
+git staging = git add .
+git commit = git commit -m "message"
+git push = git push -u origin master
+
 
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->
