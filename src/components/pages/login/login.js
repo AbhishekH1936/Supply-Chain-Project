@@ -131,7 +131,12 @@ export default class login extends Component {
                       this.state.password === userData["Password"] &&
                       this.state.role === userData["Role"]
                     ) {
-                      this.props.history.push(`/main/${this.state.role}`);
+                      if(userData["Verified"] === "not verified"){
+                        alert("Your credentials are right, but you are still not verified")
+                      }else{
+                        this.props.history.push(`/main/${this.state.role}`);
+                      }
+                      
                     } else {
                       alert(
                         "Credentials submitted do not match to any legit record"
