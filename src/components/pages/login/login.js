@@ -92,42 +92,57 @@ export default class login extends Component {
     e.preventDefault();
     console.log("login submitting");
 
-    this.state.contract.methods.get_usernames
-      .call({ from: this.state.account })
-      .then((r) => {
-        console.log("User  :", r, "length", r.length);
-      });
-
-    //this.props.history.push(`/main/${this.state.role}`);
-
-    console.log("public key", this.state.publickey);
-
-    this.state.contract.methods
-      .match_usernames(this.state.publickey)
-      .call({ from: this.state.account })
-      .then((r) => {
-        console.log("username match :", r);
-
-        if (formValid(this.state)) {
-          if (r) {
-            // fetch record from ipfs and compare password and role
-            this.state.contract.methods
-              .get_signup(this.state.publickey)
-              .call({ from: this.state.account })
-              .then((ipfs_hash) => {
-                console.log("hash from solidity", ipfs_hash);
-                ipfs.cat(ipfs_hash, (error, result) => {
-                  console.log("ipfs result", result.toString());
-                });
-              });
-          } else {
-            alert(`${this.state.publickey} doesn't have an account`);
+    if (this.state.role === "Governing Authority") {
+      this.state.contract.methods
+        .getAdmindetails()
+        .call({ from: this.state.account })
+        .then((adminData) => {
+          if (
+            this.state.publickey === adminData[0] &&
+            this.state.password === adminData[1]
+          ) {
+            this.props.history.push(`/main/${this.state.role}`);
           }
-        } else {
-          console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
-          alert("Please fill all the fields");
-        }
-      });
+        });
+    } else {
+      this.state.contract.methods.get_usernames
+        .call({ from: this.state.account })
+        .then((r) => {
+          console.log("User  :", r, "length", r.length);
+        });
+
+      //this.props.history.push(`/main/${this.state.role}`);
+
+      console.log("public key", this.state.publickey);
+
+      this.state.contract.methods
+        .match_usernames(this.state.publickey)
+        .call({ from: this.state.account })
+        .then((r) => {
+          console.log("username match :", r);
+
+          if (formValid(this.state)) {
+            if (r) {
+              // fetch record from ipfs and compare password and role
+              this.state.contract.methods
+                .get_signup(this.state.publickey)
+                .call({ from: this.state.account })
+                .then((ipfs_hash) => {
+                  console.log("hash from solidity", ipfs_hash);
+                  ipfs.cat(ipfs_hash, (error, result) => {
+                    let userData = result.toString();
+                    console.log("ipfs result", userData);
+                  });
+                });
+            } else {
+              alert(`${this.state.publickey} doesn't have an account`);
+            }
+          } else {
+            console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+            alert("Please fill all the fields");
+          }
+        });
+    }
   };
 
   handleChange = (e) => {

@@ -3,7 +3,14 @@ pragma experimental ABIEncoderV2;
 
 contract Scm {
   mapping(string => string) signup;
-  string[] usernames_signup = ["bharath123"];
+  string[] usernames_signup = ["admin123"];
+
+  string[] AdminDetails = ["admin123","pass123"];
+
+  
+  function getAdmindetails() public view returns (string[] memory) {
+    return AdminDetails;
+  }
 
   function set_signup(string memory pub_key, string memory signup_hash) public {
     signup[pub_key] = signup_hash;
