@@ -20,20 +20,12 @@ const passRegex = RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
 );
 
-const formValid = ({ formErrors, ...rest }) => {
-  let valid = true;
-
-  // validate form errors being empty
-  Object.values(formErrors).forEach((val) => {
-    val.length > 0 && (valid = false);
-  });
-
-  // validate the form was filled out
-  Object.values(rest).forEach((val) => {
-    val === null && (valid = false);
-  });
-
-  return valid;
+const formValid = (state) => {
+  //console.log("form err:", state.publickey.length, state);
+  if (state.publickey.length === 0 || state.password.length === 0) {
+    return false;
+  }
+  return true;
 };
 
 export default class login extends Component {
@@ -75,8 +67,8 @@ export default class login extends Component {
 
     this.state = {
       password: "",
-      publickey: "public key",
-      role: "farmer",
+      publickey: "",
+      role: "Farmer",
       filled: false,
       formErrors: {
         password: "",
@@ -91,37 +83,35 @@ export default class login extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     console.log("login submitting");
+    if (formValid(this.state)) {
+      console.log("sdcsc");
+      
+      if (this.state.role === "Governing Authority") {
+        this.state.contract.methods
+          .validateAdmindetails(this.state.publickey, this.state.password)
+          .call({ from: this.state.account })
+          .then((valid) => {
+            if (valid) {
+              this.props.history.push(`/main/GoverningAuthority`);
+            } else {
+              alert("You are not authorized");
+            }
+          });
+      } else {
+        this.state.contract.methods.get_usernames
+          .call({ from: this.state.account })
+          .then((r) => {
+            console.log("User  :", r, "length", r.length);
+          });
 
-    if (this.state.role === "Governing Authority") {
-      this.state.contract.methods
-        .getAdmindetails()
-        .call({ from: this.state.account })
-        .then((adminData) => {
-          if (
-            this.state.publickey === adminData[0] &&
-            this.state.password === adminData[1]
-          ) {
-            this.props.history.push(`/main/${this.state.role}`);
-          }
-        });
-    } else {
-      this.state.contract.methods.get_usernames
-        .call({ from: this.state.account })
-        .then((r) => {
-          console.log("User  :", r, "length", r.length);
-        });
+        console.log("public key", this.state.publickey);
 
-      //this.props.history.push(`/main/${this.state.role}`);
+        this.state.contract.methods
+          .match_usernames(this.state.publickey)
+          .call({ from: this.state.account })
+          .then((r) => {
+            console.log("username match :", r);
 
-      console.log("public key", this.state.publickey);
-
-      this.state.contract.methods
-        .match_usernames(this.state.publickey)
-        .call({ from: this.state.account })
-        .then((r) => {
-          console.log("username match :", r);
-
-          if (formValid(this.state)) {
             if (r) {
               // fetch record from ipfs and compare password and role
               this.state.contract.methods
@@ -130,18 +120,29 @@ export default class login extends Component {
                 .then((ipfs_hash) => {
                   console.log("hash from solidity", ipfs_hash);
                   ipfs.cat(ipfs_hash, (error, result) => {
-                    let userData = result.toString();
+                    let userData = JSON.parse(result.toString());
                     console.log("ipfs result", userData);
+                    if (
+                      this.state.publickey === userData["PublicKey"] &&
+                      this.state.password === userData["Password"] &&
+                      this.state.role === userData["Role"]
+                    ) {
+                      this.props.history.push(`/main/${this.state.role}`);
+                    } else {
+                      alert(
+                        "Credentials submitted do not match to any legit record"
+                      );
+                    }
                   });
                 });
             } else {
               alert(`${this.state.publickey} doesn't have an account`);
             }
-          } else {
-            console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
-            alert("Please fill all the fields");
-          }
-        });
+          });
+      }
+    } else {
+      console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
+      alert("Please fill all the fields");
     }
   };
 

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Web3 from "web3";
+import { Link } from "react-router-dom";
 import "./style.css";
 import Scm from "../../../abis/Scm.json";
 import { storage } from "../../Firebase";
@@ -163,7 +164,10 @@ class Farmer extends Component {
                 console.log("sending hash to contract");
                 this.state.contract.methods
                   .set_signup(this.state.publickey, result[0].hash)
-                  .send({ from: this.state.account });
+                  .send({ from: this.state.account },()=>{
+                    alert("Your Account was successfully created")
+                  });
+                  
               }
             });
           } else {
@@ -407,7 +411,7 @@ class Farmer extends Component {
             </div>
             <div className="createAccount">
               <button type="submit">Create Account</button>
-              <small>Already Have an Account?</small>
+              <Link to={{ pathname: "/login" }}><small>Already Have an Account?</small></Link>
             </div>
           </form>
         </div>

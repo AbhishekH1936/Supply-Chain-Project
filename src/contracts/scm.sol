@@ -3,13 +3,16 @@ pragma experimental ABIEncoderV2;
 
 contract Scm {
   mapping(string => string) signup;
-  string[] usernames_signup = ["admin123"];
+  string[] usernames_signup = ["0x743a264D199d1133c3D3Eac18B91BB8E568b09Ea-admin"];
 
-  string[] AdminDetails = ["admin123","pass123"];
+  string[] AdminDetails = ["0x743a264D199d1133c3D3Eac18B91BB8E568b09Ea-admin","Pass123@"];
 
   
-  function getAdmindetails() public view returns (string[] memory) {
-    return AdminDetails;
+  function validateAdmindetails(string memory pub_key, string memory pass) public view returns (bool) {
+      if(keccak256(bytes(pub_key)) == keccak256(bytes(AdminDetails[0])) && keccak256(bytes(pass))==keccak256(bytes(AdminDetails[1]))){
+          return true; 
+      }
+      return false;
   }
 
   function set_signup(string memory pub_key, string memory signup_hash) public {
