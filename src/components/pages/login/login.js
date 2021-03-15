@@ -85,7 +85,7 @@ export default class login extends Component {
     console.log("login submitting");
     if (formValid(this.state)) {
       console.log("sdcsc");
-      
+
       if (this.state.role === "Governing Authority") {
         this.state.contract.methods
           .validateAdmindetails(this.state.publickey, this.state.password)
@@ -120,6 +120,10 @@ export default class login extends Component {
                 .then((ipfs_hash) => {
                   console.log("hash from solidity", ipfs_hash);
                   ipfs.cat(ipfs_hash, (error, result) => {
+                    if(result === undefined){
+                      alert("There is an issue with your credentials");
+                      return
+                    }
                     let userData = JSON.parse(result.toString());
                     console.log("ipfs result", userData);
                     if (
