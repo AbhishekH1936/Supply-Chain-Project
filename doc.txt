@@ -1,0 +1,37 @@
+git push -u origin master
+
+
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.3.0/firebase-analytics.js"></script>
+
+<script>
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  var firebaseConfig = {
+    apiKey: "AIzaSyCHgAkTGGWVbX2DEkyarYKeSqJep9cgP68",
+    authDomain: "scm-project-1848d.firebaseapp.com",
+    projectId: "scm-project-1848d",
+    storageBucket: "scm-project-1848d.appspot.com",
+    messagingSenderId: "970675374667",
+    appId: "1:970675374667:web:e2627f3faa1e428b999bce",
+    measurementId: "G-GH29VNCDH9"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  firebase.analytics();
+</script>
+
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCHgAkTGGWVbX2DEkyarYKeSqJep9cgP68",
+  authDomain: "scm-project-1848d.firebaseapp.com",
+  projectId: "scm-project-1848d",
+  storageBucket: "scm-project-1848d.appspot.com",
+  messagingSenderId: "970675374667",
+  appId: "1:970675374667:web:e2627f3faa1e428b999bce",
+  measurementId: "G-GH29VNCDH9"
+};

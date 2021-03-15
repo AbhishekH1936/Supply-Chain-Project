@@ -74,8 +74,8 @@ export default class login extends Component {
     super(props);
 
     this.state = {
-      password: null,
-      publickey: "",
+      password: "",
+      publickey: "public key",
       role: "farmer",
       filled: false,
       formErrors: {
@@ -107,7 +107,7 @@ export default class login extends Component {
       .call({ from: this.state.account })
       .then((r) => {
         console.log("username match :", r);
-        
+
         if (formValid(this.state)) {
           if (r) {
             // fetch record from ipfs and compare password and role
@@ -117,7 +117,7 @@ export default class login extends Component {
               .then((ipfs_hash) => {
                 console.log("hash from solidity", ipfs_hash);
                 ipfs.cat(ipfs_hash, (error, result) => {
-                  console.log("ipfs result", result);
+                  console.log("ipfs result", result.toString());
                 });
               });
           } else {
@@ -169,19 +169,23 @@ export default class login extends Component {
   render() {
     const { formErrors } = this.state;
     let roles = [
-      "farmer",
+      "Farmer",
       "Agro Consultant",
       "Seller",
       "Distributor",
       "Storage",
       "Transporter",
       "retailer",
+      "Investor",
+      "Governing Authority",
     ];
 
     return (
       <div className="wrapper_login">
         <div className="form-wrapper_login">
-          <h1 className="h1_login">Login</h1>
+          <div className="backside">
+            <h1 className="h1_login">Login</h1>
+          </div>
           <br></br>
           <form onSubmit={this.handleSubmit} className="form_login" noValidate>
             <div className="publickey_login">
@@ -192,7 +196,7 @@ export default class login extends Component {
                 className="input_login"
                 placeholder="Enter Public key-username"
                 type="publickey_login"
-                name="publickey_login"
+                name="publickey"
                 noValidate
                 onChange={this.handleChange}
               />
@@ -207,9 +211,9 @@ export default class login extends Component {
               <span htmlFor="password_login">Password</span>
               <input
                 className="input_login"
-                placeholder="Password_login"
+                placeholder={`Enter your password for ${this.state.publickey}`}
                 type="password_login"
-                name="password_login"
+                name="password"
                 noValidate
                 onChange={this.handleChange}
               />
@@ -219,7 +223,7 @@ export default class login extends Component {
                 </span>
               )}
             </div>
-            <div className="d-flex_login">
+            <div className="d-flex">
               <span className="label_login" htmlFor="password_login">
                 Your Role : {this.state.role}
               </span>
