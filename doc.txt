@@ -4,7 +4,9 @@ git staging = git add .
 git commit = git commit -m "message"
 git push = git push -u origin master
 
-github username : Nikhil483
+git ls-files | xargs wc -l
+
+github username : Nikhil48
 github password : nik7795453566
 
 <!-- The core Firebase JS SDK is always required and must be listed first -->

@@ -237,7 +237,7 @@ export default class login extends Component {
               <input
                 className="input_login"
                 placeholder={`Enter your password for ${this.state.publickey}`}
-                type="password_login"
+                type="password"
                 name="password"
                 noValidate
                 onChange={this.handleChange}
