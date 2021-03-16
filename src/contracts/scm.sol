@@ -42,5 +42,4 @@ contract Scm {
     }
     return false;
   }
-  
 }

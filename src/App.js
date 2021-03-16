@@ -16,6 +16,7 @@ import Transporter from './components/pages/signup/Transporter';
 import AgroConsultant from './components/pages/signup/AgroConsultant';
 import login from './components/pages/login/login'
 import main from './components/pages/main/main';
+import UnverifiedUsers from './components/pages/main/UnverifiedUsers';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path='/agro-consultant' component={AgroConsultant} />
         <Route path='/login' component={login}/>
         <Route path='/main/:name' component = {main}/>
+        <Route path='/UnverifiedUsers' component = {UnverifiedUsers}/>
       </Switch>
     </Router>
   );
