@@ -134,7 +134,7 @@ export default class login extends Component {
                       if(userData["Verified"] === "not verified"){
                         alert("Your credentials are right, but you are still not verified")
                       }else{
-                        this.props.history.push(`/main/${this.state.role}`);
+                        this.props.history.push(`/FarmerHome/${this.state.publickey}`);
                       }
                       
                     } else {

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./main.css";
+import "./Farmer.css";
 
-function MainNavbar(props) {
+function FarmerNavbar(props) {
   const [click, setClick] = useState(false);
 
   const closeMobileMenu = () => setClick(false);
@@ -11,7 +11,7 @@ function MainNavbar(props) {
   return (
     <>
       <nav className="navbar_home">
-        <div className="textColor">{props.username.slice(43,)}</div>
+        <div className="textColor"> Welcome {props.username}</div>
         
 
         <div className="menu-icon_home" onClick={handleClick}>
@@ -21,14 +21,34 @@ function MainNavbar(props) {
         <ul className={click ? "nav-menu_home active" : "nav-menu_home"}>
           <li className="nav-item_home">
             <Link
-              to="/UnverifiedUsers"
+              to={"/ProposeCrops/"+props.publicKey}
               className="nav-links_home"
               onClick={closeMobileMenu}
             >
-              Verify New Applications
+              Propose
             </Link>
+          </li>
+          <li className="nav-item_home">
             <Link
-              to="/"
+              to={"/ApproveCrops/"+props.publicKey}
+              className="nav-links_home"
+              onClick={closeMobileMenu}
+            >
+              Finalize
+            </Link>
+          </li>
+          <li className="nav-item_home">
+            <Link
+              to={"/CropsStatus/"+props.publicKey}
+              className="nav-links_home"
+              onClick={closeMobileMenu}
+            >
+              Crops Status
+            </Link>
+          </li>
+          <li className="nav-item_home">
+            <Link
+              to={"/"}
               className="nav-links_home"
               onClick={closeMobileMenu}
             >
@@ -41,4 +61,4 @@ function MainNavbar(props) {
   );
 }
 
-export default MainNavbar;
+export default FarmerNavbar;

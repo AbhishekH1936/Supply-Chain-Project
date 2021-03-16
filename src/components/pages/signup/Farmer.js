@@ -167,7 +167,6 @@ class Farmer extends Component {
                   .send({ from: this.state.account },()=>{
                     alert("Your Account was successfully created")
                   });
-                  
               }
             });
           } else {
@@ -420,4 +419,5 @@ class Farmer extends Component {
   }
 }
 
-export default Farmer;
+export default Farmer; //meet join ago
+

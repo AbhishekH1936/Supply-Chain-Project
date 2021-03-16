@@ -17,6 +17,11 @@ import AgroConsultant from './components/pages/signup/AgroConsultant';
 import login from './components/pages/login/login'
 import main from './components/pages/main/main';
 import UnverifiedUsers from './components/pages/main/UnverifiedUsers';
+import FarmerHome from './components/pages/Farmer/FarmerHome';
+import FarmerProfile from './components/pages/Farmer/FarmerProfile';
+import ProposeCrops from './components/pages/Farmer/ProposeCrops';
+import CropsStatus from './components/pages/Farmer/CropsStatus';
+import ApproveCrops from './components/pages/Farmer/ApproveCrops';
 
 function App() {
   return (
@@ -37,6 +42,11 @@ function App() {
         <Route path='/login' component={login}/>
         <Route path='/main/:name' component = {main}/>
         <Route path='/UnverifiedUsers' component = {UnverifiedUsers}/>
+        <Route path='/FarmerHome/:publickey' component = {FarmerHome}/>
+        <Route path='/FarmerProfile' component = {FarmerProfile}/>
+        <Route path='/ProposeCrops/:publickey' component = {ProposeCrops}/>
+        <Route path='/CropsStatus/:publickey' component = {CropsStatus}/>
+        <Route path='/ApproveCrops/:publickey' component = {ApproveCrops}/>
       </Switch>
     </Router>
   );
