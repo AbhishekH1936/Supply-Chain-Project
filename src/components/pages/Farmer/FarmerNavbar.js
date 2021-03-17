@@ -22,7 +22,7 @@ function FarmerNavbar(props) {
           <li className="nav-item_home">
             <Link
               to={"/ProposeCrops/"+props.publicKey}
-              className="nav-links_home"
+              className="nav-links_farmer"
               onClick={closeMobileMenu}
             >
               Propose
@@ -31,7 +31,7 @@ function FarmerNavbar(props) {
           <li className="nav-item_home">
             <Link
               to={"/ApproveCrops/"+props.publicKey}
-              className="nav-links_home"
+              className="nav-links_farmer"
               onClick={closeMobileMenu}
             >
               Finalize
@@ -40,7 +40,7 @@ function FarmerNavbar(props) {
           <li className="nav-item_home">
             <Link
               to={"/CropsStatus/"+props.publicKey}
-              className="nav-links_home"
+              className="nav-links_farmer"
               onClick={closeMobileMenu}
             >
               Crops Status
@@ -49,7 +49,7 @@ function FarmerNavbar(props) {
           <li className="nav-item_home">
             <Link
               to={"/"}
-              className="nav-links_home"
+              className="nav-links_farmer"
               onClick={closeMobileMenu}
             >
               logout

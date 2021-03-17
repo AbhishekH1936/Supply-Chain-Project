@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import './Farmer.css';
+import "./Farmer.css";
 import Web3 from "web3";
 import Scm from "../../../abis/Scm.json";
 
@@ -25,9 +25,7 @@ const formValid = ({ formErrors, ...rest }) => {
 };
 
 export default class ProposeCrops extends Component {
-
   async componentDidMount() {
-    
     await this.loadWeb3();
     await this.loadBlockchainData();
   }
@@ -48,7 +46,7 @@ export default class ProposeCrops extends Component {
   async loadBlockchainData() {
     const web3 = window.web3;
     console.log("web3:", web3);
-    console.log(this.props.match.params.publicKey)
+    console.log(this.props.match.params.publicKey);
     const accounts = await web3.eth.getAccounts();
     this.setState({ account: accounts[0] });
     const networkId = await web3.eth.net.getId();
@@ -60,8 +58,6 @@ export default class ProposeCrops extends Component {
       window.alert("Smart contract not deployed to detected network.");
     }
   }
-
-  
 
   constructor(props) {
     super(props);
@@ -86,10 +82,11 @@ export default class ProposeCrops extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit = e => {
+  handleSubmit = (e) => {
     e.preventDefault();
-    console.log("crop form submitted")
-  }
+    console.log("crop form submitted");
+    
+  };
 
   handleChange = (e) => {
     e.preventDefault();
@@ -100,7 +97,7 @@ export default class ProposeCrops extends Component {
       case "cropId":
         formErrors.cropId = cropIdRegex.test(value)
           ? ""
-          : "invalid crop Id, should be exactly 6 letters";
+          : "invalid crop Id, should be exactly 6 alphanumeric characters";
         break;
 
       case "cropType":
@@ -130,146 +127,147 @@ export default class ProposeCrops extends Component {
 
   render() {
     const { formErrors } = this.state;
-    let choice = [
-      "YES",
-      "NO"
-    ];
+    let choice = ["YES", "NO"];
 
     return (
-      <div className="wrapper_login">
-        <div className="form-wrapper_crop">
-          <div className="backside">
-            <h1 className="h1_login">New Crop Details</h1>
-            <h6> (look in instructions page for directions regarding feild's expected value format)</h6>
+      <div id="bg1">
+        <div className="wrapper_crop">
+          <div className="form-wrapper_crop">
+            <div className="backside">
+              <h1 className="h1_crop">New Crop Details</h1>
+              <h6>
+                {" "}
+                (look in instructions page for directions regarding feild's
+                expected value format)
+              </h6>
+            </div>
+            <br></br>
+            <form onSubmit={this.handleSubmit} className="form_crop" noValidate>
+              <div className="cropId">
+                <span className="label_login" htmlFor="cropId">
+                  Enter Id
+                </span>
+                <input
+                  className="input_crop"
+                  placeholder="Enter cropId"
+                  type="text"
+                  name="cropId"
+                  noValidate
+                  onChange={this.handleChange}
+                />
+                {formErrors.cropId.length > 0 && (
+                  <span className="errorMessage_cropId">
+                    {formErrors.cropId}
+                  </span>
+                )}
+                <p className="label_login" htmlFor="cropId">
+                  Final Crop Id : {this.props.match.params.publicKey}-
+                  {this.state.cropId}
+                </p>
+              </div>
+
+              <div className="cropType">
+                <span className="label_login" htmlFor="cropType">
+                  Enter Crop Type
+                </span>
+                <input
+                  className="input_crop"
+                  placeholder="Enter cropType"
+                  type="text"
+                  name="cropType"
+                  noValidate
+                  onChange={this.handleChange}
+                />
+                {formErrors.cropType.length > 0 && (
+                  <span className="errorMessage_cropType">
+                    {formErrors.cropType}
+                  </span>
+                )}
+              </div>
+
+              <div className="cropVariant">
+                <span className="label_login" htmlFor="cropVariant">
+                  Crop Variant of {this.state.cropType}
+                </span>
+                <input
+                  className="input_crop"
+                  placeholder="Enter cropVariant"
+                  type="text"
+                  name="cropVariant"
+                  noValidate
+                  onChange={this.handleChange}
+                />
+                {formErrors.cropVariant.length > 0 && (
+                  <span className="errorMessage_cropVariant">
+                    {formErrors.cropVariant}
+                  </span>
+                )}
+              </div>
+
+              <div className="cropVariant">
+                <span className="label_login" htmlFor="password_login">
+                  Funding Required : {this.state.funding}
+                </span>
+                <select
+                  id="dropdown-basic-button"
+                  title="Select your choice"
+                  onChange={this.setChoice}
+                >
+                  {choice.map((eachRole) => (
+                    <option value={eachRole} key={eachRole}>
+                      {eachRole}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div className="agroConsultantId">
+                <span className="label_login" htmlFor="cropDuration">
+                  Estimated Crop Duration in months (1 to 60)
+                </span>
+                <input
+                  className="input_crop"
+                  placeholder="Enter cropDuration"
+                  type="number"
+                  name="cropDuration"
+                  min="1"
+                  max="60"
+                  noValidate
+                  onChange={this.handleChange}
+                />
+                {formErrors.cropDuration.length > 0 && (
+                  <span className="errorMessage_cropDuration">
+                    {formErrors.cropDuration}
+                  </span>
+                )}
+              </div>
+
+              <div className="cropDuration">
+                <span className="label_login" htmlFor="agroConsultantId">
+                  Agro - ConsultantId
+                </span>
+                <input
+                  className="input_crop"
+                  placeholder="Enter agroConsultantId"
+                  type="text"
+                  name="agroConsultantId"
+                  noValidate
+                  onChange={this.handleChange}
+                />
+                {formErrors.agroConsultantId.length > 0 && (
+                  <span className="errorMessage_agroConsultantId">
+                    {formErrors.agroConsultantId}
+                  </span>
+                )}
+              </div>
+
+              <div className="createAccount_login">
+                <button type="submit">Announce this crop</button>
+              </div>
+            </form>
           </div>
-          <br></br>
-          <form onSubmit={this.handleSubmit} className="form_crop" noValidate>
-            <div className="cropId">
-              <span className="label_login" htmlFor="cropId">
-                Enter Id
-              </span>
-              <input
-                className="input_crop"
-                placeholder="Enter cropId"
-                type="text"
-                name="cropId"
-                noValidate
-                onChange={this.handleChange}
-              />
-              {formErrors.cropId.length > 0 && (
-                <span className="errorMessage_cropId">
-                  {formErrors.cropId}
-                </span>
-              )}
-              <p className="label_login" htmlFor="cropId">
-                Final Crop Id : {this.props.match.params.publicKey}-{this.state.cropId}
-              </p>
-            </div>
-
-            <div className="cropType">
-              <span className="label_login" htmlFor="cropType">
-                Enter Crop Type
-              </span>
-              <input
-                className="input_crop"
-                placeholder="Enter cropType"
-                type="text"
-                name="cropType"
-                noValidate
-                onChange={this.handleChange}
-              />
-              {formErrors.cropType.length > 0 && (
-                <span className="errorMessage_cropType">
-                  {formErrors.cropType}
-                </span>
-              )}
-            </div>
-
-            <div className="cropVariant">
-              <span className="label_login" htmlFor="cropVariant">
-                Crop Variant of {this.state.cropType}
-              </span>
-              <input
-                className="input_crop"
-                placeholder="Enter cropVariant"
-                type="text"
-                name="cropVariant"
-                noValidate
-                onChange={this.handleChange}
-              />
-              {formErrors.cropVariant.length > 0 && (
-                <span className="errorMessage_cropVariant">
-                  {formErrors.cropVariant}
-                </span>
-              )}
-            </div>
-                
-            <div className="cropVariant">
-
-              <span className="label_login" htmlFor="password_login">
-                Funding Required : {this.state.funding}
-              </span>
-              <select
-                id="dropdown-basic-button"
-                title="Select your choice"
-                onChange={this.setChoice}
-              >
-                {choice.map((eachRole) => (
-                  <option value={eachRole} key={eachRole}>
-                    {eachRole}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            <div className="agroConsultantId">
-              <span className="label_login" htmlFor="cropDuration">
-                Estimated Crop Duration in months (1 to 60)
-              </span>
-              <input
-                className="input_crop"
-                placeholder="Enter cropDuration"
-                type="number"
-                name="cropDuration"
-                min="1"
-                max="60"
-                noValidate
-                onChange={this.handleChange}
-              />
-              {formErrors.cropDuration.length > 0 && (
-                <span className="errorMessage_cropDuration">
-                  {formErrors.cropDuration}
-                </span>
-              )}
-            </div>
-
-            <div className="cropDuration">
-              <span className="label_login" htmlFor="agroConsultantId">
-                Agro - ConsultantId
-              </span>
-              <input
-                className="input_crop"
-                placeholder="Enter agroConsultantId"
-                type="text"
-                name="agroConsultantId"
-                noValidate
-                onChange={this.handleChange}
-              />
-              {formErrors.agroConsultantId.length > 0 && (
-                <span className="errorMessage_agroConsultantId">
-                  {formErrors.agroConsultantId}
-                </span>
-              )}
-            </div>
-
-            <div className="createAccount_login">
-              <button type="submit">
-                Announce this crop
-              </button>
-            </div>
-          </form>
         </div>
       </div>
-    )
+    );
   }
 }

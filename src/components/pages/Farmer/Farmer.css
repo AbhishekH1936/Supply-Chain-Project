@@ -1,17 +1,43 @@
 .textColor {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-  font-weight: lighter;
+  font-weight: bolder;
+  font-size: larger;
+  color :rgb(15, 15, 15)
 }
 
-.wrapper_login {
+#bg1 {
+  position: fixed;
+  background: url("https://www.pixelstalk.net/wp-content/uploads/images1/Farm-landscape-hd-wallpapers.jpg") no-repeat
+    fixed center;
+  background-size: cover;
+  min-width: 100%;
+  height: 110%;
+}
+
+.nav-links_farmer {
+  color: rgb(10, 10, 10);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+}
+
+.nav-links_farmer:hover {
+  background-color: #2f2f30;
+  background: linear-gradient(to right, red, purple);
+  color :#fff; 
+  border-radius: 100px;
+  transition: all 0.2s ease-out;
+}
+
+.wrapper_crop {
   height: 100vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #3f3e3e;
+  background: url("https://images.unsplash.com/photo-1586771107445-d3ca888129ff?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8YWdyaWN1bHR1cmV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&w=1000&q=80") no-repeat center fixed;
+  background-size: cover;
 }
 
 .backside {
@@ -28,6 +54,7 @@
   border-radius: 10px;
   box-shadow: 0px 10px 50px rgb(150, 148, 148);
   background-color: #141313;
+  opacity: 10px;
 }
 
 .form_crop {
@@ -47,18 +74,23 @@ h6 {
   font-weight: lighter;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
     Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 1.5em;
 }
 
 span,p {
   font-family: "sans-serif";
-  font-size: 1.5em;
+  font-size: 1em;
   margin-bottom: 0.25em;
   color: rgb(243, 225, 225);
   margin-right: 30px;
 }
 
+input {
+  margin-top : 6px;
+}
+
 .label_login {
-  font-size: 0.9em;
+  font-size: 1em;
   margin-bottom: 0.4em;
   color: rgb(241, 228, 228);
   font-weight: lighter;
@@ -72,7 +104,7 @@ span,p {
   border: 2px solid #050505;
   background-color: #474747;
   color: rgb(211, 204, 204);
-  width : 500px;
+  width : 100%;
 }
 
 input::placeholder {
@@ -90,7 +122,7 @@ input.error {
 .errorMessage_cropVariant,
 .errorMessage_agroConsultantId {
   color: red;
-  font-size: 0.75em;
+  font-size: 0.25em;
   display: relative;
 }
 
@@ -100,7 +132,7 @@ input.error {
 .cropDuration,
 .agroConsultantId {
   margin-bottom: 15px;
-  width: 60%;
+  width: 80%;
 }
 
 .createAccount_login {

@@ -82,7 +82,7 @@ export default class FarmerHome extends Component {
 
     render() {
         return (
-            <div>
+            <div id="bg1">
                 <FarmerNavbar username={this.state.userName} publicKey={this.state.publickey}/>
             </div>
         )
