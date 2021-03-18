@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Web3 from "web3";
+import { Link } from "react-router-dom";
 import "./style.css";
 import Scm from "../../../abis/Scm.json";
+import { storage } from "../../Firebase";
 
 // match usernames only done in this file.
 const ipfsClient = require("ipfs-api");
@@ -91,7 +93,9 @@ class AgroConsultant extends Component {
       collegename: null,
       role: "AgroConsultant",
       verified: "not verified",
-      buffer: null,
+      image: null,
+      progress: 0,
+      url: "",
       formErrors: {
         firstName: "",
         lastName: "",
@@ -135,7 +139,7 @@ class AgroConsultant extends Component {
               Verified: this.state.verified,
               Qualification: this.state.qualification,
               CollegeName: this.state.collegename,
-              Document: this.state.buffer,
+              Document: this.state.url,
             };
             console.log("Signup info:  ", signup_info);
             let signup_string = JSON.stringify(signup_info);
@@ -152,11 +156,9 @@ class AgroConsultant extends Component {
                 console.log("sending hash to contract");
                 this.state.contract.methods
                   .set_signup(this.state.publickey, result[0].hash)
-                  .send({ from: this.state.account },(res)=>{
-               
-                    if(res === false)
-                    {   
-                    alert("Your Account was successfully created")
+                  .send({ from: this.state.account }, (res) => {
+                    if (res === false) {
+                      alert("Your Account was successfully created");
                     }
                   });
               }
@@ -237,15 +239,58 @@ class AgroConsultant extends Component {
     this.setState({ formErrors, [name]: value }, () => console.log(this.state));
   };
 
+  setProgress = (prog) => {
+    this.setState({
+      progress: prog,
+    });
+  };
+
+  setUrl = (link) => {
+    this.setState({
+      url: link,
+    });
+  };
+
   captureFile = (event) => {
     event.preventDefault();
+
     const file = event.target.files[0];
-    const reader = new window.FileReader();
-    reader.readAsArrayBuffer(file);
-    reader.onloadend = () => {
-      this.setState({ buffer: Buffer(reader.result) });
-      console.log("buffer", this.state.buffer);
-    };
+    console.log("image", file);
+    this.setState(
+      function (prevState, props) {
+        return {
+          image: file,
+        };
+      },
+      () => {
+        console.log("image", this.state.image);
+        const uploadTask = storage
+          .ref(`${this.state.role}/${this.state.image.name}`)
+          .put(this.state.image);
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+            this.setProgress(progress);
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {
+            storage
+              .ref(`${this.state.role}`)
+              .child(this.state.image.name)
+              .getDownloadURL()
+              .then((url) => {
+                this.setUrl(url);
+              });
+            alert("Upload Complete");
+          }
+        );
+      }
+    );
   };
 
   render() {
@@ -361,13 +406,11 @@ class AgroConsultant extends Component {
             <div className="upload_doc">
               <label htmlFor="email">Upload Documents</label>
               <input
-                placeholder="Scan all the documents and Upload pdf"
                 type="file"
-                name="document"
-                noValidate
-                required
+                accept="application/pdf"
                 onChange={this.captureFile}
               />
+              {<progress value={this.state.progress} max="100" />}
             </div>
 
             <div className="publickey">
@@ -406,7 +449,9 @@ class AgroConsultant extends Component {
             </div>
             <div className="createAccount">
               <button type="submit">Create Account</button>
-              <small>Already Have an Account?</small>
+              <Link to={{ pathname: "/login" }}>
+                <small>Already Have an Account?</small>
+              </Link>
             </div>
           </form>
         </div>

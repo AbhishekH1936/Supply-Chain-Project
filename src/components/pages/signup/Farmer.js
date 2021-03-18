@@ -130,8 +130,7 @@ class Farmer extends Component {
         console.log("User  :", r, "length", r.length);
         if (formValid(this.state)) {
           console.log(this.state.publickey);
-          if (!r) 
-		  {
+          if (!r) {
             let signup_info = {
               First_Name: this.state.firstName,
               Last_Name: this.state.lastName,
@@ -159,22 +158,17 @@ class Farmer extends Component {
                 console.log("sending hash to contract");
                 this.state.contract.methods
                   .set_signup(this.state.publickey, result[0].hash)
-                  .send({ from: this.state.account },(res)=>{
-               
-                    if(res === false)
-                    {   
-                    alert("Your Account was successfully created")
+                  .send({ from: this.state.account }, (res) => {
+                    if (res === false) {
+                      alert("Your Account was successfully created");
                     }
                   });
               }
             });
-          }
-		  else 
-		  {
+          } else {
             alert("Username Already exits, please choose new one");
           }
-        }
-		else {
+        } else {
           console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
           alert("Please fill all the fields");
         }
@@ -284,6 +278,7 @@ class Farmer extends Component {
               .then((url) => {
                 this.setUrl(url);
               });
+            alert("Upload Complete");
           }
         );
       }
@@ -372,8 +367,12 @@ class Farmer extends Component {
 
             <div className="upload_doc">
               <label htmlFor="email">Upload Documents</label>
-              <input type="file" onChange={this.captureFile} />
-              {/*<progress value={this.state.progress} max="100" />*/}
+              <input
+                type="file"
+                accept="application/pdf"
+                onChange={this.captureFile}
+              />
+              {<progress value={this.state.progress} max="100" />}
             </div>
 
             <div className="publickey">
@@ -412,7 +411,9 @@ class Farmer extends Component {
             </div>
             <div className="createAccount">
               <button type="submit">Create Account</button>
-              <Link to={{ pathname: "/login" }}><small>Already Have an Account?</small></Link>
+              <Link to={{ pathname: "/login" }}>
+                <small>Already Have an Account?</small>
+              </Link>
             </div>
           </form>
         </div>
@@ -422,4 +423,3 @@ class Farmer extends Component {
 }
 
 export default Farmer; //meet join ago
-

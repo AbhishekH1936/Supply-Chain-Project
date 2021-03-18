@@ -1,80 +1,79 @@
 import React, { Component } from "react";
-import Web3 from 'web3';
-import './style.css';
-import Scm from '../../../abis/Scm.json';
+import Web3 from "web3";
+import { Link } from "react-router-dom";
+import "./style.css";
+import Scm from "../../../abis/Scm.json";
+import { storage } from "../../Firebase";
 
-
-const ipfsClient = require('ipfs-api')
-const ipfs = ipfsClient({ host: 'ipfs.infura.io', port: 5001, apiPath: '/api/v0',protocol: 'https' })
+const ipfsClient = require("ipfs-api");
+const ipfs = ipfsClient({
+  host: "ipfs.infura.io",
+  port: 5001,
+  apiPath: "/api/v0",
+  protocol: "https",
+});
 //https://gateway.ipfs.io/ipfs/
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 );
 
-const contactRegex = RegExp(
-  /^\d{10}$/
-);
+const contactRegex = RegExp(/^\d{10}$/);
 
-const publickeyRegex=RegExp(
-/^[0-9A-Za-z]{42}-[a-zA-Z0-9]+$/
-);
+const publickeyRegex = RegExp(/^[0-9A-Za-z]{42}-[a-zA-Z0-9]+$/);
 
-const passRegex=RegExp(
-// eslint-disable-next-line no-useless-escape
-/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
-  );
+const passRegex = RegExp(
+  // eslint-disable-next-line no-useless-escape
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
+);
 
 const formValid = ({ formErrors, ...rest }) => {
   let valid = true;
 
   // validate form errors being empty
-  Object.values(formErrors).forEach(val => {
+  Object.values(formErrors).forEach((val) => {
     val.length > 0 && (valid = false);
   });
 
   // validate the form was filled out
-  Object.values(rest).forEach(val => {
+  Object.values(rest).forEach((val) => {
     val === null && (valid = false);
   });
 
   return valid;
 };
 
-
 class Transporter extends Component {
-
   async componentWillMount() {
-    await this.loadWeb3()
-    await this.loadBlockchainData()     
+    await this.loadWeb3();
+    await this.loadBlockchainData();
   }
 
   async loadWeb3() {
     if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum)
-      await window.ethereum.enable()
-    }
-    else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider) 
-    }
-    else {
-      window.alert('Non-Ethereum browser detected. You should consider trying MetaMask!')
+      window.web3 = new Web3(window.ethereum);
+      await window.ethereum.enable();
+    } else if (window.web3) {
+      window.web3 = new Web3(window.web3.currentProvider);
+    } else {
+      window.alert(
+        "Non-Ethereum browser detected. You should consider trying MetaMask!"
+      );
     }
   }
 
   async loadBlockchainData() {
-    const web3 = window.web3
-    console.log("web3:",web3)
-    const accounts = await web3.eth.getAccounts()
-    this.setState({ account: accounts[0] })
-    const networkId = await web3.eth.net.getId()
-    const networkData = Scm.networks[networkId]
-    if(networkData) {
-      const contract = web3.eth.Contract(Scm.abi, networkData.address)
-      this.setState({ contract })      
-    } 
-    else {
-      window.alert('Smart contract not deployed to detected network.')
+    const web3 = window.web3;
+    console.log("web3:", web3);
+    const accounts = await web3.eth.getAccounts();
+    this.setState({ account: accounts[0] });
+    const networkId = await web3.eth.net.getId();
+    const networkData = Scm.networks[networkId];
+    if (networkData) {
+      const contract = web3.eth.Contract(Scm.abi, networkData.address);
+      this.setState({ contract });
+    } else {
+      window.alert("Smart contract not deployed to detected network.");
     }
   }
 
@@ -86,99 +85,95 @@ class Transporter extends Component {
       lastName: null,
       email: null,
       password: null,
-      contactno:null,
-      publickey:"",
-      address:null,
-      specialisation:null,
-      ch1:false,
-      ch2:false,
-      ch3:false,
-      role:"Transporter",
-      verified:"not verified",
-      buffer : null,
+      contactno: null,
+      publickey: "",
+      address: null,
+      specialisation: null,
+      ch1: false,
+      ch2: false,
+      ch3: false,
+      role: "Transporter",
+      verified: "not verified",
+      image: null,
+      progress: 0,
+      url: "",
       formErrors: {
         firstName: "",
         lastName: "",
         email: "",
-        specialisation:"",
+        specialisation: "",
         password: "",
-        contactno:"",
-        publickey:"",
-        address:"",
-        buffer:""
-      }
+        contactno: "",
+        publickey: "",
+        address: "",
+        buffer: "",
+      },
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-handleSubmit = e => {
-  e.preventDefault();
-  console.log(`--SUBMITTING-- : `);
-  this.state.contract.methods
-    .match_usernames(this.state.publickey)
-    .call({ from: this.state.account })
-    .then((r) => {
-      console.log("User  :", r, "length", r.length);
-      if (formValid(this.state)) {
-        console.log(this.state.publickey);
-        if (!r) 
-    {
-          let signup_info = {
-            "First_Name": this.state.firstName,
-            "Last_Name": this.state.lastName,
-            "Address":this.state.address,
-            "Email": this.state.email,
-            "Password": this.state.password,
-            "ContactNo":this.state.contactno,
-            "PublicKey":this.state.publickey,
-            "Role":this.state.role,
-            "Specialisation":this.state.specialisation,
-            "Verified":this.state.verified,
-            "MeansOfTransport":(this.state.ch1===true ? "road" : "") + (this.state.ch2===true ? "water" : "") + (this.state.ch3===true ? "aerial" : ""),
-            "Document": this.state.buffer
-            }
-          console.log("Signup info:  ",signup_info)
-          let signup_string = JSON.stringify(signup_info);
-     
-          let ipfs_sign_up = Buffer(signup_string)
-          console.log("Submitting file to ipfs...",signup_string)
+  handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(`--SUBMITTING-- : `);
+    this.state.contract.methods
+      .match_usernames(this.state.publickey)
+      .call({ from: this.state.account })
+      .then((r) => {
+        console.log("User  :", r, "length", r.length);
+        if (formValid(this.state)) {
+          console.log(this.state.publickey);
+          if (!r) {
+            let signup_info = {
+              First_Name: this.state.firstName,
+              Last_Name: this.state.lastName,
+              Address: this.state.address,
+              Email: this.state.email,
+              Password: this.state.password,
+              ContactNo: this.state.contactno,
+              PublicKey: this.state.publickey,
+              Role: this.state.role,
+              Specialisation: this.state.specialisation,
+              Verified: this.state.verified,
+              MeansOfTransport:
+                (this.state.ch1 === true ? "road" : "") +
+                (this.state.ch2 === true ? "water" : "") +
+                (this.state.ch3 === true ? "aerial" : ""),
+              Document: this.state.url,
+            };
+            console.log("Signup info:  ", signup_info);
+            let signup_string = JSON.stringify(signup_info);
 
-          ipfs.add(ipfs_sign_up, (error, result) => 
-          {
-            console.log('Ipfs result', result)
-            if(error) 
-            {
-              console.error(error)
-              return
-            }
-            else
-            {
-              console.log("sending hash to contract")
-              this.state.contract.methods.set_signup(this.state.publickey,result[0].hash).send({ from: this.state.account },(res)=>{
-               
-                if(res === false)
-                {   
-                alert("Your Account was successfully created")
-                }
-              });
-            }
-          })
-        }
-        else{
-          alert("Username Already exits, please choose new one");
-        }
-      }
-    
-      else 
-        {
+            let ipfs_sign_up = Buffer(signup_string);
+            console.log("Submitting file to ipfs...", signup_string);
+
+            ipfs.add(ipfs_sign_up, (error, result) => {
+              console.log("Ipfs result", result);
+              if (error) {
+                console.error(error);
+                return;
+              } else {
+                console.log("sending hash to contract");
+                this.state.contract.methods
+                  .set_signup(this.state.publickey, result[0].hash)
+                  .send({ from: this.state.account }, (res) => {
+                    if (res === false) {
+                      alert("Your Account was successfully created");
+                    }
+                  });
+              }
+            });
+          } else {
+            alert("Username Already exits, please choose new one");
+          }
+        } else {
           console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
           alert("Please fill all the fields");
         }
-     })
-}
+      });
+  };
 
-  handleChange = e => {
+  handleChange = (e) => {
     e.preventDefault();
     const { name, value } = e.target;
     let formErrors = { ...this.state.formErrors };
@@ -205,8 +200,7 @@ handleSubmit = e => {
         break;
 
       case "document":
-        formErrors.document =
-          value.length <1 ? "Please Upload document" : "";
+        formErrors.document = value.length < 1 ? "Please Upload document" : "";
         break;
 
       case "email":
@@ -216,26 +210,31 @@ handleSubmit = e => {
         break;
 
       case "c1":
-      		this.setState({ch1:e.target.checked})
-      		break;
+        this.setState({ ch1: e.target.checked });
+        break;
       case "c2":
-      		this.setState({ch2:e.target.checked})
-      		break;
+        this.setState({ ch2: e.target.checked });
+        break;
       case "c3":
-      		this.setState({ch3:e.target.checked})
-      		break;
+        this.setState({ ch3: e.target.checked });
+        break;
 
       case "contactno":
-        formErrors.contactno =contactRegex.test(value) ? "" : "Exactly 10 numbers are required";  
+        formErrors.contactno = contactRegex.test(value)
+          ? ""
+          : "Exactly 10 numbers are required";
         break;
 
       case "publickey":
-        formErrors.publickey =publickeyRegex.test(value)? "":"Please enter your username in the specified format";
+        formErrors.publickey = publickeyRegex.test(value)
+          ? ""
+          : "Please enter your username in the specified format";
         break;
 
-
       case "password":
-        formErrors.password =passRegex.test(value)?"":"Use atleast one special,one numeric,one capital and atlest 8 characaters";
+        formErrors.password = passRegex.test(value)
+          ? ""
+          : "Use atleast one special,one numeric,one capital and atlest 8 characaters";
         break;
 
       default:
@@ -245,18 +244,59 @@ handleSubmit = e => {
     this.setState({ formErrors, [name]: value }, () => console.log(this.state));
   };
 
-captureFile = (event) => {
-    event.preventDefault()
-    const file = event.target.files[0]
-    const reader = new window.FileReader()
-    reader.readAsArrayBuffer(file)
-    reader.onloadend = () => {
-      this.setState({ buffer: Buffer(reader.result) })
-      console.log('buffer', this.state.buffer)
-    }
-  }
+  setProgress = (prog) => {
+    this.setState({
+      progress: prog,
+    });
+  };
 
+  setUrl = (link) => {
+    this.setState({
+      url: link,
+    });
+  };
 
+  captureFile = (event) => {
+    event.preventDefault();
+
+    const file = event.target.files[0];
+    console.log("image", file);
+    this.setState(
+      function (prevState, props) {
+        return {
+          image: file,
+        };
+      },
+      () => {
+        console.log("image", this.state.image);
+        const uploadTask = storage
+          .ref(`${this.state.role}/${this.state.image.name}`)
+          .put(this.state.image);
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+            this.setProgress(progress);
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {
+            storage
+              .ref(`${this.state.role}`)
+              .child(this.state.image.name)
+              .getDownloadURL()
+              .then((url) => {
+                this.setUrl(url);
+              });
+            alert("Upload Complete");
+          }
+        );
+      }
+    );
+  };
 
   render() {
     const { formErrors } = this.state;
@@ -279,7 +319,6 @@ captureFile = (event) => {
               {formErrors.firstName.length > 0 && (
                 <span className="errorMessage">{formErrors.firstName}</span>
               )}
-
             </div>
             <div className="lastName">
               <label htmlFor="lastName">Last Name</label>
@@ -294,7 +333,6 @@ captureFile = (event) => {
               {formErrors.lastName.length > 0 && (
                 <span className="errorMessage">{formErrors.lastName}</span>
               )}
-
             </div>
             <div className="email">
               <label htmlFor="email">Email</label>
@@ -309,7 +347,6 @@ captureFile = (event) => {
               {formErrors.email.length > 0 && (
                 <span className="errorMessage">{formErrors.email}</span>
               )}
-
             </div>
             <div className="contact_no">
               <label htmlFor="email">Contact Number</label>
@@ -329,7 +366,9 @@ captureFile = (event) => {
             <div className="specialisation">
               <label htmlFor="email">Company Name</label>
               <input
-                className={formErrors.specialisation.length > 0 ? "error" : null}
+                className={
+                  formErrors.specialisation.length > 0 ? "error" : null
+                }
                 placeholder="Enter your Company name"
                 type="text"
                 name="specialisation"
@@ -337,11 +376,11 @@ captureFile = (event) => {
                 onChange={this.handleChange}
               />
               {formErrors.specialisation.length > 0 && (
-                <span className="errorMessage">{formErrors.specialisation}</span>
+                <span className="errorMessage">
+                  {formErrors.specialisation}
+                </span>
               )}
-              </div>
-
-
+            </div>
 
             <div className="address">
               <label htmlFor="email">Address</label>
@@ -359,28 +398,44 @@ captureFile = (event) => {
             </div>
 
             <div className="meansoft">
-            	<label className="l1"> Means Of Transport </label>
-            	<div>
-            	<input className="meansoftransport" type="checkbox" name="c1" value="road"  checked={this.state.ch1} onChange={this.handleChange}/>Road
-            	<input className="meansoftransport" type="checkbox" name="c2" value="water" onChange={this.handleChange}/>Water
-            	<input className="meansoftransport" type="checkbox" name="c3" value="aerial" onChange={this.handleChange}/>Aerial
-            	
-            	</div>
-
+              <label className="l1"> Means Of Transport </label>
+              <div>
+                <input
+                  className="meansoftransport"
+                  type="checkbox"
+                  name="c1"
+                  value="road"
+                  checked={this.state.ch1}
+                  onChange={this.handleChange}
+                />
+                Road
+                <input
+                  className="meansoftransport"
+                  type="checkbox"
+                  name="c2"
+                  value="water"
+                  onChange={this.handleChange}
+                />
+                Water
+                <input
+                  className="meansoftransport"
+                  type="checkbox"
+                  name="c3"
+                  value="aerial"
+                  onChange={this.handleChange}
+                />
+                Aerial
+              </div>
             </div>
 
             <div className="upload_doc">
               <label htmlFor="email">Upload Documents</label>
               <input
-                
-                placeholder="Scan all the documents and Upload pdf"
                 type="file"
-                name="document"
-                noValidate
-                required
+                accept="application/pdf"
                 onChange={this.captureFile}
               />
-              
+              {<progress value={this.state.progress} max="100" />}
             </div>
 
             <div className="publickey">
@@ -401,9 +456,7 @@ captureFile = (event) => {
             <div className="format">
               <label htmlFor="email">Example</label>
               <h5>(0x4322EcbD8d43421a77Ec6F0AF0E6CA866e2A3CEd-bha123)</h5>
-              
             </div>
-
 
             <div className="password">
               <label htmlFor="password">Password</label>
@@ -421,7 +474,9 @@ captureFile = (event) => {
             </div>
             <div className="createAccount">
               <button type="submit">Create Account</button>
-              <small>Already Have an Account?</small>
+              <Link to={{ pathname: "/login" }}>
+                <small>Already Have an Account?</small>
+              </Link>
             </div>
           </form>
         </div>

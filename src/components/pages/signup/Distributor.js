@@ -1,7 +1,9 @@
 import React, { Component } from "react";
 import Web3 from "web3";
+import { Link } from "react-router-dom";
 import "./style.css";
 import Scm from "../../../abis/Scm.json";
+import { storage } from "../../Firebase";
 
 const ipfsClient = require("ipfs-api");
 const ipfs = ipfsClient({
@@ -90,7 +92,9 @@ class Distributor extends Component {
       specialisation: null,
       role: "Distributor",
       verified: "not verified",
-      buffer: null,
+      image: null,
+      progress: 0,
+      url: "",
       formErrors: {
         firstName: "",
         lastName: "",
@@ -117,56 +121,48 @@ class Distributor extends Component {
       .then((r) => {
         console.log("User  :", r, "length", r.length);
         if (formValid(this.state)) {
-			  console.log(this.state.publickey);
-			  if (!r) 
-			  {
-					let signup_info = {
-					  First_Name: this.state.firstName,
-					  Last_Name: this.state.lastName,
-					  Address: this.state.address,
-					  Email: this.state.email,
-					  Password: this.state.password,
-					  ContactNo: this.state.contactno,
-					  PublicKey: this.state.publickey,
-					  Role: this.state.role,
-					  Specialisation: this.state.specialisation,
-					  Verified: this.state.verified,
-					  Cold_Distributor: this.state.c_Distributor,
-					  Document: this.state.buffer,
-					};
-					console.log("Signup info:  ", signup_info);
-					let signup_string = JSON.stringify(signup_info);
+          console.log(this.state.publickey);
+          if (!r) {
+            let signup_info = {
+              First_Name: this.state.firstName,
+              Last_Name: this.state.lastName,
+              Address: this.state.address,
+              Email: this.state.email,
+              Password: this.state.password,
+              ContactNo: this.state.contactno,
+              PublicKey: this.state.publickey,
+              Role: this.state.role,
+              Specialisation: this.state.specialisation,
+              Verified: this.state.verified,
+              Cold_Distributor: this.state.c_Distributor,
+              Document: this.state.url,
+            };
+            console.log("Signup info:  ", signup_info);
+            let signup_string = JSON.stringify(signup_info);
 
-					let ipfs_sign_up = Buffer(signup_string);
-					console.log("Submitting file to ipfs...");
+            let ipfs_sign_up = Buffer(signup_string);
+            console.log("Submitting file to ipfs...");
 
-					ipfs.add(ipfs_sign_up, (error, result) => {
-					  console.log("Ipfs result", result);
-					  if (error) {
-						console.error(error);
-						return;
-					  } else {
-						console.log("sending hash to contract");
-						this.state.contract.methods
-						  .set_signup(this.state.publickey, result[0].hash)
-						  .send({ from: this.state.account },(res)=>{
-               
-                if(res === false)
-                {   
-                alert("Your Account was successfully created")
-                }
-              });
-					  }
-					});
-			  }
-			  
-          else
-          {
-          alert("Username Already exits, please choose new one");
+            ipfs.add(ipfs_sign_up, (error, result) => {
+              console.log("Ipfs result", result);
+              if (error) {
+                console.error(error);
+                return;
+              } else {
+                console.log("sending hash to contract");
+                this.state.contract.methods
+                  .set_signup(this.state.publickey, result[0].hash)
+                  .send({ from: this.state.account }, (res) => {
+                    if (res === false) {
+                      alert("Your Account was successfully created");
+                    }
+                  });
+              }
+            });
+          } else {
+            alert("Username Already exits, please choose new one");
           }
-        }
-		else 
-		{
+        } else {
           console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
           alert("Please fill all the fields");
         }
@@ -236,15 +232,58 @@ class Distributor extends Component {
     );
   };
 
+  setProgress = (prog) => {
+    this.setState({
+      progress: prog,
+    });
+  };
+
+  setUrl = (link) => {
+    this.setState({
+      url: link,
+    });
+  };
+
   captureFile = (event) => {
     event.preventDefault();
+
     const file = event.target.files[0];
-    const reader = new window.FileReader();
-    reader.readAsArrayBuffer(file);
-    reader.onloadend = () => {
-      this.setState({ buffer: Buffer(reader.result) });
-      console.log("buffer", this.state.buffer);
-    };
+    console.log("image", file);
+    this.setState(
+      function (prevState, props) {
+        return {
+          image: file,
+        };
+      },
+      () => {
+        console.log("image", this.state.image);
+        const uploadTask = storage
+          .ref(`${this.state.role}/${this.state.image.name}`)
+          .put(this.state.image);
+        uploadTask.on(
+          "state_changed",
+          (snapshot) => {
+            const progress = Math.round(
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+            );
+            this.setProgress(progress);
+          },
+          (error) => {
+            console.log(error);
+          },
+          () => {
+            storage
+              .ref(`${this.state.role}`)
+              .child(this.state.image.name)
+              .getDownloadURL()
+              .then((url) => {
+                this.setUrl(url);
+              });
+            alert("Upload Complete");
+          }
+        );
+      }
+    );
   };
 
   render() {
@@ -371,13 +410,11 @@ class Distributor extends Component {
             <div className="upload_doc">
               <label htmlFor="email">Upload Documents</label>
               <input
-                placeholder="Scan all the documents and Upload pdf"
                 type="file"
-                name="document"
-                noValidate
-                required
+                accept="application/pdf"
                 onChange={this.captureFile}
               />
+              {<progress value={this.state.progress} max="100" />}
             </div>
 
             <div className="publickey">
@@ -416,7 +453,9 @@ class Distributor extends Component {
             </div>
             <div className="createAccount">
               <button type="submit">Create Account</button>
-              <small>Already Have an Account?</small>
+              <Link to={{ pathname: "/login" }}>
+                <small>Already Have an Account?</small>
+              </Link>
             </div>
           </form>
         </div>
