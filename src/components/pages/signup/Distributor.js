@@ -84,7 +84,7 @@ class Distributor extends Component {
       email: null,
       password: null,
       contactno: null,
-      publickey: null,
+      publickey: "",
       address: null,
       c_Distributor: false,
       specialisation: null,
@@ -111,57 +111,62 @@ class Distributor extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     console.log(`--SUBMITTING-- : `);
-    this.state.contract.methods.get_usernames
+    this.state.contract.methods
+      .match_usernames(this.state.publickey)
       .call({ from: this.state.account })
       .then((r) => {
         console.log("User  :", r, "length", r.length);
         if (formValid(this.state)) {
-          let ret = true;
-          console.log(this.state.publickey);
-          // eslint-disable-next-line array-callback-return
-          r.map((item) => {
-            if (this.state.publickey === item) {
-              ret = false;
-            }
-            //console.log(item);
-          });
-          if (ret) {
-            let signup_info = {
-              First_Name: this.state.firstName,
-              Last_Name: this.state.lastName,
-              Address: this.state.address,
-              Email: this.state.email,
-              Password: this.state.password,
-              ContactNo: this.state.contactno,
-              PublicKey: this.state.publickey,
-              Role: this.state.role,
-              Specialisation: this.state.specialisation,
-              Verified: this.state.verified,
-              "Cold Distributor": this.state.c_Distributor,
-              Document: this.state.buffer,
-            };
-            console.log("Signup info:  ", signup_info);
-            let signup_string = JSON.stringify(signup_info);
+			  console.log(this.state.publickey);
+			  if (!r) 
+			  {
+					let signup_info = {
+					  First_Name: this.state.firstName,
+					  Last_Name: this.state.lastName,
+					  Address: this.state.address,
+					  Email: this.state.email,
+					  Password: this.state.password,
+					  ContactNo: this.state.contactno,
+					  PublicKey: this.state.publickey,
+					  Role: this.state.role,
+					  Specialisation: this.state.specialisation,
+					  Verified: this.state.verified,
+					  Cold_Distributor: this.state.c_Distributor,
+					  Document: this.state.buffer,
+					};
+					console.log("Signup info:  ", signup_info);
+					let signup_string = JSON.stringify(signup_info);
 
-            let ipfs_sign_up = Buffer(signup_string);
-            console.log("Submitting file to ipfs...");
+					let ipfs_sign_up = Buffer(signup_string);
+					console.log("Submitting file to ipfs...");
 
-            ipfs.add(ipfs_sign_up, (error, result) => {
-              console.log("Ipfs result", result);
-              if (error) {
-                console.error(error);
-                return;
-              } else {
-                console.log("sending hash to contract");
-                this.state.contract.methods
-                  .set_signup(this.state.publickey, result[0].hash)
-                  .send({ from: this.state.account });
-              }
-            });
-          } else {
-            alert("Username Already exits, please choose new one");
+					ipfs.add(ipfs_sign_up, (error, result) => {
+					  console.log("Ipfs result", result);
+					  if (error) {
+						console.error(error);
+						return;
+					  } else {
+						console.log("sending hash to contract");
+						this.state.contract.methods
+						  .set_signup(this.state.publickey, result[0].hash)
+						  .send({ from: this.state.account },(res)=>{
+               
+                if(res === false)
+                {   
+                alert("Your Account was successfully created")
+                }
+              });
+					  }
+					});
+			  }
+			  
+          else
+          {
+          alert("Username Already exits, please choose new one");
           }
-        } else {
+        }
+		else 
+		{
           console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
           alert("Please fill all the fields");
         }

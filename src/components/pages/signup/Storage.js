@@ -87,7 +87,7 @@ class Storage extends Component {
       email: null,
       password: null,
       contactno:null,
-      publickey:null,
+      publickey:"",
       address:null,
       c_storage:false,
       specialisation:null,
@@ -112,22 +112,17 @@ class Storage extends Component {
   }
 
 handleSubmit = e => {
-    e.preventDefault();
-    console.log(`--SUBMITTING-- : `);
-    this.state.contract.methods.get_usernames.call({from: this.state.account }).then((r)=>{
-      console.log("User  :",r,"length",r.length)
-      if (formValid(this.state)) 
-      {
-        let ret = true;
-        console.log(this.state.publickey)
-        
-        // eslint-disable-next-line array-callback-return
-        r.map((item) => {
-          if(this.state.publickey === item){
-            ret = false;
-          }
-        })
-        if(ret){
+  e.preventDefault();
+  console.log(`--SUBMITTING-- : `);
+  this.state.contract.methods
+    .match_usernames(this.state.publickey)
+    .call({ from: this.state.account })
+    .then((r) => {
+      console.log("User  :", r, "length", r.length);
+      if (formValid(this.state)) {
+        console.log(this.state.publickey);
+        if (!r) 
+    {
           let signup_info = {
             "First_Name": this.state.firstName,
             "Last_Name": this.state.lastName,
@@ -159,7 +154,13 @@ handleSubmit = e => {
             else
             {
               console.log("sending hash to contract")
-              this.state.contract.methods.set_signup(this.state.publickey,result[0].hash).send({ from: this.state.account })
+              this.state.contract.methods.set_signup(this.state.publickey,result[0].hash).send({ from: this.state.account },(res)=>{
+               
+                if(res === false)
+                {   
+                alert("Your Account was successfully created")
+                }
+              });
             }
           })
         }

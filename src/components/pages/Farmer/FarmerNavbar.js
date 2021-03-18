@@ -19,6 +19,15 @@ function FarmerNavbar(props) {
         </div>
 
         <ul className={click ? "nav-menu_home active" : "nav-menu_home"}>
+        <li className="nav-item_home">
+            <Link
+              to={"/BookConsultant/"+props.publicKey}
+              className="nav-links_farmer"
+              onClick={closeMobileMenu}
+            >
+              Book consultant
+            </Link>
+          </li>
           <li className="nav-item_home">
             <Link
               to={"/ProposeCrops/"+props.publicKey}

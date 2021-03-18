@@ -152,7 +152,13 @@ class AgroConsultant extends Component {
                 console.log("sending hash to contract");
                 this.state.contract.methods
                   .set_signup(this.state.publickey, result[0].hash)
-                  .send({ from: this.state.account });
+                  .send({ from: this.state.account },(res)=>{
+               
+                    if(res === false)
+                    {   
+                    alert("Your Account was successfully created")
+                    }
+                  });
               }
             });
           } else {

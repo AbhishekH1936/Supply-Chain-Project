@@ -22,6 +22,7 @@ import FarmerProfile from './components/pages/Farmer/FarmerProfile';
 import ProposeCrops from './components/pages/Farmer/ProposeCrops';
 import CropsStatus from './components/pages/Farmer/CropsStatus';
 import ApproveCrops from './components/pages/Farmer/ApproveCrops';
+import BookConsultant from './components/pages/Farmer/BookConsultant';
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
         <Route path='/ProposeCrops/:publickey' component = {ProposeCrops}/>
         <Route path='/CropsStatus/:publickey' component = {CropsStatus}/>
         <Route path='/ApproveCrops/:publickey' component = {ApproveCrops}/>
+        <Route path='/BookConsultant/:publickey' component = {BookConsultant}/>
       </Switch>
     </Router>
   );
