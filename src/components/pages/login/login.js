@@ -233,7 +233,7 @@ export default class login extends Component {
             </div>
 
             <div className="password_login">
-              <span htmlFor="password_login">Password</span>
+              <span className="label_login" htmlFor="password_login">Password</span>
               <input
                 className="input_login"
                 placeholder={`Enter your password for ${this.state.publickey}`}

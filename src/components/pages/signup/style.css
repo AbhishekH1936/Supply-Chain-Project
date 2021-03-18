@@ -14,7 +14,8 @@ light green: #A3C4BC
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #26798b;
+  /*background-color: #26798b;*/
+  background : linear-gradient(to right, red, rgb(211, 0, 211));
 }
 
 .form-wrapper {
@@ -23,8 +24,9 @@ light green: #A3C4BC
   flex-direction: column;
   padding: 20px 40px;
   border-radius: 10px;
-  box-shadow: 0px 10px 50px #555;
+  box-shadow: 0px 5px 5px rgb(247, 183, 183);
   background-color: #f4f7f8;
+ 
 }
 
 form {

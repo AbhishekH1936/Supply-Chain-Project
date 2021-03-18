@@ -127,7 +127,7 @@ class Farmer extends Component {
       .call({ from: this.state.account })
       .then((r) => {
         console.log("User  :", r, "length", r.length);
-        if (formValid(this.state)) {
+        if (formValid(this.state)) {  
           let ret = true;
           console.log(this.state.publickey);
           // eslint-disable-next-line array-callback-return
