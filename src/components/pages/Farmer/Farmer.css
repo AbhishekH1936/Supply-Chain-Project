@@ -173,3 +173,44 @@ input.error {
   color: #999;
   font-weight: lighter;
 }
+
+.styled-table-farmer {
+  border-collapse: collapse;
+  margin-left: 2%;
+  margin-right: 2%;
+  margin-top: 5%;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 400px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table-farmer thead tr {
+  background-color: #009879;
+  color: #ffffff;
+  text-align: left;
+}
+
+.styled-table-farmer th,
+.styled-table-farmer td {
+  padding: 12px 15px;
+}
+
+.styled-table-farmer tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+.styled-table-farmer tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+.styled-table-farmer tbody tr:last-of-type {
+  border-bottom: 2px solid #009879;
+  border-left: 2px solid #009879;
+  border-right: 2px solid #009879;
+}
+
+.styled-table-farmer tbody tr.active-row {
+  font-weight: bold;
+  color: #009879;
+}

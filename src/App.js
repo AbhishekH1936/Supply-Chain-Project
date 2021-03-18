@@ -23,6 +23,10 @@ import ProposeCrops from './components/pages/Farmer/ProposeCrops';
 import CropsStatus from './components/pages/Farmer/CropsStatus';
 import ApproveCrops from './components/pages/Farmer/ApproveCrops';
 import BookConsultant from './components/pages/Farmer/BookConsultant';
+import AgroConsultantHome from './components/pages/AgroConsultant/AgroConsultantHome';
+import AcceptOffer from './components/pages/AgroConsultant/AcceptOffer';
+import RateCrops from './components/pages/AgroConsultant/RateCrops';
+import RateFarmer from './components/pages/AgroConsultant/RateFarmer';
 
 function App() {
   return (
@@ -49,6 +53,10 @@ function App() {
         <Route path='/CropsStatus/:publickey' component = {CropsStatus}/>
         <Route path='/ApproveCrops/:publickey' component = {ApproveCrops}/>
         <Route path='/BookConsultant/:publickey' component = {BookConsultant}/>
+        <Route path='/AgroConsultantHome/:publickey' component = {AgroConsultantHome}/>
+        <Route path='/AcceptOffer/:publickey' component = {AcceptOffer}/>
+        <Route path='/RateCrops/:publickey' component = {RateCrops}/>
+        <Route path='/RateFarmer/:publickey' component = {RateFarmer}/>
       </Switch>
     </Router>
   );

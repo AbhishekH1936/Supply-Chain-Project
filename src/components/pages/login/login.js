@@ -120,9 +120,9 @@ export default class login extends Component {
                 .then((ipfs_hash) => {
                   console.log("hash from solidity", ipfs_hash);
                   ipfs.cat(ipfs_hash, (error, result) => {
-                    if(result === undefined){
+                    if (result === undefined) {
                       alert("There is an issue with your credentials");
-                      return
+                      return;
                     }
                     let userData = JSON.parse(result.toString());
                     console.log("ipfs result", userData);
@@ -131,12 +131,21 @@ export default class login extends Component {
                       this.state.password === userData["Password"] &&
                       this.state.role === userData["Role"]
                     ) {
-                      if(userData["Verified"] === "not verified"){
-                        alert("Your credentials are right, but you are still not verified")
-                      }else{
-                        this.props.history.push(`/FarmerHome/${this.state.publickey}`);
+                      if (userData["Verified"] === "not verified") {
+                        alert(
+                          "Your credentials are right, but you are still not verified"
+                        );
+                      } else {
+                        if (this.state.role === "Farmer") {
+                          this.props.history.push(
+                            `/FarmerHome/${this.state.publickey}`
+                          );
+                        } else if (this.state.role === "Agro Consultant"){
+                          this.props.history.push(
+                            `/AgroConsultantHome/${this.state.publickey}`
+                          );
+                        }
                       }
-                      
                     } else {
                       alert(
                         "Credentials submitted do not match to any legit record"
@@ -233,7 +242,9 @@ export default class login extends Component {
             </div>
 
             <div className="password_login">
-              <span className="label_login" htmlFor="password_login">Password</span>
+              <span className="label_login" htmlFor="password_login">
+                Password
+              </span>
               <input
                 className="input_login"
                 placeholder={`Enter your password for ${this.state.publickey}`}
