@@ -11,7 +11,7 @@ function MainNavbar(props) {
   return (
     <>
       <nav className="navbar_home">
-        <div className="textColor">{props.username.slice(43,)}</div>
+        <div className="textColor">Welcome {props.username.slice(43,)}</div>
         
 
         <div className="menu-icon_home" onClick={handleClick}>
@@ -22,14 +22,14 @@ function MainNavbar(props) {
           <li className="nav-item_home">
             <Link
               to="/UnverifiedUsers"
-              className="nav-links_home"
+              className="nav-links_admin"
               onClick={closeMobileMenu}
             >
               Verify New Applications
             </Link>
             <Link
               to="/"
-              className="nav-links_home"
+              className="nav-links_admin"
               onClick={closeMobileMenu}
             >
               logout
