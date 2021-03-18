@@ -103,6 +103,10 @@ export default class ProposeCrops extends Component {
       .then((match) => {
         console.log("cropId match", match);
         if (formValid(this.state)) {
+          let status = "Waiting On Funds";
+          if (this.state.funding === "NO") {
+            status = "In feild";
+          }
           if (!match) {
             let crop_info = {
               cropId:
@@ -112,6 +116,8 @@ export default class ProposeCrops extends Component {
               funding: this.state.funding,
               cropDuration: this.state.cropDuration,
               agroConsultantId: this.state.agroConsultantId,
+              cropStatus: status,
+              FarmerPublicKey: this.props.match.params.publickey,
             };
 
             console.log("crop info:  ", crop_info);
@@ -135,7 +141,7 @@ export default class ProposeCrops extends Component {
                   .setFarmerCrops(
                     this.props.match.params.publickey,
                     result[0].hash,
-                    this.props.match.params.publickey+"-"+this.state.cropId
+                    this.props.match.params.publickey + "-" + this.state.cropId
                   )
                   .send({ from: this.state.account }, () => {
                     alert("Crop inserted. crop Id :  " + this.state.cropId);
@@ -143,7 +149,7 @@ export default class ProposeCrops extends Component {
               }
             });
           } else {
-            alert("This cropId is not available for usage, Try another one");
+            alert("This crop Id is not available for usage, Try another one");
             return;
           }
         } else {
@@ -189,7 +195,6 @@ export default class ProposeCrops extends Component {
 
     this.setState({ formErrors, [name]: value }, () => console.log(this.state));
   };
-
 
   setfundingChoice = (e) => {
     this.setState(
