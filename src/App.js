@@ -27,7 +27,7 @@ import AgroConsultantHome from './components/pages/AgroConsultant/AgroConsultant
 import AcceptOffer from './components/pages/AgroConsultant/AcceptOffer';
 import RateCrops from './components/pages/AgroConsultant/RateCrops';
 import RateFarmer from './components/pages/AgroConsultant/RateFarmer';
-
+import SecurityDeposit from './components/pages/Farmer/SecurityDeposit';
 function App() {
   return (
     <Router>
@@ -57,6 +57,7 @@ function App() {
         <Route path='/AcceptOffer/:publickey' component = {AcceptOffer}/>
         <Route path='/RateCrops/:publickey' component = {RateCrops}/>
         <Route path='/RateFarmer/:publickey' component = {RateFarmer}/>
+        <Route path='/SecurityDeposit/:publickey' component = {SecurityDeposit}/>
       </Switch>
     </Router>
   );

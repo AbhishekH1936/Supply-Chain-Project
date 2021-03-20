@@ -65,8 +65,9 @@ export default class BookConsultant extends Component {
     this.state.contract.methods.get_usernames
       .call({ from: this.state.account })
       .then((usernames) => {
+        // eslint-disable-next-line array-callback-return
         usernames.map((username) => {
-          this.state.contract.methods
+          this.state.contract.methods 
             .get_signup(username)
             .call({ from: this.state.account })
             .then((ipfs_hash) => {

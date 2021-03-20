@@ -10,7 +10,19 @@ contract Scm {
   mapping(string => string[]) farmer_crops;
   mapping(string => string) cropInfo;
   string[] allCropId = ["a"];
-
+  
+  uint256 public bal;
+  mapping(address => uint256) securityDeposit;
+  
+  function setSecurityDeposit () external payable {
+      securityDeposit[msg.sender] = securityDeposit[msg.sender] + msg.value;
+      bal=address(this).balance;
+  }
+  
+  function getSecurityDeposit () public view returns (uint256){
+      return securityDeposit[msg.sender];
+  }
+  
   function validateAdmindetails(string memory pub_key, string memory pass) public view returns (bool) {
       if(keccak256(bytes(pub_key)) == keccak256(bytes(AdminDetails[0])) && keccak256(bytes(pass))==keccak256(bytes(AdminDetails[1]))){
           return true; 

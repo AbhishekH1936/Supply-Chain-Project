@@ -29,6 +29,17 @@
   transition: all 0.2s ease-out;
 }
 
+.nav-menu_farmer {
+  display: grid;
+  grid-template-columns: repeat(6, auto);
+  grid-gap: 10px;
+  list-style: none;
+  text-align: center;
+  width: 70vw;
+  justify-content: end;
+  margin-right: 1rem;
+}
+
 .wrapper_crop {
   height: 100vh;
   width: 100%;
@@ -46,7 +57,7 @@
   padding: 15px 15px;
 }
 
-.form-wrapper_crop {
+.form-wrapper_SD {
   width: 45%;
   display: flex;
   flex-direction: column;
@@ -213,4 +224,58 @@ input.error {
 .styled-table-farmer tbody tr.active-row {
   font-weight: bold;
   color: #009879;
+}
+
+.createAccount_SD {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.createAccount_SD button {
+  background-color: #045c04;
+  color: #fff;
+  border: 2px solid #fff;
+  width: 100%;
+  margin-top: 1em;
+  padding: 8px 0px;
+  font-size: 1em;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  margin-bottom: 0.25em;
+  border-radius: 10px;
+}
+
+.createAccount_SD button:hover {
+  color: #519e8a;
+  background-color: #fff;
+  border: 2px solid #519e8a;
+}
+
+.createAccount_SD1 {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.createAccount_SD1 button {
+  background-color: #fd0505;
+  color: #fff;
+  border: 2px solid #fff;
+  width: 100%;
+  margin-top: 1em;
+  padding: 8px 0px;
+  font-size: 1em;
+  font-weight: lighter;
+  letter-spacing: 1px;
+  margin-bottom: 0.25em;
+  border-radius: 10px;
+}
+
+.createAccount_SD1 button:hover {
+  color: #519e8a;
+  background-color: #fff;
+  border: 2px solid #519e8a;
 }
