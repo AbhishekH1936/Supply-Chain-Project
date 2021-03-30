@@ -18,6 +18,7 @@ export default class SecurityDeposit extends Component {
   async componentWillMount() {
     await this.loadWeb3();
     await this.loadBlockchainData();
+    await this.getSecurityDeposit();
   }
 
   async loadWeb3() {
@@ -48,13 +49,27 @@ export default class SecurityDeposit extends Component {
     }
   }
 
+  getSecurityDeposit() {
+    this.state.contract.methods
+          .getSecurityDeposit()
+          .call({ from: this.state.account })
+          .then((balance) => {
+            console.log("balance0",balance)
+            this.setState({
+              security_deposit_bal : parseInt(balance._hex)/1000000000000000000
+            })
+          })
+  }
+
   constructor(props) {
     super(props);
 
     this.state = {
       security_deposit: "",
+      security_deposit_bal: 0,
       formErrors: {
         security_deposit: "",
+        security_deposit_bal:0
       },
     };
 
@@ -90,11 +105,16 @@ export default class SecurityDeposit extends Component {
       .send({
         from: this.state.account,
         value: Utils.toWei(this.state.security_deposit, "ether"),
-      });
+      },()=>{
+        
+        window.location.reload();
+        console.log("reolad")
+      })
     } else {
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
       alert("Please fill all the fields");
     }
+    
   }
 
   withdrawSecurityDeposit() {}
@@ -108,6 +128,7 @@ export default class SecurityDeposit extends Component {
         <div className="form-wrapper_SD">
           <div className="backside">
             <h1 className="h1_login">Add Security Deposit</h1>
+            
           </div>
           <br></br>
           <form onSubmit={this.handleSubmit} className="form_login" noValidate>
@@ -115,6 +136,7 @@ export default class SecurityDeposit extends Component {
               <span className="label_login" htmlFor="email">
                 Security Deposit
               </span>
+              <h4> Current security deposit : {this.state.security_deposit_bal} ethers</h4>
               <input
                 className="input_login"
                 placeholder="Enter Number Of Ethers"

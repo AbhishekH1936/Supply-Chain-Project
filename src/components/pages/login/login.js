@@ -51,6 +51,7 @@ export default class login extends Component {
     const web3 = window.web3;
     console.log("web3:", web3);
     const accounts = await web3.eth.getAccounts();
+    console.log("accounts",accounts)
     this.setState({ account: accounts[0] });
     const networkId = await web3.eth.net.getId();
     const networkData = Scm.networks[networkId];
@@ -82,7 +83,8 @@ export default class login extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log("login submitting");
+    console.log("login submitting",this.state.publickey.slice(0,42)," ",this.state.account);
+    //if(this.state.account === this.state.publickey.slice(0,42))
     if (formValid(this.state)) {
       console.log("sdcsc");
 

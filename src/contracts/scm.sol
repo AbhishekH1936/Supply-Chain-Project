@@ -4,10 +4,22 @@ pragma experimental ABIEncoderV2;
 
 contract Scm {
     
+  address payable governingAuthority;
+
   constructor() public {
-     // ACfees[2] = 39/1000;
-      
+    address owner = msg.sender;
+    governingAuthority = address(uint160(owner));
   }
+
+  struct agroFarmerContract {
+    string agroPublicKey;
+    string farmerPublicKey;
+    uint256 agroKey;
+    uint256 farmerKey;
+  }
+
+  // agro-Farmer contract mappings
+  mapping (string => agroFarmerContract) agroFarmer;
     
   // User data storage attributes
   mapping(string => string) signup;
@@ -28,25 +40,28 @@ contract Scm {
   // attribute to map farmer to his security deposit
   mapping(address => uint256) securityDeposit;
   
-  // agroConsultant fees mapping
-  mapping(uint256 => ) ACfees;
-  
-  
-  // Getter and setter for agroConsultant fees
-  function setACfees(uint256 experience, uint256 fees) public {
-      ACfees[experience] = fees;
+  // set and get functions for agroFarmer
+  function setAgroFarmer(string memory keyValue, string memory agroPublicKey, string memory farmerPublicKey, uint256 agroKey,uint256 farmerKey
+  ) internal {
+    agroFarmerContract memory contractObj =  agroFarmerContract(agroPublicKey, farmerPublicKey, agroKey, farmerKey);
+    agroFarmer[keyValue] = contractObj;
   }
-  function getACfees(uint256 experience) public view returns (uint256) {
-      return ACfees[experience];
+
+  function getAgroFarmer(string memory keyValue) public view returns (agroFarmerContract memory) {
+    return agroFarmer[keyValue];
   }
-  
-  
+
+  // agro farmer money transfer to contract
+  function bookFarmerAgroContract (string calldata keyValue, string calldata agroPublicKey, string calldata farmerPublicKey, uint256 agroKey,uint256 farmerKey) external payable {
+      setAgroFarmer(keyValue, agroPublicKey, farmerPublicKey, agroKey, farmerKey);
+      contractBalance=address(this).balance;
+  }
+
   // get contractBalance
   function getContractBalance() public view returns (uint256) {
       return contractBalance;
   }
-  
-  
+
   // Getter and setters for securityDeposit
   function setSecurityDeposit () external payable {
       securityDeposit[msg.sender] = securityDeposit[msg.sender] + msg.value;

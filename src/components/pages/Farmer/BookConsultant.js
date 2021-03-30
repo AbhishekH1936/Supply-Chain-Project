@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Web3 from "web3";
 import Scm from "../../../abis/Scm.json";
 import "./Farmer.css";
+import * as Utils from "web3-utils";
 
 const ipfsClient = require("ipfs-api");
 const ipfs = ipfsClient({
@@ -21,6 +22,7 @@ export default class BookConsultant extends Component {
 
     this.rendertable = this.rendertable.bind(this);
     this.renderTableData = this.renderTableData.bind(this);
+    this.sendRequest = this.sendRequest.bind(this);
   }
 
   async componentWillMount() {
@@ -64,10 +66,11 @@ export default class BookConsultant extends Component {
 
     this.state.contract.methods.get_usernames
       .call({ from: this.state.account })
-      .then((usernames) => {
+      .then((users) => {
+        let usernames = [...new Set(users)];
         // eslint-disable-next-line array-callback-return
         usernames.map((username) => {
-          this.state.contract.methods 
+          this.state.contract.methods
             .get_signup(username)
             .call({ from: this.state.account })
             .then((ipfs_hash) => {
@@ -97,7 +100,6 @@ export default class BookConsultant extends Component {
 
   renderTableData(record, index) {
     console.log("in render table data");
-    console.log(this.state.UnverifiedData);
     return (
       <tr className="active-row" key={record.PublicKey}>
         <td>
@@ -113,7 +115,7 @@ export default class BookConsultant extends Component {
         <td>
           <button
             className="btn btn-danger"
-            onClick={() => this.sendRequest}
+            onClick={() => this.sendRequest(record.PublicKey)}
           >
             CONSULT
           </button>
@@ -122,8 +124,43 @@ export default class BookConsultant extends Component {
     );
   }
 
-  sendRequest(){
-      
+  sendRequest(agroPublicKey) {
+    let farmerPublicKey = this.props.match.params.publickey;
+    console.log("farmer pub key : ",farmerPublicKey,this.state.account)
+    let sendPublicKey = farmerPublicKey.slice(0, 42);
+    console.log("swndPublic key  : ",sendPublicKey)
+
+    var r = window.confirm("Are you sure you want to consult" + agroPublicKey);
+    if (r === true) {
+      let farmerKey = Math.floor(Math.random() * 87000 + 12547);
+      let agroKey = Math.floor(Math.random() * 87000 + 12547);
+      let keyValue = farmerPublicKey + agroPublicKey + farmerKey + agroKey;
+
+      this.state.contract.methods
+        .bookFarmerAgroContract(
+          keyValue,
+          agroPublicKey,
+          farmerPublicKey,
+          agroKey,
+          farmerKey
+        )
+        .send(
+          {
+            from: this.state.account,
+            value: Utils.toWei("0.015", "ether"),
+          },
+          () => {
+            alert(
+              "Your consultant " +
+                agroPublicKey +
+                "is booked and your keyPhrase is " +
+                farmerKey
+            );
+          }
+        );
+    } else {
+      alert("try other consultants")
+    }
   }
 
   render() {
