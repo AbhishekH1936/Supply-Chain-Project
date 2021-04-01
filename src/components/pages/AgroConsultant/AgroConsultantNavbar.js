@@ -24,7 +24,7 @@ function AgroConsultantNavbar(props) {
               className="nav-links_farmer"
               onClick={closeMobileMenu}
             >
-              Accept Offer
+              View Contracts
             </Link>
           </li>
           <li className="nav-item_home">

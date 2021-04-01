@@ -7,6 +7,8 @@ const publickeyRegex = RegExp(/^[0-9A-Za-z]{42}-[a-zA-Z0-9]+$/);
 const cropIdRegex = RegExp(/^[a-zA-Z0-9]{6}$/);
 const cropTypeRegex = RegExp(/^[a-zA-Z]+$/);
 const cropVariantRegex = RegExp(/^[a-zA-Z0-9]+/);
+const keyPharseRegex = RegExp(/^[0-9]{5}$/);
+const fundAmountRegex = RegExp(/^[0-9]+$/);
 
 const ipfsClient = require("ipfs-api");
 const ipfs = ipfsClient({
@@ -77,6 +79,8 @@ export default class ProposeCrops extends Component {
       funding: false,
       cropDuration: null,
       agroConsultantId: null,
+      keyPharse: null,
+      fundAmount: null,
       formErrors: {
         cropId: "",
         cropType: "",
@@ -84,10 +88,13 @@ export default class ProposeCrops extends Component {
         funding: "",
         cropDuration: "",
         agroConsultantId: "",
+        keyPharse: "",
+        fundAmount: "",
       },
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.getInputFunding = this.getInputFunding.bind(this);
   }
 
   handleSubmit = (e) => {
@@ -118,6 +125,8 @@ export default class ProposeCrops extends Component {
               agroConsultantId: this.state.agroConsultantId,
               cropStatus: status,
               FarmerPublicKey: this.props.match.params.publickey,
+              keyPharse: this.state.keyPharse,
+              fundAmount: this.state.fundAmount,
             };
 
             console.log("crop info:  ", crop_info);
@@ -189,6 +198,18 @@ export default class ProposeCrops extends Component {
           : "invalid username";
         break;
 
+      case "keyPhrase":
+        formErrors.keyPharse = keyPharseRegex.test(value)
+          ? ""
+          : "Enter 5 digit number";
+        break;
+
+      case "fundAmount":
+        formErrors.fundAmount = fundAmountRegex.test(value)
+          ? ""
+          : "Enter in ethers properly";
+        break;
+
       default:
         break;
     }
@@ -207,14 +228,39 @@ export default class ProposeCrops extends Component {
     );
   };
 
+  getInputFunding = (e) => {
+    if (this.state.funding === "YES") {
+      return (
+        <>
+          <span className="label_crop" htmlFor="cropDuration">
+            What is the maximum funding you want ? (enter in ethers)
+          </span>
+          <input
+            className="input_crop"
+            placeholder="Enter fund amount"
+            type="number"
+            name="fundAmount"
+            noValidate
+            onChange={this.handleChange}
+          />
+          {this.state.formErrors.fundAmount.length > 0 && (
+            <span className="errorMessage_cropDuration">
+              {this.state.formErrors.fundAmount}
+            </span>
+          )}
+        </>
+      );
+    }
+  };
+
   render() {
     const { formErrors } = this.state;
     let choice = ["YES", "NO"];
 
     return (
       <div id="bg1">
-        <div className="wrapper_crop">
-          <div className="form-wrapper_crop">
+        <div className="wrapper_crop1">
+          <div className="form-wrapper_pro">
             <div className="backside_crop">
               <h1 className="h1_crop">New Crop Details</h1>
               <h6>
@@ -302,6 +348,8 @@ export default class ProposeCrops extends Component {
                   ))}
                 </select>
               </div>
+              <br></br>
+              <div className="agroConsultantId">{this.getInputFunding()}</div>
 
               <div className="agroConsultantId">
                 <span className="label_crop" htmlFor="cropDuration">
@@ -333,6 +381,25 @@ export default class ProposeCrops extends Component {
                   placeholder="Enter agroConsultantId"
                   type="text"
                   name="agroConsultantId"
+                  noValidate
+                  onChange={this.handleChange}
+                />
+                {formErrors.agroConsultantId.length > 0 && (
+                  <span className="errorMessage_agroConsultantId">
+                    {formErrors.agroConsultantId}
+                  </span>
+                )}
+              </div>
+
+              <div className="cropDuration">
+                <span className="label_crop" htmlFor="agroConsultantId">
+                  Your Key Phrase
+                </span>
+                <input
+                  className="input_crop"
+                  placeholder="Enter agroConsultantId"
+                  type="text"
+                  name="keyPhrase"
                   noValidate
                   onChange={this.handleChange}
                 />

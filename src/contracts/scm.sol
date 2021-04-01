@@ -20,6 +20,7 @@ contract Scm {
 
   // agro-Farmer contract mappings
   mapping (string => agroFarmerContract) agroFarmer;
+  string[] keyValueArray = ["dummy"];
     
   // User data storage attributes
   mapping(string => string) signup;
@@ -54,7 +55,11 @@ contract Scm {
   // agro farmer money transfer to contract
   function bookFarmerAgroContract (string calldata keyValue, string calldata agroPublicKey, string calldata farmerPublicKey, uint256 agroKey,uint256 farmerKey) external payable {
       setAgroFarmer(keyValue, agroPublicKey, farmerPublicKey, agroKey, farmerKey);
+      keyValueArray.push(keyValue);
       contractBalance=address(this).balance;
+  }
+  function getAllKeyValue() public view returns(string[] memory){
+      return keyValueArray;
   }
 
   // get contractBalance

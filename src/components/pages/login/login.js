@@ -130,8 +130,8 @@ export default class login extends Component {
                     console.log("ipfs result", userData);
                     if (
                       this.state.publickey === userData["PublicKey"] &&
-                      this.state.password === userData["Password"] &&
-                      this.state.role === userData["Role"]
+                      this.state.password === userData["Password"]
+                      // this.state.role === userData["Role"]
                     ) {
                       if (userData["Verified"] === "not verified") {
                         alert(
