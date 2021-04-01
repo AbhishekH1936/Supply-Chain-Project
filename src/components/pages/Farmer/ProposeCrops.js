@@ -20,6 +20,7 @@ const ipfs = ipfsClient({
 
 const formValid = ({ formErrors, ...rest }) => {
   let valid = true;
+  console.log(rest)
 
   // validate form errors being empty
   Object.values(formErrors).forEach((val) => {
@@ -79,7 +80,7 @@ export default class ProposeCrops extends Component {
       funding: false,
       cropDuration: null,
       agroConsultantId: null,
-      keyPharse: null,
+      keyPhrase: null,
       fundAmount: null,
       formErrors: {
         cropId: "",
@@ -88,7 +89,7 @@ export default class ProposeCrops extends Component {
         funding: "",
         cropDuration: "",
         agroConsultantId: "",
-        keyPharse: "",
+        keyPhrase: "",
         fundAmount: "",
       },
     };
@@ -125,7 +126,7 @@ export default class ProposeCrops extends Component {
               agroConsultantId: this.state.agroConsultantId,
               cropStatus: status,
               FarmerPublicKey: this.props.match.params.publickey,
-              keyPharse: this.state.keyPharse,
+              keyPhrase: this.state.keyPhrase,
               fundAmount: this.state.fundAmount,
             };
 
@@ -199,7 +200,7 @@ export default class ProposeCrops extends Component {
         break;
 
       case "keyPhrase":
-        formErrors.keyPharse = keyPharseRegex.test(value)
+        formErrors.keyPhrase = keyPharseRegex.test(value)
           ? ""
           : "Enter 5 digit number";
         break;
@@ -255,7 +256,7 @@ export default class ProposeCrops extends Component {
 
   render() {
     const { formErrors } = this.state;
-    let choice = ["YES", "NO"];
+    let choice = ["NO","YES"];
 
     return (
       <div id="bg1">
@@ -398,12 +399,14 @@ export default class ProposeCrops extends Component {
                 <input
                   className="input_crop"
                   placeholder="Enter agroConsultantId"
-                  type="text"
+                  type="number"
                   name="keyPhrase"
+                  min="10000"
+                  max="99999"
                   noValidate
                   onChange={this.handleChange}
                 />
-                {formErrors.agroConsultantId.length > 0 && (
+                {formErrors.keyPhrase.length < 5 && (
                   <span className="errorMessage_agroConsultantId">
                     {formErrors.agroConsultantId}
                   </span>
