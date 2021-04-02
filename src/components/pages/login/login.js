@@ -1,17 +1,7 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import Web3 from "web3";
 import "./login.css";
-import Scm from "../../../abis/Scm.json";
-
-const ipfsClient = require("ipfs-api");
-const ipfs = ipfsClient({
-  host: "ipfs.infura.io",
-  port: 5001,
-  apiPath: "/api/v0",
-  protocol: "https",
-});
-//https://gateway.ipfs.io/ipfs/
+import { ipfs, loadWeb3, loadBlockchainData } from "../Web3/web3Component";
 
 const publickeyRegex = RegExp(/^[0-9A-Za-z]{42}-[a-zA-Z0-9]+$/);
 
@@ -21,7 +11,6 @@ const passRegex = RegExp(
 );
 
 const formValid = (state) => {
-  //console.log("form err:", state.publickey.length, state);
   if (state.publickey.length === 0 || state.password.length === 0) {
     return false;
   }
@@ -30,37 +19,17 @@ const formValid = (state) => {
 
 export default class login extends Component {
   async componentWillMount() {
-    await this.loadWeb3();
-    await this.loadBlockchainData();
-  }
-
-  async loadWeb3() {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      window.alert(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
-    }
-  }
-
-  async loadBlockchainData() {
-    const web3 = window.web3;
-    console.log("web3:", web3);
-    const accounts = await web3.eth.getAccounts();
-    console.log("accounts",accounts)
-    this.setState({ account: accounts[0] });
-    const networkId = await web3.eth.net.getId();
-    const networkData = Scm.networks[networkId];
-    if (networkData) {
-      const contract = web3.eth.Contract(Scm.abi, networkData.address);
-      this.setState({ contract });
-    } else {
-      window.alert("Smart contract not deployed to detected network.");
-    }
+    let account_contract;
+    (async function () {
+      await loadWeb3();
+    })();
+    (async function () {
+      account_contract = await loadBlockchainData();
+    })().then(() => {
+      console.log(account_contract);
+      this.setState({ account: account_contract[0] });
+      this.setState({ contract: account_contract[1] });
+    });
   }
 
   constructor(props) {
@@ -83,7 +52,12 @@ export default class login extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log("login submitting",this.state.publickey.slice(0,42)," ",this.state.account);
+    console.log(
+      "login submitting",
+      this.state.publickey.slice(0, 42),
+      " ",
+      this.state.account
+    );
     //if(this.state.account === this.state.publickey.slice(0,42))
     if (formValid(this.state)) {
       console.log("sdcsc");
@@ -142,7 +116,7 @@ export default class login extends Component {
                           this.props.history.push(
                             `/FarmerHome/${this.state.publickey}`
                           );
-                        } else if (this.state.role === "Agro Consultant"){
+                        } else if (this.state.role === "Agro Consultant") {
                           this.props.history.push(
                             `/AgroConsultantHome/${this.state.publickey}`
                           );

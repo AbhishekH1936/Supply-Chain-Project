@@ -12,16 +12,15 @@ function FarmerNavbar(props) {
     <>
       <nav className="navbar_home">
         <div className="textColor"> Welcome {props.username}</div>
-        
 
         <div className="menu-icon_home" onClick={handleClick}>
           <i className={click ? "fas fa-times_home" : "fas fa-bars_home"} />
         </div>
 
         <ul className={click ? "nav-menu_farmer active" : "nav-menu_farmer"}>
-        <li className="nav-item_home">
+          <li className="nav-item_home">
             <Link
-              to={"/BookConsultant/"+props.publicKey}
+              to={"/BookConsultant/" + props.publicKey}
               className="nav-links_farmer"
               onClick={closeMobileMenu}
             >
@@ -30,7 +29,7 @@ function FarmerNavbar(props) {
           </li>
           <li className="nav-item_home">
             <Link
-              to={"/ProposeCrops/"+props.publicKey}
+              to={"/ProposeCrops/" + props.publicKey}
               className="nav-links_farmer"
               onClick={closeMobileMenu}
             >
@@ -39,7 +38,7 @@ function FarmerNavbar(props) {
           </li>
           <li className="nav-item_home">
             <Link
-              to={"/ApproveCrops/"+props.publicKey}
+              to={"/ApproveCrops/" + props.publicKey}
               className="nav-links_farmer"
               onClick={closeMobileMenu}
             >
@@ -48,7 +47,7 @@ function FarmerNavbar(props) {
           </li>
           <li className="nav-item_home">
             <Link
-              to={"/CropsStatus/"+props.publicKey}
+              to={"/CropsStatus/" + props.publicKey}
               className="nav-links_farmer"
               onClick={closeMobileMenu}
             >
@@ -57,7 +56,7 @@ function FarmerNavbar(props) {
           </li>
           <li className="nav-item_home">
             <Link
-              to={"/SecurityDeposit/"+props.publicKey}
+              to={"/SecurityDeposit/" + props.publicKey}
               className="nav-links_farmer"
               onClick={closeMobileMenu}
             >

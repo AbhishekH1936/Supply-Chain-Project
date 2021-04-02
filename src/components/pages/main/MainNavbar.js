@@ -11,8 +11,7 @@ function MainNavbar(props) {
   return (
     <>
       <nav className="navbar_home">
-        <div className="textColor">Welcome {props.username.slice(43,)}</div>
-        
+        <div className="textColor">Welcome {props.username.slice(43)}</div>
 
         <div className="menu-icon_home" onClick={handleClick}>
           <i className={click ? "fas fa-times_home" : "fas fa-bars_home"} />
@@ -27,11 +26,7 @@ function MainNavbar(props) {
             >
               Verify New Applications
             </Link>
-            <Link
-              to="/"
-              className="nav-links_admin"
-              onClick={closeMobileMenu}
-            >
+            <Link to="/" className="nav-links_admin" onClick={closeMobileMenu}>
               logout
             </Link>
           </li>

@@ -1,18 +1,13 @@
 import React, { Component } from "react";
-import Web3 from "web3";
 import { Link } from "react-router-dom";
 import "./style.css";
-import Scm from "../../../abis/Scm.json";
 import { storage } from "../../Firebase";
-
-const ipfsClient = require("ipfs-api");
-const ipfs = ipfsClient({
-  host: "ipfs.infura.io",
-  port: 5001,
-  apiPath: "/api/v0",
-  protocol: "https",
-});
-//https://gateway.ipfs.io/ipfs/
+import {
+  ipfs,
+  loadWeb3,
+  loadBlockchainData,
+  formValid,
+} from "../Web3/web3Component";
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -27,54 +22,19 @@ const passRegex = RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
 );
 
-const formValid = ({ formErrors, ...rest }) => {
-  let valid = true;
-
-  // validate form errors being empty
-  Object.values(formErrors).forEach((val) => {
-    val.length > 0 && (valid = false);
-  });
-
-  // validate the form was filled out
-  Object.values(rest).forEach((val) => {
-    val === null && (valid = false);
-  });
-
-  return valid;
-};
-
 class Investor extends Component {
   async componentWillMount() {
-    await this.loadWeb3();
-    await this.loadBlockchainData();
-  }
-
-  async loadWeb3() {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      window.alert(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
-    }
-  }
-
-  async loadBlockchainData() {
-    const web3 = window.web3;
-    console.log("web3:", web3);
-    const accounts = await web3.eth.getAccounts();
-    this.setState({ account: accounts[0] });
-    const networkId = await web3.eth.net.getId();
-    const networkData = Scm.networks[networkId];
-    if (networkData) {
-      const contract = web3.eth.Contract(Scm.abi, networkData.address);
-      this.setState({ contract });
-    } else {
-      window.alert("Smart contract not deployed to detected network.");
-    }
+    let account_contract;
+    (async function () {
+      await loadWeb3();
+    })();
+    (async function () {
+      account_contract = await loadBlockchainData();
+    })().then(() => {
+      console.log(account_contract);
+      this.setState({ account: account_contract[0] });
+      this.setState({ contract: account_contract[1] });
+    });
   }
 
   constructor(props) {
