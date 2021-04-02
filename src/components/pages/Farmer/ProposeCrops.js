@@ -262,7 +262,7 @@ export default class ProposeCrops extends Component {
       <div id="bg1">
         <div className="wrapper_crop1">
           <div className="form-wrapper_pro">
-            <div className="backside_crop">
+            <div className="backside_crop_pro">
               <h1 className="h1_crop">New Crop Details</h1>
               <h6>
                 {" "}

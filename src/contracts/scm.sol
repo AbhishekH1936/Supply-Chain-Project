@@ -88,7 +88,7 @@ contract Scm {
   // setters and getters for Farmer's crops, by different parameters
   function setFarmerCrops(string memory pub_key, string memory crop_hash, string memory crop_id) public {
       string[] storage cropArray = farmer_crops[pub_key];
-      cropArray.push(crop_hash);
+      cropArray.push(crop_id);
       farmer_crops[pub_key] = cropArray;
       
       cropInfo[crop_id] = crop_hash;

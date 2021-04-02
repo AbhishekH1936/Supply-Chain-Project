@@ -51,14 +51,14 @@
   background-size: cover;
 }
 
-.backside_crop {
+.backside_crop_pro {
   background: linear-gradient(to right, rgb(34, 173, 6), rgb(231, 233, 120));
   border-radius: 50px;
-  padding: 15px 15px;
+  padding: 10px 10px;
 }
 
 .form-wrapper_pro {
-  width: 75%;
+  width: 70%;
   display: flex;
   flex-direction: column;
   padding : 2%;
@@ -185,10 +185,10 @@ input.error {
   font-weight: lighter;
 }
 
-.styled-table-farmer {
+.styled-table-crop {
   border-collapse: collapse;
-  margin-left: 2%;
-  margin-right: 2%;
+  margin-left: auto;
+  margin-right: auto;
   margin-top: 5%;
   font-size: 0.9em;
   font-family: sans-serif;
@@ -196,32 +196,32 @@ input.error {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
-.styled-table-farmer thead tr {
+.styled-table-crop thead tr {
   background-color: #009879;
   color: #ffffff;
   text-align: left;
 }
 
-.styled-table-farmer th,
-.styled-table-farmer td {
+.styled-table-crop th,
+.styled-table-crop td {
   padding: 12px 15px;
 }
 
-.styled-table-farmer tbody tr {
+.styled-table-crop tbody tr {
   border-bottom: 1px solid #dddddd;
 }
 
-.styled-table-farmer tbody tr:nth-of-type(even) {
+.styled-table-crop tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
 }
 
-.styled-table-farmer tbody tr:last-of-type {
+.styled-table-crop tbody tr:last-of-type {
   border-bottom: 2px solid #009879;
   border-left: 2px solid #009879;
   border-right: 2px solid #009879;
 }
 
-.styled-table-farmer tbody tr.active-row {
+.styled-table-crop tbody tr.active-row {
   font-weight: bold;
   color: #009879;
 }
