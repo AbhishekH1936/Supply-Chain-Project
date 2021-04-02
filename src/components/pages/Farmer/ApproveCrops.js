@@ -161,7 +161,6 @@ export default class ApproveCrops extends Component {
     return (
       <div>
         <h1>
-          {" "}
           This is the list of Proposed and Unapproved crops still open for
           funding
         </h1>
