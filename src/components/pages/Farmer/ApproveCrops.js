@@ -116,7 +116,9 @@ export default class ApproveCrops extends Component {
             .setFarmerCrops(
               this.props.match.params.publickey,
               result[0].hash,
-              cropData.cropId
+              cropData.cropId,
+              cropData.agroConsultantId,
+              cropData.keyPhrase
             )
             .send({ from: this.state.account }, () => {
               alert(cropData.cropId + " will not receive any funds here after");

@@ -104,7 +104,7 @@ export default class BookConsultant extends Component {
     if (r === true) {
       let farmerKey = Math.floor(Math.random() * 87000 + 12547);
       let agroKey = Math.floor(Math.random() * 87000 + 12547);
-      let keyValue = farmerPublicKey + agroPublicKey + farmerKey + agroKey;
+      let keyValue = farmerPublicKey +"*"+ agroPublicKey +"*"+ farmerKey +"*"+ agroKey;
 
       this.state.contract.methods
         .bookFarmerAgroContract(

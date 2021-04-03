@@ -36,7 +36,7 @@ export default class ProposeCrops extends Component {
       cropId: null,
       cropType: null,
       cropVariant: null,
-      funding: false,
+      funding: "NO",
       cropDuration: null,
       agroConsultantId: null,
       keyPhrase: null,
@@ -63,6 +63,60 @@ export default class ProposeCrops extends Component {
       "crop form submitting",
       this.props.match.params.publickey + "-" + this.state.cropId
     );
+    let contractMatch = false;
+    let keyUsed = false;
+
+    this.state.contract.methods
+      .getAllKeyValue()
+      .call({ from: this.state.account })
+      .then((keys) => {
+        let farmerPublicKey;
+        let agroPublicKey;
+        let farmerKey;
+        let agroKey;
+        // eslint-disable-next-line array-callback-return
+        keys.map((key) => {
+          let splitKey = key.split("*");
+          // eslint-disable-next-line no-unused-vars
+          farmerPublicKey = splitKey[0];
+          agroPublicKey = splitKey[1];
+          farmerKey = splitKey[2];
+          // eslint-disable-next-line no-unused-vars
+          agroKey = splitKey[3];
+          console.log(
+            farmerPublicKey,
+            " ",
+            agroPublicKey,
+            " ",
+            farmerKey,
+            " ",
+            agroKey
+          );
+          if (
+            this.state.agroConsultantId === agroPublicKey &&
+            this.state.keyPhrase === farmerKey
+          ) {
+            contractMatch = true;
+          }
+        });
+        console.log("contractMatch", contractMatch);
+        
+      });
+
+    this.state.contract.methods
+      .getAllUsedKeys()
+      .call({ from: this.state.account })
+      .then((usedKeys) => {
+        console.log("keys",usedKeys)
+        // eslint-disable-next-line array-callback-return
+        usedKeys.map((key) => {
+          if(parseInt(this.state.keyPhrase) === parseInt(key._hex)){
+            keyUsed = true;
+          }
+        })
+        console.log("key New", keyUsed);
+      });
+      
 
     this.state.contract.methods
       .match_cropId(this.props.match.params.publickey + "-" + this.state.cropId)
@@ -75,50 +129,60 @@ export default class ProposeCrops extends Component {
             status = "In feild";
           }
           if (!match) {
-            let crop_info = {
-              cropId:
-                this.props.match.params.publickey + "-" + this.state.cropId,
-              cropType: this.state.cropType,
-              cropVariant: this.state.cropVariant,
-              funding: this.state.funding,
-              cropDuration: this.state.cropDuration,
-              agroConsultantId: this.state.agroConsultantId,
-              cropStatus: status,
-              FarmerPublicKey: this.props.match.params.publickey,
-              keyPhrase: this.state.keyPhrase,
-              fundAmount: this.state.fundAmount,
-            };
+            if (contractMatch && !keyUsed) {
+              let crop_info = {
+                cropId:
+                  this.props.match.params.publickey + "-" + this.state.cropId,
+                cropType: this.state.cropType,
+                cropVariant: this.state.cropVariant,
+                funding: this.state.funding,
+                cropDuration: this.state.cropDuration,
+                agroConsultantId: this.state.agroConsultantId,
+                cropStatus: status,
+                FarmerPublicKey: this.props.match.params.publickey,
+                keyPhrase: this.state.keyPhrase,
+                fundAmount: this.state.fundAmount,
+              };
 
-            console.log("crop info:  ", crop_info);
-            let crop_string = JSON.stringify(crop_info);
+              console.log("crop info:  ", crop_info);
+              let crop_string = JSON.stringify(crop_info);
 
-            let ipfs_crop = Buffer(crop_string);
-            console.log("Submitting file to ipfs...");
+              let ipfs_crop = Buffer(crop_string);
+              console.log("Submitting file to ipfs...");
 
-            ipfs.add(ipfs_crop, (error, result) => {
-              console.log("Ipfs result", result);
-              if (error) {
-                console.error(error);
-                alert(
-                  "contact administrator, IPFS is down, Error message : ",
-                  error
-                );
-                return;
-              } else {
-                console.log("sending crop hash to contract");
-                this.state.contract.methods
-                  .setFarmerCrops(
-                    this.props.match.params.publickey,
-                    result[0].hash,
-                    this.props.match.params.publickey + "-" + this.state.cropId
-                  )
-                  .send({ from: this.state.account }, () => {
-                    alert("Crop inserted. crop Id :  " + this.state.cropId);
-                  });
-              }
-            });
+              ipfs.add(ipfs_crop, (error, result) => {
+                console.log("Ipfs result", result);
+                if (error) {
+                  console.error(error);
+                  alert(
+                    "contact administrator, IPFS is down, Error message : ",
+                    error
+                  );
+                  return;
+                } else {
+                  console.log("sending crop hash to contract");
+                  this.state.contract.methods
+                    .setFarmerCrops(
+                      this.props.match.params.publickey,
+                      result[0].hash,
+                      this.props.match.params.publickey +
+                        "-" +
+                        this.state.cropId,
+                      this.state.agroConsultantId,
+                      this.state.keyPhrase
+                    )
+                    .send({ from: this.state.account }, () => {
+                      alert("Crop inserted. crop Id :  " + this.state.cropId);
+                    });
+                }
+              });
+            } else {
+              alert(
+                "Your consultant credentials are wrong or may already be used for other crop. Please cross verify"
+              );
+            }
           } else {
-            alert("This crop Id is not available for usage, Try another one");
+            alert("This crop Id is not available for usage, Try another one.");
             return;
           }
         } else {

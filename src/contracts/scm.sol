@@ -21,6 +21,7 @@ contract Scm {
   // agro-Farmer contract mappings
   mapping (string => agroFarmerContract) agroFarmer;
   string[] keyValueArray = ["dummy"];
+  mapping (string => string[]) cropContract;
     
   // User data storage attributes
   mapping(string => string) signup;
@@ -32,6 +33,7 @@ contract Scm {
   mapping(string => string[]) farmer_crops;
   mapping(string => string) cropInfo;
   string[] allCropId = ["a"];
+  uint256[] usedKeys = [1];
   
   
   // Ether stored in contract address
@@ -86,14 +88,19 @@ contract Scm {
   
   
   // setters and getters for Farmer's crops, by different parameters
-  function setFarmerCrops(string memory pub_key, string memory crop_hash, string memory crop_id) public {
+  function setFarmerCrops(string memory pub_key, string memory crop_hash, string memory crop_id, string memory agro_key, uint256 keyPhrase) public {
       string[] storage cropArray = farmer_crops[pub_key];
       cropArray.push(crop_id);
       farmer_crops[pub_key] = cropArray;
       
       cropInfo[crop_id] = crop_hash;
+
+      string[] storage cropIds = cropContract[agro_key];
+      cropIds.push(crop_id);
+      cropContract[agro_key] = cropIds;
       
       allCropId.push(crop_id);
+      usedKeys.push(keyPhrase);
   }
   function getFarmerCrops(string memory pub_key) public view returns(string[] memory){
       return farmer_crops[pub_key];
@@ -103,6 +110,12 @@ contract Scm {
   }
   function getAllCropId() public view returns(string[] memory){
       return allCropId;
+  }
+  function getAgroCrops(string memory pub_key) public view returns(string[] memory){
+      return cropContract[pub_key];
+  }
+  function getAllUsedKeys() public view returns(uint256[] memory){
+      return usedKeys;
   }
   
   
