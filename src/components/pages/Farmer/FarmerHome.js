@@ -4,6 +4,10 @@ import Web3 from "web3";
 import "./Farmer.css";
 import Scm from "../../../abis/Scm.json";
 import { ipfs } from "../Web3/web3Component";
+import propose from "../media/propose.png";
+import status from "../media/status.jpg";
+import stopfunding from "../media/stopfunding.jpg";
+import { Link } from "react-router-dom";
 
 export default class FarmerHome extends Component {
   constructor(props) {
@@ -73,12 +77,82 @@ export default class FarmerHome extends Component {
 
   render() {
     return (
-      <div id="bg1">
-        <FarmerNavbar
-          username={this.state.userName}
-          publicKey={this.state.publickey}
-        />
-      </div>
+      <>
+        <div id="bg1">
+          <FarmerNavbar
+            username={this.state.userName}
+            publicKey={this.state.publickey}
+          />
+        </div>
+
+        <div className="container">
+          <div className="cards card_outer">
+            <div className="card">
+              <Link to={"/ProposeCrops/" + this.state.publickey}>
+                <div className="top image">
+                  <a href={propose}>
+                    <img src={propose} alt="card" />
+                  </a>
+                </div>
+                <div className="bottom content">
+                  <small>Propose a new crop</small>
+                  <p className="paraText">
+                    Proposing crops is a starting point for your crop life
+                    cycle. You are required to have a prior contract with a
+                    agricultural consaltant as prerequist. In this section you
+                    be prompted to added all the basic information needed about
+                    the new crop that you have planned.
+                  </p>
+                </div>
+              </Link>
+            </div>
+
+            <div className="card">
+              <Link to={"/ApproveCrops/" + this.state.publickey}>
+                <div className="top image">
+                  <a href={stopfunding}>
+                    <img src={stopfunding} alt="card" />
+                  </a>
+                </div>
+                <div className="bottom content">
+                  <small>Finalize a crop</small>
+                  <p className="paraText">
+                    In case you have opted for public funding, this tab will
+                    give you the list of such crops and also the section gives
+                    you an option to stop receiving funds, even if the limit set
+                    is not reached yet for whatever you choose to end funds.
+                    Once you choose to opt of public funding, you can not resume
+                    the funding in any way. So be careful with this feature.
+                    Before terminating funds you can view the funds received
+                    till now.
+                  </p>
+                </div>
+              </Link>
+            </div>
+
+            <div className="card">
+              <Link to={"/CropsStatus/" + this.state.publickey}>
+                <div className="top image">
+                  <a href={status}>
+                    <img src={status} alt="card" />
+                  </a>
+                </div>
+                <div className="bottom content">
+                  <small>Check crop status</small>
+                  <p className="paraText">
+                    In this section you can have quick look at all the crops
+                    that are under your account, with their details,
+                    credentials, and most importantly status. This will help you
+                    in keeping track of your indiviual crop lifecycles online.
+                    You can have look at your keyPhrase as well for creating
+                    contracts.
+                  </p>
+                </div>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </>
     );
   }
 }

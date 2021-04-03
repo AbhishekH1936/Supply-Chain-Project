@@ -1,7 +1,7 @@
 import React from "react";
 import Navbar from "../../components/Navbar";
 import "./style.css";
-import Farmer from "./videos/Farmer.mp4";
+import Farmer from "./media/Farmer.mp4";
 
 export default function Home() {
   return (

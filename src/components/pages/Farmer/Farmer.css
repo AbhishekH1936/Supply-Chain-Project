@@ -281,3 +281,64 @@ input.error {
   background-color: #fff;
   border: 2px solid #519e8a;
 }
+
+.container {
+  width: 100%;
+  max-width: 1000px;
+  margin:  auto;
+}
+.card_outer {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 20px;
+}
+.card img {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+  box-shadow: 0 0 1.5rem rgb(17 17 17);
+  transition: 0.15s;
+  -webkit-transition: 0.15s;
+  -moz-transition: 0.15s;
+  -ms-transition: 0.15s;
+  -o-transition: 0.15s;
+}
+
+.paraText {
+  color: #050505;
+  text-align: justify;
+}
+
+.card {
+  position: relative;
+  padding: 0.5rem;
+  border-radius: 8px;
+  background: rgb(241, 227, 227);
+  margin: 100px auto auto auto;
+}
+
+.bottom.content {
+  padding: 1rem;
+}
+.content p {
+  font-size: 12px;
+}
+small {
+  font-size: 15px;
+  color: #080808;
+  text-transform: uppercase;
+  font-weight: bolder;
+}
+
+.top > a:hover img {
+  box-shadow: 0 0 50px rgb(17 17 17 / 50%);
+  transform: rotate(-2deg) translateY(-5px) scale(1.035);
+  -webkit-transform: rotate(-2deg) translateY(-5px) scale(1.035);
+  -moz-transform: rotate(-2deg) translateY(-5px) scale(1.035);
+  -ms-transform: rotate(-2deg) translateY(-5px) scale(1.035);
+  -o-transform: rotate(-2deg) translateY(-5px) scale(1.035);
+}
+
+a{
+  text-decoration: none;
+}

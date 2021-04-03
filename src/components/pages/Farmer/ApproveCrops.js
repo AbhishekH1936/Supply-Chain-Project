@@ -77,7 +77,6 @@ export default class ApproveCrops extends Component {
         <td>{record.cropType}</td>
         <td>{record.cropVariant}</td>
         <td>{record.agroConsultantId}</td>
-        <td>{record.keyPhrase}</td>
         <td>{record.cropStatus}</td>
         <td> X </td>
         <td>
@@ -145,7 +144,6 @@ export default class ApproveCrops extends Component {
               <th>Crop Variant</th>
               <th>Crop Type</th>
               <th>AgroConsultant Id</th>
-              <th>Key phrase</th>
               <th>Crop status</th>
               <th>Current funds</th>
               <th>Finalize</th>

@@ -29,33 +29,6 @@ function FarmerNavbar(props) {
           </li>
           <li className="nav-item_home">
             <Link
-              to={"/ProposeCrops/" + props.publicKey}
-              className="nav-links_farmer"
-              onClick={closeMobileMenu}
-            >
-              Propose
-            </Link>
-          </li>
-          <li className="nav-item_home">
-            <Link
-              to={"/ApproveCrops/" + props.publicKey}
-              className="nav-links_farmer"
-              onClick={closeMobileMenu}
-            >
-              Finalize
-            </Link>
-          </li>
-          <li className="nav-item_home">
-            <Link
-              to={"/CropsStatus/" + props.publicKey}
-              className="nav-links_farmer"
-              onClick={closeMobileMenu}
-            >
-              Crops Status
-            </Link>
-          </li>
-          <li className="nav-item_home">
-            <Link
               to={"/SecurityDeposit/" + props.publicKey}
               className="nav-links_farmer"
               onClick={closeMobileMenu}
