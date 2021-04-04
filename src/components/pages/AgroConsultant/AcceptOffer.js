@@ -65,6 +65,7 @@ export default class AcceptOffer extends Component {
           .call({ from: this.state.account })
           .then((cropIds) => {
             let Ids = [...new Set(cropIds)];
+            // eslint-disable-next-line array-callback-return
             Ids.map((id) => {
               this.state.contract.methods
                 .getCropByCropId(id)
@@ -73,6 +74,7 @@ export default class AcceptOffer extends Component {
                   ipfs.cat(ipfs_hash, (error, result) => {
                     if (result !== undefined) {
                       let cropData = JSON.parse(result.toString());
+                      // eslint-disable-next-line array-callback-return
                       this.state.record.map((entry) => {
                         if (
                           parseInt(entry.farmerKey._hex) ===

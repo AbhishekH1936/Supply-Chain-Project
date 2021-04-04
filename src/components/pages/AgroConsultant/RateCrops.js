@@ -44,6 +44,10 @@ export default class RateCrops extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let len;
+    if(this.state.cropid === null){
+      alert("Please fill all the fields");
+      return;
+    }
 
     this.state.contract.methods
       .getCropRatings(this.state.cropid)
@@ -58,22 +62,28 @@ export default class RateCrops extends Component {
             alert(
               "You have not submitted ratings for Pre-Harvest Stage, Please submit rating for Pre-Harvest Stage"
             );
+            return;
           }
-          return;
+         
+          
         } else if (len === 1) {
           if (this.state.stage !== "Harvest") {
             alert(
               "You have already submitted ratings for Pre-Harvest Stage, Please submit rating for Harvest Stage"
             );
+            return;
           }
-          return;
+          
+          
         } else if (len === 2) {
           if (this.state.stage !== "Post-Harvest") {
             alert(
               "You have already submitted ratings for Harvest Stage, Please submit rating for Post-Harvest Stage"
             );
+            return;
           }
-          return;
+         
+          
         } else if (len > 2) {
           alert("You have submitted ratings for all Stages");
           return;

@@ -39,6 +39,8 @@ contract Scm {
   //crop ratings
   // cropId to pre,post,harvest array
   mapping(string => string[]) cropRatings;
+  // cropId to rating hash for each crop
+  mapping(string => string) farmerRatingPerCrop;
     
   
   // Ether stored in contract address
@@ -130,6 +132,13 @@ contract Scm {
   function getCropRatings(string memory crop_id) public view returns(string[] memory){
       return cropRatings[crop_id];
   }
+  function setFarmerRatings(string memory crop_id, string memory hash) public {
+      farmerRatingPerCrop[crop_id] = hash;
+  }
+  function getFarmerRatings(string memory crop_id) public view returns(string memory){
+      return farmerRatingPerCrop[crop_id];
+  }
+  
   
   
   // getters and setters for user registration
