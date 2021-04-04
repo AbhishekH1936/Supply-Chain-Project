@@ -34,7 +34,12 @@ contract Scm {
   mapping(string => string) cropInfo;
   string[] allCropId = ["a"];
   uint256[] usedKeys = [1];
-  
+
+
+  //crop ratings
+  // cropId to pre,post,harvest array
+  mapping(string => string[]) cropRatings;
+    
   
   // Ether stored in contract address
   uint256 public contractBalance;
@@ -116,6 +121,14 @@ contract Scm {
   }
   function getAllUsedKeys() public view returns(uint256[] memory){
       return usedKeys;
+  }
+
+  // ratings function
+  function setCropRatings(string memory crop_id, string memory hash) public {
+      cropRatings[crop_id].push(hash);
+  }
+  function getCropRatings(string memory crop_id) public view returns(string[] memory){
+      return cropRatings[crop_id];
   }
   
   

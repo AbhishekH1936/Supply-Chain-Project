@@ -367,4 +367,4 @@ class Farmer extends Component {
   }
 }
 
-export default Farmer; //meet join ago
+export default Farmer;
