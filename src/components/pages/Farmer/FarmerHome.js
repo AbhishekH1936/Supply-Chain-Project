@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import FarmerNavbar from "./FarmerNavbar";
-import Web3 from "web3";
 import "./Farmer.css";
-import Scm from "../../../abis/Scm.json";
-import { ipfs } from "../Web3/web3Component";
+import { ipfs, loadWeb3, loadBlockchainData } from "../Web3/web3Component";
 import propose from "../media/propose.png";
 import status from "../media/status.jpg";
 import stopfunding from "../media/stopfunding.jpg";
@@ -21,37 +19,18 @@ export default class FarmerHome extends Component {
   }
 
   async componentWillMount() {
-    await this.loadWeb3();
-    await this.loadBlockchainData();
-    await this.fetchUsername();
-  }
-
-  async loadWeb3() {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      window.alert(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
-    }
-  }
-
-  async loadBlockchainData() {
-    const web3 = window.web3;
-    console.log("web3:", web3);
-    const accounts = await web3.eth.getAccounts();
-    this.setState({ account: accounts[0] });
-    const networkId = await web3.eth.net.getId();
-    const networkData = Scm.networks[networkId];
-    if (networkData) {
-      const contract = web3.eth.Contract(Scm.abi, networkData.address);
-      this.setState({ contract });
-    } else {
-      window.alert("Smart contract not deployed to detected network.");
-    }
+    let account_contract;
+    (async function () {
+      await loadWeb3();
+    })();
+    (async function () {
+      account_contract = await loadBlockchainData("UserData");
+    })().then(() => {
+      console.log(account_contract);
+      this.setState({ account: account_contract[0] });
+      this.setState({ contract: account_contract[1] });
+      this.fetchUsername()
+    });
   }
 
   fetchUsername() {
@@ -90,9 +69,7 @@ export default class FarmerHome extends Component {
             <div className="card">
               <Link to={"/ProposeCrops/" + this.state.publickey}>
                 <div className="top image">
-                  <a href={propose}>
                     <img src={propose} alt="card" />
-                  </a>
                 </div>
                 <div className="bottom content">
                   <small>Propose a new crop</small>
@@ -110,9 +87,7 @@ export default class FarmerHome extends Component {
             <div className="card">
               <Link to={"/ApproveCrops/" + this.state.publickey}>
                 <div className="top image">
-                  <a href={stopfunding}>
                     <img src={stopfunding} alt="card" />
-                  </a>
                 </div>
                 <div className="bottom content">
                   <small>Finalize a crop</small>
@@ -133,9 +108,7 @@ export default class FarmerHome extends Component {
             <div className="card">
               <Link to={"/CropsStatus/" + this.state.publickey}>
                 <div className="top image">
-                  <a href={status}>
                     <img src={status} alt="card" />
-                  </a>
                 </div>
                 <div className="bottom content">
                   <small>Check crop status</small>

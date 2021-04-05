@@ -9,16 +9,25 @@ import {
 
 export default class RateCrops extends Component {
   async componentWillMount() {
-    let account_contract;
+    let account_contract_ratings;
+    let account_contract_crops;
     (async function () {
       await loadWeb3();
     })();
+
     (async function () {
-      account_contract = await loadBlockchainData();
+      account_contract_crops = await loadBlockchainData("Crops");
     })().then(() => {
-      console.log(account_contract);
-      this.setState({ account: account_contract[0] });
-      this.setState({ contract: account_contract[1] });
+      console.log(account_contract_crops);
+      this.setState({ account: account_contract_crops[0] });
+      this.setState({ crops_contract: account_contract_crops[1] });
+    });
+
+    (async function () {
+      account_contract_ratings = await loadBlockchainData("Ratings");
+    })().then(() => {
+      console.log(account_contract_ratings);
+      this.setState({ ratings_contract: account_contract_ratings[1] });
     });
   }
 
@@ -49,7 +58,7 @@ export default class RateCrops extends Component {
       return;
     }
 
-    this.state.contract.methods
+    this.state.ratings_contract.methods
       .getCropRatings(this.state.cropid)
       .call({ from: this.state.account })
       .then((ratingHashes) => {
@@ -101,11 +110,12 @@ export default class RateCrops extends Component {
         }
 
         let cropValid = false;
-        this.state.contract.methods
+        this.state.crops_contract.methods
           .getAgroCrops(this.props.match.params.publickey)
           .call({ from: this.state.account })
           .then((cropIds) => {
             let Ids = [...new Set(cropIds)];
+            // eslint-disable-next-line array-callback-return
             Ids.map((id) => {
               console.log("id :", id);
               if (this.state.cropid === id) {
@@ -143,7 +153,7 @@ export default class RateCrops extends Component {
                     console.error(error);
                   } else {
                     console.log("sending hash to contract");
-                    this.state.contract.methods
+                    this.state.ratings_contract.methods
                       .setCropRatings(this.state.cropid, result[0].hash)
                       .send({ from: this.state.account }, (res) => {
                         if (res === false) {

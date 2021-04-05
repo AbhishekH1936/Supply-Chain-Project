@@ -29,7 +29,7 @@ class Storage extends Component {
       await loadWeb3();
     })();
     (async function () {
-      account_contract = await loadBlockchainData();
+      account_contract = await loadBlockchainData("UserData");
     })().then(() => {
       console.log(account_contract);
       this.setState({ account: account_contract[0] });

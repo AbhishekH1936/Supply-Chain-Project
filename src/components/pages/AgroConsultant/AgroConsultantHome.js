@@ -1,16 +1,9 @@
 import React, { Component } from "react";
 import AgroConsultantNavbar from "./AgroConsultantNavbar";
-import Web3 from "web3";
 import "./AgroConsultant.css";
-import Scm from "../../../abis/Scm.json";
+import { ipfs, loadWeb3, loadBlockchainData } from "../Web3/web3Component";
 
-const ipfsClient = require("ipfs-api");
-const ipfs = ipfsClient({
-  host: "ipfs.infura.io",
-  port: 5001,
-  apiPath: "/api/v0",
-  protocol: "https",
-});
+
 
 export default class AgroConsultantHome extends Component {
   constructor(props) {
@@ -24,37 +17,18 @@ export default class AgroConsultantHome extends Component {
   }
 
   async componentWillMount() {
-    await this.loadWeb3();
-    await this.loadBlockchainData();
-    await this.fetchUsername();
-  }
-
-  async loadWeb3() {
-    if (window.ethereum) {
-      window.web3 = new Web3(window.ethereum);
-      await window.ethereum.enable();
-    } else if (window.web3) {
-      window.web3 = new Web3(window.web3.currentProvider);
-    } else {
-      window.alert(
-        "Non-Ethereum browser detected. You should consider trying MetaMask!"
-      );
-    }
-  }
-
-  async loadBlockchainData() {
-    const web3 = window.web3;
-    console.log("web3:", web3);
-    const accounts = await web3.eth.getAccounts();
-    this.setState({ account: accounts[0] });
-    const networkId = await web3.eth.net.getId();
-    const networkData = Scm.networks[networkId];
-    if (networkData) {
-      const contract = web3.eth.Contract(Scm.abi, networkData.address);
-      this.setState({ contract });
-    } else {
-      window.alert("Smart contract not deployed to detected network.");
-    }
+    let account_contract;
+    (async function () {
+      await loadWeb3();
+    })();
+    (async function () {
+      account_contract = await loadBlockchainData("UserData");
+    })().then(() => {
+      console.log(account_contract);
+      this.setState({ account: account_contract[0] });
+      this.setState({ contract: account_contract[1] });
+      this.fetchUsername()
+    });
   }
 
   fetchUsername() {

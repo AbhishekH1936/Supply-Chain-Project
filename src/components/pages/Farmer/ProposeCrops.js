@@ -16,16 +16,25 @@ const fundAmountRegex = RegExp(/^[0-9]+$/);
 
 export default class ProposeCrops extends Component {
   async componentWillMount() {
-    let account_contract;
+    let account_contract_crops;
+    let account_contract_consulation;
     (async function () {
       await loadWeb3();
     })();
+
     (async function () {
-      account_contract = await loadBlockchainData();
+      account_contract_crops = await loadBlockchainData("Crops");
     })().then(() => {
-      console.log(account_contract);
-      this.setState({ account: account_contract[0] });
-      this.setState({ contract: account_contract[1] });
+      console.log(account_contract_crops);
+      this.setState({ account: account_contract_crops[0] });
+      this.setState({ crop_contract: account_contract_crops[1] });
+    });
+
+    (async function () {
+      account_contract_consulation = await loadBlockchainData("ConsultationContract");
+    })().then(() => {
+      console.log(account_contract_consulation);
+      this.setState({ consulatation_contract: account_contract_consulation[1] });
     });
   }
 
@@ -66,7 +75,7 @@ export default class ProposeCrops extends Component {
     let contractMatch = false;
     let keyUsed = false;
 
-    this.state.contract.methods
+    this.state.consulatation_contract.methods
       .getAllKeyValue()
       .call({ from: this.state.account })
       .then((keys) => {
@@ -103,7 +112,7 @@ export default class ProposeCrops extends Component {
         
       });
 
-    this.state.contract.methods
+    this.state.crop_contract.methods
       .getAllUsedKeys()
       .call({ from: this.state.account })
       .then((usedKeys) => {
@@ -118,7 +127,7 @@ export default class ProposeCrops extends Component {
       });
       
 
-    this.state.contract.methods
+    this.state.crop_contract.methods
       .match_cropId(this.props.match.params.publickey + "-" + this.state.cropId)
       .call({ from: this.state.account })
       .then((match) => {
@@ -161,7 +170,7 @@ export default class ProposeCrops extends Component {
                   return;
                 } else {
                   console.log("sending crop hash to contract");
-                  this.state.contract.methods
+                  this.state.crop_contract.methods
                     .setFarmerCrops(
                       this.props.match.params.publickey,
                       result[0].hash,

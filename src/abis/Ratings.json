@@ -1,0 +1,1645 @@
+{
+  "contractName": "Ratings",
+  "abi": [
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "crop_id",
+          "type": "string"
+        },
+        {
+          "name": "hash",
+          "type": "string"
+        }
+      ],
+      "name": "setCropRatings",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x1a3123b2"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "crop_id",
+          "type": "string"
+        }
+      ],
+      "name": "getCropRatings",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string[]"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x2b1227a1"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "name": "crop_id",
+          "type": "string"
+        },
+        {
+          "name": "hash",
+          "type": "string"
+        }
+      ],
+      "name": "setFarmerRatings",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function",
+      "signature": "0x692a0f9f"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "name": "crop_id",
+          "type": "string"
+        }
+      ],
+      "name": "getFarmerRatings",
+      "outputs": [
+        {
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function",
+      "signature": "0x21863f44"
+    }
+  ],
+  "bytecode": "0x608060405234801561001057600080fd5b506108ab806100206000396000f3fe608060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631a3123b21461006757806321863f44146100905780632b1227a1146100cd578063692a0f9f1461010a575b600080fd5b34801561007357600080fd5b5061008e60048036036100899190810190610600565b610133565b005b34801561009c57600080fd5b506100b760048036036100b291908101906105bf565b6101df565b6040516100c49190610768565b60405180910390f35b3480156100d957600080fd5b506100f460048036036100ef91908101906105bf565b6102ec565b6040516101019190610746565b60405180910390f35b34801561011657600080fd5b50610131600480360361012c9190810190610600565b610440565b005b6000826040518082805190602001908083835b60208310151561016b5780518252602082019150602081019050602083039250610146565b6001836020036101000a03801982511681845116808217855250505050505090500191505090815260200160405180910390208190806001815401808255809150509060018203906000526020600020016000909192909190915090805190602001906101d99291906104c4565b50505050565b60606001826040518082805190602001908083835b60208310151561021957805182526020820191506020810190506020830392506101f4565b6001836020036101000a03801982511681845116808217855250505050505090500191505090815260200160405180910390208054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102e05780601f106102b5576101008083540402835291602001916102e0565b820191906000526020600020905b8154815290600101906020018083116102c357829003601f168201915b50505050509050919050565b60606000826040518082805190602001908083835b6020831015156103265780518252602082019150602081019050602083039250610301565b6001836020036101000a0380198251168184511680821785525050505050509050019150509081526020016040518091039020805480602002602001604051908101604052809291908181526020016000905b82821015610435578382906000526020600020018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156104215780601f106103f657610100808354040283529160200191610421565b820191906000526020600020905b81548152906001019060200180831161040457829003601f168201915b505050505081526020019060010190610379565b505050509050919050565b806001836040518082805190602001908083835b6020831015156104795780518252602082019150602081019050602083039250610454565b6001836020036101000a038019825116818451168082178552505050505050905001915050908152602001604051809103902090805190602001906104bf9291906104c4565b505050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061050557805160ff1916838001178555610533565b82800160010185558215610533579182015b82811115610532578251825591602001919060010190610517565b5b5090506105409190610544565b5090565b61056691905b8082111561056257600081600090555060010161054a565b5090565b90565b600082601f830112151561057c57600080fd5b813561058f61058a826107b7565b61078a565b915080825260208301602083018583830111156105ab57600080fd5b6105b683828461081e565b50505092915050565b6000602082840312156105d157600080fd5b600082013567ffffffffffffffff8111156105eb57600080fd5b6105f784828501610569565b91505092915050565b6000806040838503121561061357600080fd5b600083013567ffffffffffffffff81111561062d57600080fd5b61063985828601610569565b925050602083013567ffffffffffffffff81111561065657600080fd5b61066285828601610569565b9150509250929050565b6000610677826107f0565b80845260208401935083602082028501610690856107e3565b60005b848110156106c95783830388526106ab838351610710565b92506106b682610811565b9150602088019750600181019050610693565b508196508694505050505092915050565b60006106e582610806565b8084526106f981602086016020860161082d565b61070281610860565b602085010191505092915050565b600061071b826107fb565b80845261072f81602086016020860161082d565b61073881610860565b602085010191505092915050565b60006020820190508181036000830152610760818461066c565b905092915050565b6000602082019050818103600083015261078281846106da565b905092915050565b6000604051905081810181811067ffffffffffffffff821117156107ad57600080fd5b8060405250919050565b600067ffffffffffffffff8211156107ce57600080fd5b601f19601f8301169050602081019050919050565b6000602082019050919050565b600081519050919050565b600081519050919050565b600081519050919050565b6000602082019050919050565b82818337600083830152505050565b60005b8381101561084b578082015181840152602081019050610830565b8381111561085a576000848401525b50505050565b6000601f19601f830116905091905056fea265627a7a723058205a1e144cea35915c4fcd192f6aa1f536c3a8f35e3f0e4500c60e9b7dae64c6e36c6578706572696d656e74616cf50037",
+  "deployedBytecode": "0x608060405260043610610062576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff1680631a3123b21461006757806321863f44146100905780632b1227a1146100cd578063692a0f9f1461010a575b600080fd5b34801561007357600080fd5b5061008e60048036036100899190810190610600565b610133565b005b34801561009c57600080fd5b506100b760048036036100b291908101906105bf565b6101df565b6040516100c49190610768565b60405180910390f35b3480156100d957600080fd5b506100f460048036036100ef91908101906105bf565b6102ec565b6040516101019190610746565b60405180910390f35b34801561011657600080fd5b50610131600480360361012c9190810190610600565b610440565b005b6000826040518082805190602001908083835b60208310151561016b5780518252602082019150602081019050602083039250610146565b6001836020036101000a03801982511681845116808217855250505050505090500191505090815260200160405180910390208190806001815401808255809150509060018203906000526020600020016000909192909190915090805190602001906101d99291906104c4565b50505050565b60606001826040518082805190602001908083835b60208310151561021957805182526020820191506020810190506020830392506101f4565b6001836020036101000a03801982511681845116808217855250505050505090500191505090815260200160405180910390208054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156102e05780601f106102b5576101008083540402835291602001916102e0565b820191906000526020600020905b8154815290600101906020018083116102c357829003601f168201915b50505050509050919050565b60606000826040518082805190602001908083835b6020831015156103265780518252602082019150602081019050602083039250610301565b6001836020036101000a0380198251168184511680821785525050505050509050019150509081526020016040518091039020805480602002602001604051908101604052809291908181526020016000905b82821015610435578382906000526020600020018054600181600116156101000203166002900480601f0160208091040260200160405190810160405280929190818152602001828054600181600116156101000203166002900480156104215780601f106103f657610100808354040283529160200191610421565b820191906000526020600020905b81548152906001019060200180831161040457829003601f168201915b505050505081526020019060010190610379565b505050509050919050565b806001836040518082805190602001908083835b6020831015156104795780518252602082019150602081019050602083039250610454565b6001836020036101000a038019825116818451168082178552505050505050905001915050908152602001604051809103902090805190602001906104bf9291906104c4565b505050565b828054600181600116156101000203166002900490600052602060002090601f016020900481019282601f1061050557805160ff1916838001178555610533565b82800160010185558215610533579182015b82811115610532578251825591602001919060010190610517565b5b5090506105409190610544565b5090565b61056691905b8082111561056257600081600090555060010161054a565b5090565b90565b600082601f830112151561057c57600080fd5b813561058f61058a826107b7565b61078a565b915080825260208301602083018583830111156105ab57600080fd5b6105b683828461081e565b50505092915050565b6000602082840312156105d157600080fd5b600082013567ffffffffffffffff8111156105eb57600080fd5b6105f784828501610569565b91505092915050565b6000806040838503121561061357600080fd5b600083013567ffffffffffffffff81111561062d57600080fd5b61063985828601610569565b925050602083013567ffffffffffffffff81111561065657600080fd5b61066285828601610569565b9150509250929050565b6000610677826107f0565b80845260208401935083602082028501610690856107e3565b60005b848110156106c95783830388526106ab838351610710565b92506106b682610811565b9150602088019750600181019050610693565b508196508694505050505092915050565b60006106e582610806565b8084526106f981602086016020860161082d565b61070281610860565b602085010191505092915050565b600061071b826107fb565b80845261072f81602086016020860161082d565b61073881610860565b602085010191505092915050565b60006020820190508181036000830152610760818461066c565b905092915050565b6000602082019050818103600083015261078281846106da565b905092915050565b6000604051905081810181811067ffffffffffffffff821117156107ad57600080fd5b8060405250919050565b600067ffffffffffffffff8211156107ce57600080fd5b601f19601f8301169050602081019050919050565b6000602082019050919050565b600081519050919050565b600081519050919050565b600081519050919050565b6000602082019050919050565b82818337600083830152505050565b60005b8381101561084b578082015181840152602081019050610830565b8381111561085a576000848401525b50505050565b6000601f19601f830116905091905056fea265627a7a723058205a1e144cea35915c4fcd192f6aa1f536c3a8f35e3f0e4500c60e9b7dae64c6e36c6578706572696d656e74616cf50037",
+  "sourceMap": "92:757:3:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;92:757:3;;;;;;;",
+  "deployedSourceMap": "92:757:3:-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;320:122;;8:9:-1;5:2;;;30:1;27;20:12;5:2;320:122:3;;;;;;;;;;;;;;;;;;;712:135;;8:9:-1;5:2;;;30:1;27;20:12;5:2;712:135:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;447:127;;8:9:-1;5:2;;;30:1;27;20:12;5:2;447:127:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;579:128;;8:9:-1;5:2;;;30:1;27;20:12;5:2;579:128:3;;;;;;;;;;;;;;;;;;;320:122;404:11;416:7;404:20;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;51:19;36:153;;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;404:20:3;;;;;;;;;;;;;;;;;;;;;430:4;404:31;;39:1:-1;33:3;27:10;23:18;57:10;52:3;45:23;79:10;72:17;;0:93;404:31:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;320:122;;:::o;712:135::-;781:13;812:19;832:7;812:28;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;51:19;36:153;;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;812:28:3;;;;;;;;;;;;;;;;;;;;;805:35;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;712:135;;;:::o;447:127::-;514:15;547:11;559:7;547:20;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;51:19;36:153;;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;547:20:3;;;;;;;;;;;;;;;;;;;;;540:27;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;447:127;;;:::o;579:128::-;696:4;665:19;685:7;665:28;;;;;;;;;;;;;36:153:-1;66:2;61:3;58:11;51:19;36:153;;;182:3;176:10;171:3;164:23;98:2;93:3;89:12;82:19;;123:2;118:3;114:12;107:19;;148:2;143:3;139:12;132:19;;36:153;;;274:1;267:3;263:2;259:12;254:3;250:22;246:30;315:4;311:9;305:3;299:10;295:26;356:4;350:3;344:10;340:21;389:7;380;377:20;372:3;365:33;3:399;;;665:28:3;;;;;;;;;;;;;;;;;;;;;:35;;;;;;;;;;;;:::i;:::-;;579:128;;:::o;92:757::-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;;:::o;:::-;;;;;;;;;;;;;;;;;;;;;;;;;;;:::o;6:442:-1:-;;108:3;101:4;93:6;89:17;85:27;78:35;75:2;;;126:1;123;116:12;75:2;163:6;150:20;185:65;200:49;242:6;200:49;;;185:65;;;176:74;;270:6;263:5;256:21;306:4;298:6;294:17;339:4;332:5;328:16;374:3;365:6;360:3;356:16;353:25;350:2;;;391:1;388;381:12;350:2;401:41;435:6;430:3;425;401:41;;;68:380;;;;;;;;456:347;;570:2;558:9;549:7;545:23;541:32;538:2;;;586:1;583;576:12;538:2;649:1;638:9;634:17;621:31;672:18;664:6;661:30;658:2;;;704:1;701;694:12;658:2;724:63;779:7;770:6;759:9;755:22;724:63;;;714:73;;600:193;532:271;;;;;810:578;;;951:2;939:9;930:7;926:23;922:32;919:2;;;967:1;964;957:12;919:2;1030:1;1019:9;1015:17;1002:31;1053:18;1045:6;1042:30;1039:2;;;1085:1;1082;1075:12;1039:2;1105:63;1160:7;1151:6;1140:9;1136:22;1105:63;;;1095:73;;981:193;1233:2;1222:9;1218:18;1205:32;1257:18;1249:6;1246:30;1243:2;;;1289:1;1286;1279:12;1243:2;1309:63;1364:7;1355:6;1344:9;1340:22;1309:63;;;1299:73;;1184:194;913:475;;;;;;1424:773;;1571:60;1625:5;1571:60;;;1649:6;1644:3;1637:19;1673:4;1668:3;1664:14;1657:21;;1721:3;1763:4;1755:6;1751:17;1746:3;1742:27;1789:62;1845:5;1789:62;;;1872:1;1857:301;1882:6;1879:1;1876:13;1857:301;;;1944:9;1938:4;1934:20;1929:3;1922:33;1970:70;2035:4;2026:6;2020:13;1970:70;;;1962:78;;2057:66;2116:6;2057:66;;;2047:76;;2146:4;2141:3;2137:14;2130:21;;1904:1;1901;1897:9;1892:14;;1857:301;;;1861:14;2171:4;2164:11;;2188:3;2181:10;;1550:647;;;;;;;;;2205:300;;2307:39;2340:5;2307:39;;;2363:6;2358:3;2351:19;2375:63;2431:6;2424:4;2419:3;2415:14;2408:4;2401:5;2397:16;2375:63;;;2470:29;2492:6;2470:29;;;2463:4;2458:3;2454:14;2450:50;2443:57;;2287:218;;;;;;2512:292;;2610:35;2639:5;2610:35;;;2662:6;2657:3;2650:19;2674:63;2730:6;2723:4;2718:3;2714:14;2707:4;2700:5;2696:16;2674:63;;;2769:29;2791:6;2769:29;;;2762:4;2757:3;2753:14;2749:50;2742:57;;2590:214;;;;;;2811:365;;2981:2;2970:9;2966:18;2958:26;;3031:9;3025:4;3021:20;3017:1;3006:9;3002:17;2995:47;3056:110;3161:4;3152:6;3056:110;;;3048:118;;2952:224;;;;;3183:281;;3311:2;3300:9;3296:18;3288:26;;3361:9;3355:4;3351:20;3347:1;3336:9;3332:17;3325:47;3386:68;3449:4;3440:6;3386:68;;;3378:76;;3282:182;;;;;3471:256;;3533:2;3527:9;3517:19;;3571:4;3563:6;3559:17;3670:6;3658:10;3655:22;3634:18;3622:10;3619:34;3616:62;3613:2;;;3691:1;3688;3681:12;3613:2;3711:10;3707:2;3700:22;3511:216;;;;;3734:259;;3878:18;3870:6;3867:30;3864:2;;;3910:1;3907;3900:12;3864:2;3954:4;3950:9;3943:4;3935:6;3931:17;3927:33;3919:41;;3983:4;3977;3973:15;3965:23;;3801:192;;;;4002:127;;4117:4;4109:6;4105:17;4094:28;;4086:43;;;;4138:113;;4240:5;4234:12;4224:22;;4218:33;;;;4258:88;;4335:5;4329:12;4319:22;;4313:33;;;;4353:92;;4434:5;4428:12;4418:22;;4412:33;;;;4453:128;;4570:4;4562:6;4558:17;4547:28;;4540:41;;;;4590:145;4671:6;4666:3;4661;4648:30;4727:1;4718:6;4713:3;4709:16;4702:27;4641:94;;;;4744:268;4809:1;4816:101;4830:6;4827:1;4824:13;4816:101;;;4906:1;4901:3;4897:11;4891:18;4887:1;4882:3;4878:11;4871:39;4852:2;4849:1;4845:10;4840:15;;4816:101;;;4932:6;4929:1;4926:13;4923:2;;;4997:1;4988:6;4983:3;4979:16;4972:27;4923:2;4793:219;;;;;5020:97;;5108:2;5104:7;5099:2;5092:5;5088:14;5084:28;5074:38;;5068:49;;;",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.5.0;\npragma experimental ABIEncoderV2;\n\ncontract Ratings {\n\n    // cropId to pre,post,harvest array\n    mapping(string => string[]) cropRatings;\n    // cropId to rating hash for each crop\n    mapping(string => string) farmerRatingPerCrop;\n\n    // ratings function\n    function setCropRatings(string memory crop_id, string memory hash) public {\n        cropRatings[crop_id].push(hash);\n    }\n    function getCropRatings(string memory crop_id) public view returns(string[] memory){\n        return cropRatings[crop_id];\n    }\n    function setFarmerRatings(string memory crop_id, string memory hash) public {\n        farmerRatingPerCrop[crop_id] = hash;\n    }\n    function getFarmerRatings(string memory crop_id) public view returns(string memory){\n        return farmerRatingPerCrop[crop_id];\n    }\n}",
+  "sourcePath": "/home/nikhil/Desktop/scm_project/src/contracts/Ratings.sol",
+  "ast": {
+    "absolutePath": "/home/nikhil/Desktop/scm_project/src/contracts/Ratings.sol",
+    "exportedSymbols": {
+      "Ratings": [
+        454
+      ]
+    },
+    "id": 455,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 389,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:24:3"
+      },
+      {
+        "id": 390,
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "57:33:3"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 454,
+        "linearizedBaseContracts": [
+          454
+        ],
+        "name": "Ratings",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 395,
+            "name": "cropRatings",
+            "nodeType": "VariableDeclaration",
+            "scope": 454,
+            "src": "156:39:3",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_string_memory_$_t_array$_t_string_storage_$dyn_storage_$",
+              "typeString": "mapping(string => string[])"
+            },
+            "typeName": {
+              "id": 394,
+              "keyType": {
+                "id": 391,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "164:6:3",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "156:27:3",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_string_memory_$_t_array$_t_string_storage_$dyn_storage_$",
+                "typeString": "mapping(string => string[])"
+              },
+              "valueType": {
+                "baseType": {
+                  "id": 392,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "174:6:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "id": 393,
+                "length": null,
+                "nodeType": "ArrayTypeName",
+                "src": "174:8:3",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_string_storage_$dyn_storage_ptr",
+                  "typeString": "string[]"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 399,
+            "name": "farmerRatingPerCrop",
+            "nodeType": "VariableDeclaration",
+            "scope": 454,
+            "src": "244:45:3",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_string_memory_$_t_string_storage_$",
+              "typeString": "mapping(string => string)"
+            },
+            "typeName": {
+              "id": 398,
+              "keyType": {
+                "id": 396,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "252:6:3",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "244:25:3",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_string_memory_$_t_string_storage_$",
+                "typeString": "mapping(string => string)"
+              },
+              "valueType": {
+                "id": 397,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "262:6:3",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 413,
+              "nodeType": "Block",
+              "src": "394:48:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 410,
+                        "name": "hash",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 403,
+                        "src": "430:4:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 406,
+                          "name": "cropRatings",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 395,
+                          "src": "404:11:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_string_memory_$_t_array$_t_string_storage_$dyn_storage_$",
+                            "typeString": "mapping(string memory => string storage ref[] storage ref)"
+                          }
+                        },
+                        "id": 408,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 407,
+                          "name": "crop_id",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 401,
+                          "src": "416:7:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_string_memory_ptr",
+                            "typeString": "string memory"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "404:20:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_string_storage_$dyn_storage",
+                          "typeString": "string storage ref[] storage ref"
+                        }
+                      },
+                      "id": 409,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "push",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "404:25:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_arraypush_nonpayable$_t_string_storage_$returns$_t_uint256_$",
+                        "typeString": "function (string storage ref) returns (uint256)"
+                      }
+                    },
+                    "id": 411,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "404:31:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 412,
+                  "nodeType": "ExpressionStatement",
+                  "src": "404:31:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 414,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setCropRatings",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 404,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 401,
+                  "name": "crop_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 414,
+                  "src": "344:21:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 400,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "344:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 403,
+                  "name": "hash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 414,
+                  "src": "367:18:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 402,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "367:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "343:43:3"
+            },
+            "returnParameters": {
+              "id": 405,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "394:0:3"
+            },
+            "scope": 454,
+            "src": "320:122:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 426,
+              "nodeType": "Block",
+              "src": "530:44:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "baseExpression": {
+                      "argumentTypes": null,
+                      "id": 422,
+                      "name": "cropRatings",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 395,
+                      "src": "547:11:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_string_memory_$_t_array$_t_string_storage_$dyn_storage_$",
+                        "typeString": "mapping(string memory => string storage ref[] storage ref)"
+                      }
+                    },
+                    "id": 424,
+                    "indexExpression": {
+                      "argumentTypes": null,
+                      "id": 423,
+                      "name": "crop_id",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 416,
+                      "src": "559:7:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "547:20:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_string_storage_$dyn_storage",
+                      "typeString": "string storage ref[] storage ref"
+                    }
+                  },
+                  "functionReturnParameters": 421,
+                  "id": 425,
+                  "nodeType": "Return",
+                  "src": "540:27:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 427,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getCropRatings",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 417,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 416,
+                  "name": "crop_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 427,
+                  "src": "471:21:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 415,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "471:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "470:23:3"
+            },
+            "returnParameters": {
+              "id": 421,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 420,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 427,
+                  "src": "514:15:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_string_memory_$dyn_memory_ptr",
+                    "typeString": "string[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 418,
+                      "name": "string",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "514:6:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_storage_ptr",
+                        "typeString": "string"
+                      }
+                    },
+                    "id": 419,
+                    "length": null,
+                    "nodeType": "ArrayTypeName",
+                    "src": "514:8:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_string_storage_$dyn_storage_ptr",
+                      "typeString": "string[]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "513:17:3"
+            },
+            "scope": 454,
+            "src": "447:127:3",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 440,
+              "nodeType": "Block",
+              "src": "655:52:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 438,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "baseExpression": {
+                        "argumentTypes": null,
+                        "id": 434,
+                        "name": "farmerRatingPerCrop",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 399,
+                        "src": "665:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_string_memory_$_t_string_storage_$",
+                          "typeString": "mapping(string memory => string storage ref)"
+                        }
+                      },
+                      "id": 436,
+                      "indexExpression": {
+                        "argumentTypes": null,
+                        "id": 435,
+                        "name": "crop_id",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 429,
+                        "src": "685:7:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "665:28:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_storage",
+                        "typeString": "string storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 437,
+                      "name": "hash",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 431,
+                      "src": "696:4:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "src": "665:35:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "id": 439,
+                  "nodeType": "ExpressionStatement",
+                  "src": "665:35:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 441,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setFarmerRatings",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 432,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 429,
+                  "name": "crop_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 441,
+                  "src": "605:21:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 428,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "605:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 431,
+                  "name": "hash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 441,
+                  "src": "628:18:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 430,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "628:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "604:43:3"
+            },
+            "returnParameters": {
+              "id": 433,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "655:0:3"
+            },
+            "scope": 454,
+            "src": "579:128:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 452,
+              "nodeType": "Block",
+              "src": "795:52:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "baseExpression": {
+                      "argumentTypes": null,
+                      "id": 448,
+                      "name": "farmerRatingPerCrop",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 399,
+                      "src": "812:19:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_string_memory_$_t_string_storage_$",
+                        "typeString": "mapping(string memory => string storage ref)"
+                      }
+                    },
+                    "id": 450,
+                    "indexExpression": {
+                      "argumentTypes": null,
+                      "id": 449,
+                      "name": "crop_id",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 443,
+                      "src": "832:7:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "812:28:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "functionReturnParameters": 447,
+                  "id": 451,
+                  "nodeType": "Return",
+                  "src": "805:35:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 453,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getFarmerRatings",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 444,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 443,
+                  "name": "crop_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 453,
+                  "src": "738:21:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 442,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "738:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "737:23:3"
+            },
+            "returnParameters": {
+              "id": 447,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 446,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 453,
+                  "src": "781:13:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 445,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "781:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "780:15:3"
+            },
+            "scope": 454,
+            "src": "712:135:3",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 455,
+        "src": "92:757:3"
+      }
+    ],
+    "src": "32:817:3"
+  },
+  "legacyAST": {
+    "absolutePath": "/home/nikhil/Desktop/scm_project/src/contracts/Ratings.sol",
+    "exportedSymbols": {
+      "Ratings": [
+        454
+      ]
+    },
+    "id": 455,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 389,
+        "literals": [
+          "solidity",
+          ">=",
+          "0.5",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:24:3"
+      },
+      {
+        "id": 390,
+        "literals": [
+          "experimental",
+          "ABIEncoderV2"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "57:33:3"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": null,
+        "fullyImplemented": true,
+        "id": 454,
+        "linearizedBaseContracts": [
+          454
+        ],
+        "name": "Ratings",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 395,
+            "name": "cropRatings",
+            "nodeType": "VariableDeclaration",
+            "scope": 454,
+            "src": "156:39:3",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_string_memory_$_t_array$_t_string_storage_$dyn_storage_$",
+              "typeString": "mapping(string => string[])"
+            },
+            "typeName": {
+              "id": 394,
+              "keyType": {
+                "id": 391,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "164:6:3",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "156:27:3",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_string_memory_$_t_array$_t_string_storage_$dyn_storage_$",
+                "typeString": "mapping(string => string[])"
+              },
+              "valueType": {
+                "baseType": {
+                  "id": 392,
+                  "name": "string",
+                  "nodeType": "ElementaryTypeName",
+                  "src": "174:6:3",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_storage_ptr",
+                    "typeString": "string"
+                  }
+                },
+                "id": 393,
+                "length": null,
+                "nodeType": "ArrayTypeName",
+                "src": "174:8:3",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_array$_t_string_storage_$dyn_storage_ptr",
+                  "typeString": "string[]"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "constant": false,
+            "id": 399,
+            "name": "farmerRatingPerCrop",
+            "nodeType": "VariableDeclaration",
+            "scope": 454,
+            "src": "244:45:3",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_string_memory_$_t_string_storage_$",
+              "typeString": "mapping(string => string)"
+            },
+            "typeName": {
+              "id": 398,
+              "keyType": {
+                "id": 396,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "252:6:3",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "244:25:3",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_string_memory_$_t_string_storage_$",
+                "typeString": "mapping(string => string)"
+              },
+              "valueType": {
+                "id": 397,
+                "name": "string",
+                "nodeType": "ElementaryTypeName",
+                "src": "262:6:3",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_string_storage_ptr",
+                  "typeString": "string"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "internal"
+          },
+          {
+            "body": {
+              "id": 413,
+              "nodeType": "Block",
+              "src": "394:48:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "arguments": [
+                      {
+                        "argumentTypes": null,
+                        "id": 410,
+                        "name": "hash",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 403,
+                        "src": "430:4:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      }
+                    ],
+                    "expression": {
+                      "argumentTypes": [
+                        {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      ],
+                      "expression": {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 406,
+                          "name": "cropRatings",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 395,
+                          "src": "404:11:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_string_memory_$_t_array$_t_string_storage_$dyn_storage_$",
+                            "typeString": "mapping(string memory => string storage ref[] storage ref)"
+                          }
+                        },
+                        "id": 408,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 407,
+                          "name": "crop_id",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 401,
+                          "src": "416:7:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_string_memory_ptr",
+                            "typeString": "string memory"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "404:20:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_array$_t_string_storage_$dyn_storage",
+                          "typeString": "string storage ref[] storage ref"
+                        }
+                      },
+                      "id": 409,
+                      "isConstant": false,
+                      "isLValue": false,
+                      "isPure": false,
+                      "lValueRequested": false,
+                      "memberName": "push",
+                      "nodeType": "MemberAccess",
+                      "referencedDeclaration": null,
+                      "src": "404:25:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_function_arraypush_nonpayable$_t_string_storage_$returns$_t_uint256_$",
+                        "typeString": "function (string storage ref) returns (uint256)"
+                      }
+                    },
+                    "id": 411,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "kind": "functionCall",
+                    "lValueRequested": false,
+                    "names": [],
+                    "nodeType": "FunctionCall",
+                    "src": "404:31:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_uint256",
+                      "typeString": "uint256"
+                    }
+                  },
+                  "id": 412,
+                  "nodeType": "ExpressionStatement",
+                  "src": "404:31:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 414,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setCropRatings",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 404,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 401,
+                  "name": "crop_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 414,
+                  "src": "344:21:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 400,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "344:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 403,
+                  "name": "hash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 414,
+                  "src": "367:18:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 402,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "367:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "343:43:3"
+            },
+            "returnParameters": {
+              "id": 405,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "394:0:3"
+            },
+            "scope": 454,
+            "src": "320:122:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 426,
+              "nodeType": "Block",
+              "src": "530:44:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "baseExpression": {
+                      "argumentTypes": null,
+                      "id": 422,
+                      "name": "cropRatings",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 395,
+                      "src": "547:11:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_string_memory_$_t_array$_t_string_storage_$dyn_storage_$",
+                        "typeString": "mapping(string memory => string storage ref[] storage ref)"
+                      }
+                    },
+                    "id": 424,
+                    "indexExpression": {
+                      "argumentTypes": null,
+                      "id": 423,
+                      "name": "crop_id",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 416,
+                      "src": "559:7:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "547:20:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_string_storage_$dyn_storage",
+                      "typeString": "string storage ref[] storage ref"
+                    }
+                  },
+                  "functionReturnParameters": 421,
+                  "id": 425,
+                  "nodeType": "Return",
+                  "src": "540:27:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 427,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getCropRatings",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 417,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 416,
+                  "name": "crop_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 427,
+                  "src": "471:21:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 415,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "471:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "470:23:3"
+            },
+            "returnParameters": {
+              "id": 421,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 420,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 427,
+                  "src": "514:15:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_array$_t_string_memory_$dyn_memory_ptr",
+                    "typeString": "string[]"
+                  },
+                  "typeName": {
+                    "baseType": {
+                      "id": 418,
+                      "name": "string",
+                      "nodeType": "ElementaryTypeName",
+                      "src": "514:6:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_storage_ptr",
+                        "typeString": "string"
+                      }
+                    },
+                    "id": 419,
+                    "length": null,
+                    "nodeType": "ArrayTypeName",
+                    "src": "514:8:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_array$_t_string_storage_$dyn_storage_ptr",
+                      "typeString": "string[]"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "513:17:3"
+            },
+            "scope": 454,
+            "src": "447:127:3",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 440,
+              "nodeType": "Block",
+              "src": "655:52:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 438,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "baseExpression": {
+                        "argumentTypes": null,
+                        "id": 434,
+                        "name": "farmerRatingPerCrop",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 399,
+                        "src": "665:19:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_string_memory_$_t_string_storage_$",
+                          "typeString": "mapping(string memory => string storage ref)"
+                        }
+                      },
+                      "id": 436,
+                      "indexExpression": {
+                        "argumentTypes": null,
+                        "id": 435,
+                        "name": "crop_id",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 429,
+                        "src": "685:7:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_string_memory_ptr",
+                          "typeString": "string memory"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "665:28:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_storage",
+                        "typeString": "string storage ref"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 437,
+                      "name": "hash",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 431,
+                      "src": "696:4:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "src": "665:35:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "id": 439,
+                  "nodeType": "ExpressionStatement",
+                  "src": "665:35:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 441,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "setFarmerRatings",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 432,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 429,
+                  "name": "crop_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 441,
+                  "src": "605:21:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 428,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "605:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 431,
+                  "name": "hash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 441,
+                  "src": "628:18:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 430,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "628:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "604:43:3"
+            },
+            "returnParameters": {
+              "id": 433,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "655:0:3"
+            },
+            "scope": 454,
+            "src": "579:128:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 452,
+              "nodeType": "Block",
+              "src": "795:52:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "baseExpression": {
+                      "argumentTypes": null,
+                      "id": 448,
+                      "name": "farmerRatingPerCrop",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 399,
+                      "src": "812:19:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_mapping$_t_string_memory_$_t_string_storage_$",
+                        "typeString": "mapping(string memory => string storage ref)"
+                      }
+                    },
+                    "id": 450,
+                    "indexExpression": {
+                      "argumentTypes": null,
+                      "id": 449,
+                      "name": "crop_id",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 443,
+                      "src": "832:7:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_string_memory_ptr",
+                        "typeString": "string memory"
+                      }
+                    },
+                    "isConstant": false,
+                    "isLValue": true,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "IndexAccess",
+                    "src": "812:28:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage",
+                      "typeString": "string storage ref"
+                    }
+                  },
+                  "functionReturnParameters": 447,
+                  "id": 451,
+                  "nodeType": "Return",
+                  "src": "805:35:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 453,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getFarmerRatings",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 444,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 443,
+                  "name": "crop_id",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 453,
+                  "src": "738:21:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 442,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "738:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "737:23:3"
+            },
+            "returnParameters": {
+              "id": 447,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 446,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 453,
+                  "src": "781:13:3",
+                  "stateVariable": false,
+                  "storageLocation": "memory",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_string_memory_ptr",
+                    "typeString": "string"
+                  },
+                  "typeName": {
+                    "id": 445,
+                    "name": "string",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "781:6:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_string_storage_ptr",
+                      "typeString": "string"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "780:15:3"
+            },
+            "scope": 454,
+            "src": "712:135:3",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 455,
+        "src": "92:757:3"
+      }
+    ],
+    "src": "32:817:3"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.0+commit.1d4f565a.Emscripten.clang"
+  },
+  "networks": {
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0x0BeBa1eB9e3A557038c413e1E153739D6De75129",
+      "transactionHash": "0xbae2d2658349fe3e1c6679488ba25c53bda55e0bd556c42fab2f312dcb265615"
+    }
+  },
+  "schemaVersion": "3.0.2",
+  "updatedAt": "2021-04-05T14:24:57.170Z",
+  "devdoc": {
+    "methods": {}
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

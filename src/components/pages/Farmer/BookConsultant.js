@@ -17,16 +17,30 @@ export default class BookConsultant extends Component {
   }
 
   async componentWillMount() {
-    let account_contract;
+    let account_contract_userdata;
+    let account_contract_consulation;
     (async function () {
       await loadWeb3();
     })();
+
     (async function () {
-      account_contract = await loadBlockchainData();
+      account_contract_userdata = await loadBlockchainData("UserData");
     })().then(() => {
-      console.log(account_contract);
-      this.setState({ account: account_contract[0] });
-      this.setState({ contract: account_contract[1] });
+      console.log(account_contract_userdata);
+      this.setState({ account: account_contract_userdata[0] });
+      this.setState({ userData_contract: account_contract_userdata[1] });
+      
+    });
+
+    (async function () {
+      account_contract_consulation = await loadBlockchainData(
+        "ConsultationContract"
+      );
+    })().then(() => {
+      console.log(account_contract_consulation);
+      this.setState({
+        consulatation_contract: account_contract_consulation[1]
+      });
       this.rendertable();
     });
   }
@@ -34,13 +48,13 @@ export default class BookConsultant extends Component {
   async rendertable() {
     console.log("in render table");
 
-    this.state.contract.methods.get_usernames
+    this.state.userData_contract.methods.get_usernames
       .call({ from: this.state.account })
       .then((users) => {
         let usernames = [...new Set(users)];
         // eslint-disable-next-line array-callback-return
         usernames.map((username) => {
-          this.state.contract.methods
+          this.state.userData_contract.methods
             .get_signup(username)
             .call({ from: this.state.account })
             .then((ipfs_hash) => {
@@ -104,9 +118,10 @@ export default class BookConsultant extends Component {
     if (r === true) {
       let farmerKey = Math.floor(Math.random() * 87000 + 12547);
       let agroKey = Math.floor(Math.random() * 87000 + 12547);
-      let keyValue = farmerPublicKey +"*"+ agroPublicKey +"*"+ farmerKey +"*"+ agroKey;
+      let keyValue =
+        farmerPublicKey + "*" + agroPublicKey + "*" + farmerKey + "*" + agroKey;
 
-      this.state.contract.methods
+      this.state.consulatation_contract.methods
         .bookFarmerAgroContract(
           keyValue,
           agroPublicKey,

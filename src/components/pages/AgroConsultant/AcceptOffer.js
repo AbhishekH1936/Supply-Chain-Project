@@ -18,16 +18,25 @@ export default class AcceptOffer extends Component {
   }
 
   async componentWillMount() {
-    let account_contract;
+    let account_contract_consulation;
+    let account_contract_crops;
     (async function () {
       await loadWeb3();
     })();
+
     (async function () {
-      account_contract = await loadBlockchainData();
+      account_contract_consulation = await loadBlockchainData("ConsultationContract");
     })().then(() => {
-      console.log(account_contract);
-      this.setState({ account: account_contract[0] });
-      this.setState({ contract: account_contract[1] });
+      console.log(account_contract_consulation);
+      this.setState({ consulatation_contract: account_contract_consulation[1] });
+    });
+
+    (async function () {
+      account_contract_crops = await loadBlockchainData("Crops");
+    })().then(() => {
+      console.log(account_contract_crops);
+      this.setState({ account: account_contract_crops[0] });
+      this.setState({ crops_contract: account_contract_crops[1] });
       this.rendertable();
       this.getCropId();
     });
@@ -36,12 +45,12 @@ export default class AcceptOffer extends Component {
   async rendertable() {
     console.log("in render table");
 
-    this.state.contract.methods.getAllKeyValue
+    this.state.consulatation_contract.methods.getAllKeyValue
       .call({ from: this.state.account })
       .then((keyValues) => {
         // eslint-disable-next-line array-callback-return
         keyValues.map((keyValue) => {
-          this.state.contract.methods
+          this.state.consulatation_contract.methods
             .getAgroFarmer(keyValue)
             .call({ from: this.state.account })
             .then((contractStruct) => {
@@ -60,14 +69,14 @@ export default class AcceptOffer extends Component {
             });
         });
 
-        this.state.contract.methods
+        this.state.crops_contract.methods
           .getAgroCrops(this.props.match.params.publickey)
           .call({ from: this.state.account })
           .then((cropIds) => {
             let Ids = [...new Set(cropIds)];
             // eslint-disable-next-line array-callback-return
             Ids.map((id) => {
-              this.state.contract.methods
+              this.state.crops_contract.methods
                 .getCropByCropId(id)
                 .call({ from: this.state.account })
                 .then((ipfs_hash) => {
