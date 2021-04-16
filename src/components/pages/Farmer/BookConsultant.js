@@ -151,7 +151,7 @@ export default class BookConsultant extends Component {
   render() {
     return (
       <div>
-        <h1>consultant</h1>
+        <h1>consultants</h1>
         <table className="styled-table-crop">
           <thead>
             <tr>
