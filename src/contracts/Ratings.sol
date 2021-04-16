@@ -20,6 +20,6 @@ contract Ratings {
         farmerRatingPerCrop[crop_id] = hash;
     }
     function getFarmerRatings(string memory crop_id) public view returns(string memory){
-        return farmerRatingPerCrop[crop_id];
+        return farmerRatingPerCrop[crop_id]; 
     }
 }

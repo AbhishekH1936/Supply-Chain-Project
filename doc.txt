@@ -56,3 +56,6 @@ Agro consultant
 
 Admin
 0x743a264D199d1133c3D3Eac18B91BB8E568b09Ea-admin   Pass123@
+
+Supplier
+0x1112EcbD8d43421a77Ec6F0AF0E6CA866e2A3CEd-arun Nikh123@

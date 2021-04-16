@@ -22,8 +22,8 @@
 }
 
 .nav-links_farmer:hover {
-  background-color: #2f2f30;
   background: linear-gradient(to right, red, purple);
+  background-color: #2f2f30;
   color :#fff; 
   border-radius: 100px;
   transition: all 0.2s ease-out;
@@ -89,7 +89,7 @@ h6 {
 }
 
 span,p {
-  font-family: "sans-serif";
+  font-family: Helvetica, Arial, Verdana, Tahoma, sans-serif;
   font-size: 1em;
   margin-bottom: 0.25em;
   color: rgb(243, 225, 225);

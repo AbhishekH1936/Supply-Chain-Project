@@ -120,6 +120,10 @@ export default class login extends Component {
                           this.props.history.push(
                             `/AgroConsultantHome/${this.state.publickey}`
                           );
+                        } else if (this.state.role === "Supplier") {
+                          this.props.history.push(
+                            `/SupplierHome/${this.state.publickey}`
+                          );
                         }
                       }
                     } else {
@@ -181,7 +185,7 @@ export default class login extends Component {
     let roles = [
       "Farmer",
       "Agro Consultant",
-      "Seller",
+      "Supplier",
       "Distributor",
       "Storage",
       "Transporter",

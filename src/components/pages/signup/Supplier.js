@@ -22,7 +22,7 @@ const passRegex = RegExp(
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/
 );
 
-class Seller extends Component {
+class Supplier extends Component {
   async componentWillMount() {
     let account_contract;
     (async function () {
@@ -49,7 +49,7 @@ class Seller extends Component {
       publickey: "",
       address: null,
       specialisation: null,
-      role: "Seller",
+      role: "Supplier",
       verified: "not verified",
       image: null,
       progress: 0,
@@ -397,4 +397,4 @@ class Seller extends Component {
   }
 }
 
-export default Seller;
+export default Supplier;
