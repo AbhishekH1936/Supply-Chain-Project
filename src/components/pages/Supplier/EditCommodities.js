@@ -9,11 +9,14 @@ export default class EditCommodities extends Component {
     this.state = {
       specialization: [],
       record: null,
+      commodity_name: null,
     };
 
     this.rendertable = this.rendertable.bind(this);
     this.renderTableData = this.renderTableData.bind(this);
     this.removeCommodity = this.removeCommodity.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.addCommodity = this.addCommodity.bind(this);
   }
 
   async componentWillMount() {
@@ -33,6 +36,12 @@ export default class EditCommodities extends Component {
     });
   }
 
+  handleChange = (e) => {
+    e.preventDefault();
+    const { name, value } = e.target;
+
+    this.setState({ [name]: value }, () => console.log(this.state));
+  };
   async rendertable() {
     console.log("in render table");
 
@@ -75,6 +84,49 @@ export default class EditCommodities extends Component {
         </td>
       </tr>
     );
+  }
+
+  addCommodity(e) {
+    e.preventDefault();
+    if (
+      !(
+        this.state.commodity_name === "" ||
+        this.state.commodity_name === null ||
+        this.state.commodity_name.length < 0
+      )
+    ) {
+      console.log(`--ADDING COMMODITY-- : `);
+
+      let array = this.state.specialization;
+      array.push(this.state.commodity_name);
+      let supplierModified = this.state.record;
+      supplierModified["Specialisation"] = array.join(",")
+
+      console.log("object", supplierModified);
+      let string = JSON.stringify(supplierModified);
+
+      let ipfs_modified = Buffer(string);
+      console.log("Submitting file to ipfs...");
+
+      ipfs.add(ipfs_modified, (error, result) => {
+        console.log("Ipfs result", result);
+        if (error) {
+          console.error(error);
+          return;
+        } else {
+          console.log("sending hash to contract");
+          this.state.userData_contract.methods
+            .set_signup(this.props.match.params.publickey, result[0].hash)
+            .send({ from: this.state.account }, (res) => {
+              if (res === false) {
+                alert(this.state.commodity_name + " added to commodity list");
+              }
+            });
+        }
+      });
+    } else {
+      alert("Please enter proper commodity name");
+    }
   }
 
   removeCommodity(value, username) {
@@ -126,6 +178,33 @@ export default class EditCommodities extends Component {
           </thead>
           <tbody>{this.state.specialization.map(this.renderTableData)}</tbody>
         </table>
+
+        <div>
+          <div className="wrapper_supplier">
+            <div className="form-wrapper_pro">
+              <h1>Add Commodity</h1>
+              <form className="form_login" noValidate>
+                <div className="publickey_login">
+                  <input
+                    className="input_login"
+                    placeholder="Enter Commodity Name"
+                    type="publickey_login"
+                    name="commodity_name"
+                    noValidate
+                    onChange={this.handleChange}
+                  />
+                </div>
+
+                <br />
+                <br />
+                <br />
+                <div className="createAccount_SD">
+                  <button onClick={this.addCommodity}>Add</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
