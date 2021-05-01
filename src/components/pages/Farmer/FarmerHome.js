@@ -5,6 +5,7 @@ import { ipfs, loadWeb3, loadBlockchainData } from "../Web3/web3Component";
 import propose from "../media/propose.png";
 import status from "../media/status.jpg";
 import stopfunding from "../media/stopfunding.jpg";
+import food_grains from "../media/food-grains.jpg";
 import { Link } from "react-router-dom";
 
 export default class FarmerHome extends Component {
@@ -119,6 +120,21 @@ export default class FarmerHome extends Component {
                     in keeping track of your indiviual crop lifecycles online.
                     You can have look at your keyPhrase as well for creating
                     contracts.
+                  </p>
+                </div>
+              </Link>
+            </div>
+
+            <div className="card">
+              <Link to={"/BuySupplies/" + this.state.publickey}>
+                <div className="top image">
+                    <img src={food_grains} alt="card" />
+                </div>
+                <div className="bottom content">
+                  <small>Buy Supplies</small>
+                  <p className="paraText">
+                    In this section you can have quick look at all the suppliers in the network, with the details of quantity,
+                    and credentials. This will help you in keeping track of your supplies and cost spent on it.
                   </p>
                 </div>
               </Link>

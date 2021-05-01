@@ -30,6 +30,7 @@ import SecurityDeposit from "./components/pages/Farmer/SecurityDeposit";
 import SupplierHome from "./components/pages/Supplier/SupplierHome";
 import EditCommodities from "./components/pages/Supplier/EditCommodities";
 import ManageCommodities from "./components/pages/Supplier/ManageCommodities";
+import BuySupplies from "./components/pages/Farmer/BuySupplies";
 
 function App() {
   return (
@@ -66,6 +67,7 @@ function App() {
         <Route path="/SupplierHome/:publickey" component={SupplierHome} />
         <Route path="/EditCommodities/:publickey" component={EditCommodities} />
         <Route path="/ManageCommodities/:publickey" component={ManageCommodities} />
+        <Route path="/BuySupplies/:publickey" component={BuySupplies} />
       </Switch>
     </Router>
   );
