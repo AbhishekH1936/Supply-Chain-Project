@@ -81,6 +81,13 @@ class Supplier extends Component {
         if (formValid(this.state)) {
           console.log(this.state.publickey);
           if (!r) {
+           var specs = this.state.specialisation.split(",")
+           var final_specs=[];
+            // eslint-disable-next-line array-callback-return
+            specs.map((item) => {
+              final_specs.push(item+"(0)")
+            })
+
             let signup_info = {
               First_Name: this.state.firstName,
               Last_Name: this.state.lastName,
@@ -90,7 +97,7 @@ class Supplier extends Component {
               ContactNo: this.state.contactno,
               PublicKey: this.state.publickey,
               Role: this.state.role,
-              Specialisation: this.state.specialisation,
+              Specialisation: final_specs.join(","),
               Verified: this.state.verified,
               Document: this.state.url,
             };
