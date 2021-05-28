@@ -82,6 +82,7 @@ export default class EditCommodities extends Component {
             placeholder="Enter quantity in kgs"
             name={value}
             noValidate
+            type="number"
             onChange={this.handleChange}
           />
         </td>
@@ -137,7 +138,6 @@ export default class EditCommodities extends Component {
       )
     ) {
       console.log(`--ADDING COMMODITY-- : `);
-
       var array = this.state.specialization;
       if (array.includes(this.state.commodity_name)) {
         alert(this.state.commodity_name + " already exists");
@@ -259,7 +259,7 @@ export default class EditCommodities extends Component {
               alert(
                 "Quantity of " +
                   value.slice(0, brace_index) +
-                  " incresed by " +
+                  " changed to " +
                   this.state[value]
               );
             }

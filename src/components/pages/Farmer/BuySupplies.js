@@ -91,7 +91,9 @@ export default class BuySupplies extends Component {
     );
   }
 
-  sendRequest() {}
+  sendRequest() {
+    
+  }
 
   render() {
     return (
