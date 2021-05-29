@@ -124,6 +124,10 @@ export default class login extends Component {
                           this.props.history.push(
                             `/SupplierHome/${this.state.publickey}`
                           );
+                        } else if (this.state.role === "Distributor") {
+                          this.props.history.push(
+                            `/DistributorHome/${this.state.publickey}`
+                          );
                         }
                       }
                     } else {

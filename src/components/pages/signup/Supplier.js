@@ -48,7 +48,7 @@ class Supplier extends Component {
       contactno: null,
       publickey: "",
       address: null,
-      specialisation: null,
+      specialisation: "wheat(12)(1)",
       role: "Supplier",
       verified: "not verified",
       image: null,
@@ -97,7 +97,7 @@ class Supplier extends Component {
               ContactNo: this.state.contactno,
               PublicKey: this.state.publickey,
               Role: this.state.role,
-              Specialisation: final_specs.join(","),
+              Specialisation: this.state.specialisation,
               Verified: this.state.verified,
               Document: this.state.url,
             };
@@ -310,25 +310,6 @@ class Supplier extends Component {
               />
               {formErrors.contactno.length > 0 && (
                 <span className="errorMessage">{formErrors.contactno}</span>
-              )}
-            </div>
-
-            <div className="specialisation">
-              <label htmlFor="email">Specialisation</label>
-              <input
-                className={
-                  formErrors.specialisation.length > 0 ? "error" : null
-                }
-                placeholder="Enter your Specialisation(like : Fertilizers, pestisides, seeds, farming eqipments .....)"
-                type="text"
-                name="specialisation"
-                noValidate
-                onChange={this.handleChange}
-              />
-              {formErrors.specialisation.length > 0 && (
-                <span className="errorMessage">
-                  {formErrors.specialisation}
-                </span>
               )}
             </div>
 

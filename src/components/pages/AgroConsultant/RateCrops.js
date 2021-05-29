@@ -53,7 +53,7 @@ export default class RateCrops extends Component {
   handleSubmit = (e) => {
     e.preventDefault();
     let len;
-    if(this.state.cropid === null){
+    if (this.state.cropid === null) {
       alert("Please fill all the fields");
       return;
     }
@@ -63,7 +63,7 @@ export default class RateCrops extends Component {
       .call({ from: this.state.account })
       .then((ratingHashes) => {
         let hashes = [...new Set(ratingHashes)];
-        console.log("hashes of :",ratingHashes);
+        console.log("hashes of :", ratingHashes);
         len = hashes.length;
         console.log("length :", len);
         if (len === 0) {
@@ -73,8 +73,6 @@ export default class RateCrops extends Component {
             );
             return;
           }
-         
-          
         } else if (len === 1) {
           if (this.state.stage !== "Harvest") {
             alert(
@@ -82,8 +80,6 @@ export default class RateCrops extends Component {
             );
             return;
           }
-          
-          
         } else if (len === 2) {
           if (this.state.stage !== "Post-Harvest") {
             alert(
@@ -91,8 +87,6 @@ export default class RateCrops extends Component {
             );
             return;
           }
-         
-          
         } else if (len > 2) {
           alert("You have submitted ratings for all Stages");
           return;
@@ -158,11 +152,11 @@ export default class RateCrops extends Component {
                       .send({ from: this.state.account }, (res) => {
                         if (res === false) {
                           alert(
-                            "Crop Rating for "+
-                            this.state.cropid+
-                            " and stage "+
-                            this.state.stage+
-                            " is submitted"
+                            "Crop Rating for " +
+                              this.state.cropid +
+                              " and stage " +
+                              this.state.stage +
+                              " is submitted"
                           );
                         }
                       });

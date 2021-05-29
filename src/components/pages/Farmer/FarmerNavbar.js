@@ -11,7 +11,7 @@ function FarmerNavbar(props) {
   return (
     <>
       <nav className="navbar_home">
-        <div className="textColor"> Welcome {props.username}</div>
+      <Link to={"/FarmerProfile/" + props.publicKey}><div className="textColor"> Welcome {props.username}</div></Link>
 
         <div className="menu-icon_home" onClick={handleClick}>
           <i className={click ? "fas fa-times_home" : "fas fa-bars_home"} />

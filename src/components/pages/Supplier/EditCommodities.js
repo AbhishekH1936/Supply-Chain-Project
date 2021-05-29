@@ -10,6 +10,7 @@ export default class EditCommodities extends Component {
       specialization: [],
       record: null,
       commodity_name: null,
+      commodity_price: 0,
     };
 
     this.rendertable = this.rendertable.bind(this);
@@ -41,7 +42,9 @@ export default class EditCommodities extends Component {
     e.preventDefault();
     const { name, value } = e.target;
 
-    this.setState({ [name]: value }, () => console.log(this.state));
+    this.setState({ [name]: value }, () =>
+      console.log("after change of a field" + this.state.commodity_price)
+    );
   };
   async rendertable() {
     console.log("in render table");
@@ -69,13 +72,14 @@ export default class EditCommodities extends Component {
   }
 
   renderTableData(value, index) {
-    console.log("in render table data");
+    console.log("in render table data" + value);
     var brace_index = value.indexOf("(");
     var close_brace = value.indexOf(")");
     return (
       <tr className="active-row" key={value}>
         <td>{value.slice(0, brace_index)}</td>
         <td>{value.slice(brace_index + 1, close_brace)}</td>
+        <td>{value.slice(close_brace + 2, close_brace + 3)}</td>
         <td>
           <input
             className="input_login"
@@ -86,6 +90,7 @@ export default class EditCommodities extends Component {
             onChange={this.handleChange}
           />
         </td>
+
         <td>
           <button
             className="btn-supplier btn-danger"
@@ -142,7 +147,13 @@ export default class EditCommodities extends Component {
       if (array.includes(this.state.commodity_name)) {
         alert(this.state.commodity_name + " already exists");
       } else {
-        array.push(this.state.commodity_name + "(0)");
+        array.push(
+          this.state.commodity_name +
+            "(0)" +
+            "(" +
+            this.state.commodity_price +
+            ")"
+        );
         array = [...new Set(array)];
         let supplierModified = this.state.record;
         supplierModified["Specialisation"] = array.join(",");
@@ -214,6 +225,7 @@ export default class EditCommodities extends Component {
   alterQuantity(value, publickey, operation) {
     var brace_index = value.indexOf("(");
     var close_brace = value.indexOf(")");
+    var commodity_price = value.slice(close_brace + 2, close_brace + 3);
     var quant = value.slice(brace_index + 1, close_brace);
     if (operation === "add") {
       quant = parseInt(quant) + parseInt(this.state[value]);
@@ -232,7 +244,14 @@ export default class EditCommodities extends Component {
     }
     let value_index = this.state.specialization.indexOf(value);
     let modified_array = this.state.specialization;
-    let modified_value = value.slice(0, brace_index) + "(" + quant + ")";
+    let modified_value =
+      value.slice(0, brace_index) +
+      "(" +
+      quant +
+      ")" +
+      "(" +
+      commodity_price +
+      ")";
     modified_array[value_index] = modified_value;
     console.log("updated quantity", quant);
 
@@ -277,7 +296,9 @@ export default class EditCommodities extends Component {
             <tr>
               <th>Commodity Name</th>
               <th>Current Quantity (in Kgs)</th>
+              <th>Price (in ETH) </th>
               <th>Change Quantity (in Kgs) </th>
+
               <th>Increase quantity</th>
               <th>Decrease quantity</th>
               <th>Remove Commodity</th>
@@ -297,6 +318,15 @@ export default class EditCommodities extends Component {
                     placeholder="Enter Commodity Name"
                     type="publickey_login"
                     name="commodity_name"
+                    noValidate
+                    onChange={this.handleChange}
+                  />
+
+                  <input
+                    className="input_login"
+                    placeholder="Enter Price per kg in ETH"
+                    type="publickey_login"
+                    name="commodity_price"
                     noValidate
                     onChange={this.handleChange}
                   />

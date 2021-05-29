@@ -9,7 +9,7 @@ import {
   formValid,
 } from "../Web3/web3Component";
 
-class FarmerProfile extends Component {
+class AgroConsultantProfile extends Component {
     async componentWillMount() {
       let account_contract;
       (async function () {
@@ -35,16 +35,16 @@ class FarmerProfile extends Component {
   
       this.state = {
         userName: "",
-        publickey: "",
         address : "",
         contactno :"",
         email : "",
-        document : "",
+        collegename:"",
+        qualification :"",
+        publickey : "",
       };
       
     }
     fetchUserDetails() {
-      console.log(this.props.match.params.publicKey);
       this.state.contract.methods
         .get_signup(this.props.match.params.publickey)
         .call({ from: this.state.account })
@@ -59,11 +59,12 @@ class FarmerProfile extends Component {
             console.log("ipfs result", userData);
             this.setState({
               userName: userData.First_Name + " " + userData.Last_Name,
-              publickey: userData.PublicKey,
               address : userData.Address,
               contactno : userData.ContactNo,
               email : userData.Email,
-              document : userData.Document,
+              collegename : userData.CollegeName,
+              qualification : userData.Qualification,
+              publickey : userData.PublicKey,
 
             });
           });
@@ -78,15 +79,10 @@ class FarmerProfile extends Component {
       return (
         <div class="wrapper_pro">
           <div className="form-wrapper_pro_head">
-          <h1> Farmer Profile Page </h1>
+          <h1> Agro Consultant Profile Page </h1>
           </div>
         <div className="form-wrapper_pro">
-          
-          <div>
-            <h1>Farmer Name : {this.state.userName}</h1>
-          </div>
-          <div>
-            <h1>Pulic Key: {this.state.publickey}</h1>
+            <h1>Agro Consultant Name : {this.state.userName}</h1>
           </div>
           <div>
             <h1>Address : {this.state.address}</h1>
@@ -95,20 +91,23 @@ class FarmerProfile extends Component {
             <h1>Contact Number : {this.state.contactno}</h1>
           </div>
           <div>
-           <h1>Uploaded Documents : <a href = {this.state.document} target = "_blank">Click here</a></h1>
+            <h1> College Name : {this.state.collegename}</h1>
+          </div>
+          <div>
+            <h1>Qualification {this.state.qualification}</h1>
           </div>
           <div>
             <h1>Email Id : {this.state.email}</h1>
           </div>
           <div>
-         <Link to={"/FarmerEditProfile/"+this.state.publickey}> <button class="edit_button_pro">Edit Profile</button></Link>
+         <Link to={"/AgroConsultantEditProfile/"+this.state.publickey}> <button class="edit_button_pro">Edit Profile</button></Link>
           </div>
           
-         </div>
+         
         </div>
       );
     }
   }
   
-  export default FarmerProfile;
+  export default AgroConsultantProfile;
   

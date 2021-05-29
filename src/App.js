@@ -17,7 +17,6 @@ import login from "./components/pages/login/login";
 import main from "./components/pages/main/main";
 import UnverifiedUsers from "./components/pages/main/UnverifiedUsers";
 import FarmerHome from "./components/pages/Farmer/FarmerHome";
-import FarmerProfile from "./components/pages/Farmer/FarmerProfile";
 import ProposeCrops from "./components/pages/Farmer/ProposeCrops";
 import CropsStatus from "./components/pages/Farmer/CropsStatus";
 import ApproveCrops from "./components/pages/Farmer/ApproveCrops";
@@ -31,6 +30,13 @@ import SupplierHome from "./components/pages/Supplier/SupplierHome";
 import EditCommodities from "./components/pages/Supplier/EditCommodities";
 import ManageCommodities from "./components/pages/Supplier/ManageCommodities";
 import BuySupplies from "./components/pages/Farmer/BuySupplies";
+import FarmerProfile from "./components/pages/Farmer/FarmerProfile";
+import AgroConsultantProfile from "./components/pages/AgroConsultant/AgroConsultantProfile";
+import AgroConsultantEditProfile from "./components/pages/AgroConsultant/AgroConsultantEditProfile";
+import SupplierProfile from "./components/pages/Supplier/SupplierProfile";
+import SupplierEditProfile from "./components/pages/Supplier/SupplierEditProfile";
+import FarmerEditProfile from "./components/pages/Farmer/FarmerEditProfile";
+import DistributorHome from "./components/pages/Distributor/DistributorHome";
 
 function App() {
   return (
@@ -51,7 +57,6 @@ function App() {
         <Route path="/main/:name" component={main} />
         <Route path="/UnverifiedUsers" component={UnverifiedUsers} />
         <Route path="/FarmerHome/:publickey" component={FarmerHome} />
-        <Route path="/FarmerProfile" component={FarmerProfile} />
         <Route path="/ProposeCrops/:publickey" component={ProposeCrops} />
         <Route path="/CropsStatus/:publickey" component={CropsStatus} />
         <Route path="/ApproveCrops/:publickey" component={ApproveCrops} />
@@ -66,8 +71,30 @@ function App() {
         <Route path="/SecurityDeposit/:publickey" component={SecurityDeposit} />
         <Route path="/SupplierHome/:publickey" component={SupplierHome} />
         <Route path="/EditCommodities/:publickey" component={EditCommodities} />
-        <Route path="/ManageCommodities/:publickey" component={ManageCommodities} />
+        <Route
+          path="/ManageCommodities/:publickey"
+          component={ManageCommodities}
+        />
         <Route path="/BuySupplies/:publickey" component={BuySupplies} />
+        <Route path="/FarmerProfile/:publickey" component={FarmerProfile} />
+        <Route
+          path="/FarmerEditProfile/:publickey"
+          component={FarmerEditProfile}
+        />
+        <Route
+          path="/AgroConsultantProfile/:publickey"
+          component={AgroConsultantProfile}
+        />
+        <Route
+          path="/AgroConsultantEditProfile/:publickey"
+          component={AgroConsultantEditProfile}
+        />
+        <Route path="/SupplierProfile/:publickey" component={SupplierProfile} />
+        <Route
+          path="/SupplierEditProfile/:publickey"
+          component={SupplierEditProfile}
+        />
+        <Route path="/DistributorHome/:publickey" component={DistributorHome} />
       </Switch>
     </Router>
   );
