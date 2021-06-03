@@ -130,7 +130,6 @@ export default class AcceptOffer extends Component {
             <tr>
               <th>Farmer/ Customer Public Key</th>
               <th>Your key Phrase</th>
-              <th>Crop Id</th>
             </tr>
           </thead>
           <tbody>{this.state.record.map(this.renderTableData)}</tbody>

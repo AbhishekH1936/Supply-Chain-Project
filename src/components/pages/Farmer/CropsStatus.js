@@ -75,8 +75,67 @@ export default class CropsStatus extends Component {
         <td>{record.keyPhrase}</td>
         <td>{record.cropStatus}</td>
         <td> X </td>
+        <td>
+          {record.quantity === undefined ? "No yeild yet" : record.quantity}
+        </td>
+        <td>
+          <button
+            className="btn btn-danger"
+            onClick={() => this.addQuantity(record)}
+          >
+            Quantity
+          </button>
+        </td>
       </tr>
     );
+  }
+
+  addQuantity(crop) {
+    if (crop.cropStatus === "Ready to sell") {
+      if (crop.quantity === undefined) {
+        let quant = parseInt(prompt("Enter the quantity of yeild"));
+        this.state.contract.methods
+          .getCropByCropId(crop.cropId)
+          .call({ from: this.state.account })
+          .then((ipfs_hash) => {
+            ipfs.cat(ipfs_hash, (error, result) => {
+              let cropData = JSON.parse(result.toString());
+              cropData["quantity"] = quant;
+              let CropData = JSON.stringify(cropData);
+              console.log("CropData:  ", CropData);
+
+              let ipfs_cropData = Buffer(CropData);
+              ipfs.add(ipfs_cropData, (error, result) => {
+                if (error) {
+                  console.error(error);
+                  return;
+                } else {
+                  console.log("sending hash to contract");
+                  this.state.contract.methods
+                    .setFarmerCrops(
+                      this.props.match.params.publickey,
+                      result[0].hash,
+                      cropData.cropId,
+                      cropData.agroConsultantId,
+                      cropData.keyPhrase
+                    )
+                    .send({ from: this.state.account }, () => {
+                      alert(
+                        crop.cropId +
+                          " has been updatec with quantity of " +
+                          quant
+                      );
+                    });
+                }
+              });
+            });
+          });
+      } else {
+        alert("quantity already added");
+      }
+    } else {
+      alert("You cant add yeild quantity until you reach 'Ready to sell' state");
+    }
   }
 
   render() {
@@ -93,6 +152,8 @@ export default class CropsStatus extends Component {
               <th>Key phrase</th>
               <th>Crop status</th>
               <th>Current funds</th>
+              <th>Yeild Quantity</th>
+              <th>Update Quantity of yeild</th>
             </tr>
           </thead>
           <tbody>{this.state.crops.map(this.renderTableData)}</tbody>
