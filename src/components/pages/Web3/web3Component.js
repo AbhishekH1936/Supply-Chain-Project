@@ -5,6 +5,7 @@ import Crops from "../../../abis/Crops.json";
 import Ratings from "../../../abis/Ratings.json";
 import SecurityDeposit from "../../../abis/SecurityDeposit.json";
 import UserData from "../../../abis/UserData.json";
+import Transportation from "../../../abis/Transportation.json"
 
 const ipfsClient = require("ipfs-api");
 const ipfs = ipfsClient({
@@ -114,6 +115,21 @@ export async function loadBlockchainData(contract) {
         );
       }
       break;
+
+      case "Transportation":
+        const TransportationNetworkdata = Transportation.networks[networkId];
+        if (TransportationNetworkdata) {
+          const contract = web3.eth.Contract(
+            Transportation.abi,
+            TransportationNetworkdata.address
+          );
+          return [accounts[0], contract];
+        } else {
+          window.alert(
+            "Transportation Smart contract not deployed to detected network."
+          );
+        }
+        break;
 
     default:
       break;

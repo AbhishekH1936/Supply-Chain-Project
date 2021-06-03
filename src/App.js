@@ -37,6 +37,8 @@ import SupplierProfile from "./components/pages/Supplier/SupplierProfile";
 import SupplierEditProfile from "./components/pages/Supplier/SupplierEditProfile";
 import FarmerEditProfile from "./components/pages/Farmer/FarmerEditProfile";
 import DistributorHome from "./components/pages/Distributor/DistributorHome";
+import hireTransporter from "./components/pages/Distributor/hireTransporter";
+import buyGoods from "./components/pages/Distributor/buyGoods";
 
 function App() {
   return (
@@ -95,6 +97,8 @@ function App() {
           component={SupplierEditProfile}
         />
         <Route path="/DistributorHome/:publickey" component={DistributorHome} />
+        <Route path="/hireTransporter/:publickey" component={hireTransporter} />
+        <Route path="/buyGoods/:publickey" component={buyGoods} />
       </Switch>
     </Router>
   );

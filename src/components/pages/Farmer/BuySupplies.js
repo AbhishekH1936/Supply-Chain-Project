@@ -58,8 +58,7 @@ export default class BuySupplies extends Component {
   async rendertable() {
     console.log("in render table");
 
-    this.state.userData_contract.methods
-      .get_usernames
+    this.state.userData_contract.methods.get_usernames
       .call({ from: this.state.account })
       .then((users) => {
         let usernames = [...new Set(users)];
@@ -180,7 +179,9 @@ export default class BuySupplies extends Component {
                   var skey = record.PublicKey.slice(0, y);
 
                   console.log("farmer key  : ", fkey, "   supp key   :", skey);
-                  console.log(price,quantity_entered,
+                  console.log(
+                    price,
+                    quantity_entered,
                     "price*quantity_enterd",
                     price * quantity_entered
                   );
