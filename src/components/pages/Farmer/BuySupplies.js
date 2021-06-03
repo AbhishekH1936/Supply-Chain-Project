@@ -151,7 +151,7 @@ export default class BuySupplies extends Component {
             "" + available_quantity - quantity_entered
           );
           alert(updated_specialization);
-          console.log("upadted record : ", record);
+          console.log("updated record : ", record);
           record["Specialisation"] = updated_specialization;
           console.log("upadted record : ", record);
 

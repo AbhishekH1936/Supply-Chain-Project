@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { ipfs, loadWeb3, loadBlockchainData } from "../Web3/web3Component";
+import * as Utils from "web3-utils";
 
 export default class buyGoods extends Component {
   constructor(props) {
@@ -26,6 +27,7 @@ export default class buyGoods extends Component {
       this.setState({ contract: account_contract[1] });
       this.rendertable();
     });
+    await this.loadBlockchainData();
   }
 
   async rendertable() {
@@ -75,23 +77,76 @@ export default class buyGoods extends Component {
         <td>{record.agroConsultantId}</td>
         <td>{record.cropStatus}</td>
         <td> X </td>
-        <td>{record.quantity === undefined ? "No yeild yet" : record.quantity}</td>
+        <td>
+          {record.quantity === undefined ? "No yeild yet" : record.quantity}
+        </td>
+        <td>{record.price === undefined ? "No yeild yet" : record.price}</td>
         <td>
           <button
             className="btn btn-danger"
-            onClick={() =>
-              this.buyGoods(record.cropId /*,record.kg, record.km*/)
-            }
+            onClick={() => this.buyGoods(record /*,record.kg, record.km*/)}
           >
-            Hire Transporter
+            Buy this crops
           </button>
         </td>
       </tr>
     );
   }
 
-  buyGoods (key) {
-      alert(key)
+  async loadBlockchainData(contract) {
+    const web3 = window.web3;
+    const accounts = await web3.eth.getAccounts();
+    this.setState({ accounts });
+    console.log("contract name", contract);
+  }
+
+  buyGoods(cropData) {
+    let quant = parseInt(prompt("Enter the quantity you want to buy"));
+    var cond = window.confirm(
+      "are you sure u want to buy it for "+
+      (quant * cropData.price) + " ethers"
+    );
+    if (cond === true && cropData.quantity - quant >= 0) {
+      let newCropQuant = cropData.quantity - quant;
+      cropData["quantity"] = newCropQuant;
+      let CropData = JSON.stringify(cropData);
+      console.log("CropData:  ", CropData);
+
+      let ipfs_cropData = Buffer(CropData);
+      ipfs.add(ipfs_cropData, (error, result) => {
+        if (error) {
+          console.error(error);
+          return;
+        } else {
+          console.log("sending hash to contract");
+          this.state.contract.methods
+            .setFarmerCrops(
+              this.props.match.params.publickey,
+              result[0].hash,
+              cropData.cropId,
+              cropData.agroConsultantId,
+              cropData.keyPhrase
+            )
+            .send({ from: this.state.account }, () => {
+              const web3 = window.web3;
+
+              web3.eth.sendTransaction({
+                from: this.state.accounts[0],
+                to: cropData.cropId.slice(0, 42),
+                value: Utils.toWei("" + quant * cropData.price, "ether"),
+              });
+              alert(
+                "You bought " +
+                  cropData.cropId +
+                  " for " +
+                  quant * cropData.price+" ethers"
+              );
+            });
+        }
+      });
+    } else {
+      alert("Your requested quantity is more than, available quantity");
+    }
   }
 
   render() {
@@ -108,6 +163,7 @@ export default class buyGoods extends Component {
               <th>Crop status</th>
               <th>Current funds</th>
               <th>Quanity to sell</th>
+              <th>Price per ton</th>
               <th>Buy Goods</th>
             </tr>
           </thead>

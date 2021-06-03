@@ -79,6 +79,9 @@ export default class CropsStatus extends Component {
           {record.quantity === undefined ? "No yeild yet" : record.quantity}
         </td>
         <td>
+          {record.price === undefined ? "No yeild yet" : record.price}
+        </td>
+        <td>
           <button
             className="btn btn-danger"
             onClick={() => this.addQuantity(record)}
@@ -93,7 +96,8 @@ export default class CropsStatus extends Component {
   addQuantity(crop) {
     if (crop.cropStatus === "Ready to sell") {
       if (crop.quantity === undefined) {
-        let quant = parseInt(prompt("Enter the quantity of yeild"));
+        let quant = parseInt(prompt("Enter the quantity of yeild in tons"));
+        let price = parseInt(prompt("Enter price per ton"))
         this.state.contract.methods
           .getCropByCropId(crop.cropId)
           .call({ from: this.state.account })
@@ -101,6 +105,7 @@ export default class CropsStatus extends Component {
             ipfs.cat(ipfs_hash, (error, result) => {
               let cropData = JSON.parse(result.toString());
               cropData["quantity"] = quant;
+              cropData["price"] = price;
               let CropData = JSON.stringify(cropData);
               console.log("CropData:  ", CropData);
 
@@ -152,7 +157,8 @@ export default class CropsStatus extends Component {
               <th>Key phrase</th>
               <th>Crop status</th>
               <th>Current funds</th>
-              <th>Yeild Quantity</th>
+              <th>Yeild Quantity on tons</th>
+              <th>Price per ton</th>
               <th>Update Quantity of yeild</th>
             </tr>
           </thead>
