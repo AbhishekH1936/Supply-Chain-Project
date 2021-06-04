@@ -142,11 +142,7 @@ export default class SecurityDeposit extends Component {
             <div className="createAccount_SD">
               <button onClick={this.addSecurityDeposit}>Deposit Ethers</button>
             </div>
-            <div className="createAccount_SD1">
-              <button onClick={this.withdrawSecurityDeposit}>
-                Withdraw Ethers
-              </button>
-            </div>
+            
           </form>
         </div>
       </div>

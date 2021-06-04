@@ -8,12 +8,9 @@ import {
   loadBlockchainData,
   formValid,
 } from "../Web3/web3Component";
-import {toast} from 'react-toastify'; 
-import 'react-toastify/dist/ReactToastify.css'; 
-toast.configure()
 
 const emailRegex = RegExp(
-  /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+  /^[a-zA-Z0-9.!#$%&â€™*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 );
 const contactRegex = RegExp(/^\d{10}$/);
 const publickeyRegex = RegExp(/^[0-9A-Za-z]{42}-[a-zA-Z0-9]+$/);
@@ -44,6 +41,12 @@ class Transporter extends Component {
       firstName: null,
       lastName: null,
       email: null,
+      c1pkm:0,
+      c1pkg:0,
+      c2pkm:0,
+      c2pkg:0,
+      km:1,
+      kg:1,
       password: null,
       contactno: null,
       publickey: "",
@@ -57,6 +60,7 @@ class Transporter extends Component {
       image: null,
       progress: 0,
       url: "",
+      Status:"waiting",
       formErrors: {
         firstName: "",
         lastName: "",
@@ -89,6 +93,12 @@ class Transporter extends Component {
               Last_Name: this.state.lastName,
               Address: this.state.address,
               Email: this.state.email,
+              c1pkm: this.state.c1pkm,
+              c1pkg: this.state.c1pkg,
+              c2pkm: this.state.c2pkm,
+              c2pkg: this.state.c2pkg,
+              kg: this.state.kg,
+              km: this.state.km,
               Password: this.state.password,
               ContactNo: this.state.contactno,
               PublicKey: this.state.publickey,
@@ -100,6 +110,7 @@ class Transporter extends Component {
                 (this.state.ch2 === true ? "water" : "") +
                 (this.state.ch3 === true ? "aerial" : ""),
               Document: this.state.url,
+              Status: this.state.Status,
             };
             console.log("Signup info:  ", signup_info);
             let signup_string = JSON.stringify(signup_info);
@@ -118,17 +129,17 @@ class Transporter extends Component {
                   .set_signup(this.state.publickey, result[0].hash)
                   .send({ from: this.state.account }, (res) => {
                     if (res === false) {
-                      toast("Your Account was successfully created");
+                      alert("Your Account was successfully created");
                     }
                   });
               }
             });
           } else {
-            toast("Username Already exits, please choose new one");
+            alert("Username Already exits, please choose new one");
           }
         } else {
           console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
-          toast("Please fill all the fields");
+          alert("Please fill all the fields");
         }
       });
   };
@@ -251,7 +262,7 @@ class Transporter extends Component {
               .then((url) => {
                 this.setUrl(url);
               });
-            toast("Upload Complete");
+            alert("Upload Complete");
           }
         );
       }
@@ -360,31 +371,37 @@ class Transporter extends Component {
             <div className="meansoft">
               <label className="l1"> Means Of Transport </label>
               <div>
+                Cold  
                 <input
-                  className="meansoftransport"
-                  type="checkbox"
-                  name="c1"
-                  value="road"
-                  checked={this.state.ch1}
-                  onChange={this.handleChange}
+                type="number"
+                name="c1pkm"
+                placeholder="price per km"
+                checked={this.state.ch1}
+                onChange={this.handleChange}
                 />
-                Road
                 <input
-                  className="meansoftransport"
-                  type="checkbox"
-                  name="c2"
-                  value="water"
-                  onChange={this.handleChange}
+                type="number"
+                name="c1pkg"
+                placeholder="price per kg"
+                checked={this.state.ch1}
+                onChange={this.handleChange}
                 />
-                Water
+                <br/>
+                Non Cold
                 <input
-                  className="meansoftransport"
-                  type="checkbox"
-                  name="c3"
-                  value="aerial"
-                  onChange={this.handleChange}
+                type="number"
+                name="c2pkm"
+                placeholder="price per km"
+                checked={this.state.ch1}
+                onChange={this.handleChange}
                 />
-                Aerial
+                <input
+                type="number"
+                name="c2pkg"
+                placeholder="price per kg"
+                checked={this.state.ch1}
+                onChange={this.handleChange}
+                />
               </div>
             </div>
 

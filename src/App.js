@@ -41,6 +41,12 @@ import hireTransporter from "./components/pages/Distributor/hireTransporter";
 import buyGoods from "./components/pages/Distributor/buyGoods";
 import ViewExisting from "./components/pages/main/ViewExisting";
 
+import TransporterHome from './components/pages/Transporter/TransporterHome';
+import TransportRequest from './components/pages/Transporter/TransportRequest';
+import InvestorHome from './components/pages/Investor/InvestorHome';
+import UnFundedCrops from './components/pages/Investor/UnFundedCrops';
+import ActiveFunding from './components/pages/Investor/ActiveFunding';
+
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -106,6 +112,11 @@ function App() {
         <Route path="/DistributorHome/:publickey" component={DistributorHome} />
         <Route path="/hireTransporter/:publickey" component={hireTransporter} />
         <Route path="/buyGoods/:publickey" component={buyGoods} />
+        <Route path='/TransporterHome/:publickey' component = {TransporterHome}/>
+        <Route path='/TransportRequest/:publickey' component = {TransportRequest}/>
+        <Route path='/InvestorHome/:publickey' component = {InvestorHome}/>
+        <Route path='/UnFundedCrops/:publickey' component = {UnFundedCrops}/>
+        <Route path='/ActiveFunding/:publickey' component = {ActiveFunding}/>
       </Switch>
     </Router>
   );

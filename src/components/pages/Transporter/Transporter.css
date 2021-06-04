@@ -1,0 +1,219 @@
+
+
+.textColor {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-weight: bolder;
+    font-size: larger;
+    color :rgb(15, 15, 15)
+  }
+  
+  #bg1 {
+    position: fixed;
+    background: url("https://www.pixelstalk.net/wp-content/uploads/images1/Farm-landscape-hd-wallpapers.jpg") no-repeat
+      fixed center;
+    background-size: cover;
+    min-width: 100%;
+    height: 110%;
+  }
+  
+  .nav-links_farmer {
+    color: rgb(10, 10, 10);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+  }
+  
+  .nav-links_farmer:hover {
+    background-color: #2f2f30;
+    background: linear-gradient(to right, red, purple);
+    color :#fff; 
+    border-radius: 100px;
+    transition: all 0.2s ease-out;
+  }
+
+  .nav-menu_farmer {
+    display: grid;
+    grid-template-columns: repeat(6, auto);
+    grid-gap: 10px;
+    list-style: none;
+    text-align: center;
+    width: 70vw;
+    justify-content: end;
+    margin-right: 1rem;
+  }
+  
+  .wrapper_crop {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: url("https://images.unsplash.com/photo-1586771107445-d3ca888129ff?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8YWdyaWN1bHR1cmV8ZW58MHx8MHw%3D&ixlib=rb-1.2.1&w=1000&q=80") no-repeat center fixed;
+    background-size: cover;
+  }
+  
+  .backside_crop {
+    background: linear-gradient(to right, rgb(34, 173, 6), rgb(231, 233, 120));
+    border-radius: 50px;
+    padding: 15px 15px;
+  }
+  
+  .form-wrapper_crop {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    padding : 2%;
+    border-radius: 10px;
+    box-shadow: 0px 10px 50px rgb(150, 148, 148);
+    background:linear-gradient(to right, rgb(120, 247, 94), rgb(248, 245, 248));
+    opacity: 10px;
+  }
+  
+  .form_crop {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  h6 {
+      text-align: center;
+      color:rgb(15, 15, 15);
+  }
+  
+  .h1_crop {
+    text-align: center;
+    width: 100%;
+    color: rgb(14, 13, 13);
+    font-weight: lighter;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+    font-size: 1.5em;
+  }
+  
+  span,p {
+    font-family: "sans-serif";
+    font-size: 1em;
+    margin-bottom: 0.25em;
+    color: rgb(243, 225, 225);
+    margin-right: 30px;
+  }
+  
+  input {
+    margin-top : 6px;
+  }
+  
+  .label_crop {
+    font-size: 1em;
+    margin-bottom: 0.4em;
+    color: rgb(12, 12, 12);
+    font-weight: lighter;
+    width : 100%;
+  }
+  .label_1 {
+    font-size: 0.5em;
+    margin-bottom: 0.4em;
+    color: rgb(12, 12, 12);
+    
+    width : 100%;
+  }
+  
+  .input_crop {
+    padding: 10px 10px;
+    border-radius: 5px;
+    outline: none;
+    border: 1px solid #050505;
+    background: linear-gradient(to right, rgb(34, 173, 6), rgb(231, 233, 120));
+    color: rgb(10, 10, 10);
+    width : 100%;
+  }
+  
+  input::placeholder {
+    font-size: 1.1em;
+    font-weight: lighter;
+    color: rgb(15, 15, 15);
+  }
+  
+  input.error {
+    border: 1px solid red;
+  }
+  
+  .errorMessage_cropId,
+  .errorMessage_cropType,
+  .errorMessage_cropVariant,
+  .errorMessage_maxRequired,
+  .errorMessage_agroConsultantId {
+    color: red;
+    font-size: 0.25em;
+    display: relative;
+  }
+  
+  .cropId,
+  .cropType,
+  .cropVariant,
+  .cropDuration,
+  .maxRequired,
+  .agroConsultantId {
+    margin-bottom: 15px;
+    width: 80%;
+  }
+  
+  .createAccount_crop {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .createAccount_crop button {
+    background-color: #045c04;
+    color: #fff;
+    border: 2px solid #fff;
+    width: 100%;
+    margin-top: 1em;
+    padding: 8px 0px;
+    font-size: 1em;
+    font-weight: lighter;
+    letter-spacing: 1px;
+    margin-bottom: 0.25em;
+    border-radius: 10px;
+  }
+  
+  .createAccount_crop button:hover {
+    color: #519e8a;
+    background-color: #fff;
+    border: 2px solid #519e8a;
+  }
+  
+  .createAccount_crop small {
+    color: #999;
+    font-weight: lighter;
+  }
+
+  #customers {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #customers tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #customers tr:hover {background-color: #ddd;}
+  
+  #customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .aabb{
+    padding: 70px;
+  }
+  
+
