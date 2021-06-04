@@ -8,6 +8,9 @@ import {
   loadBlockchainData,
   formValid,
 } from "../Web3/web3Component";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -114,17 +117,17 @@ class Distributor extends Component {
                   .set_signup(this.state.publickey, result[0].hash)
                   .send({ from: this.state.account }, (res) => {
                     if (res === false) {
-                      alert("Your Account was successfully created");
+                      toast("Your Account was successfully created");
                     }
                   });
               }
             });
           } else {
-            alert("Username Already exits, please choose new one");
+            toast("Username Already exits, please choose new one");
           }
         } else {
           console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
-          alert("Please fill all the fields");
+          toast("Please fill all the fields");
         }
       });
   };
@@ -239,7 +242,7 @@ class Distributor extends Component {
               .then((url) => {
                 this.setUrl(url);
               });
-            alert("Upload Complete");
+            toast("Upload Complete");
           }
         );
       }

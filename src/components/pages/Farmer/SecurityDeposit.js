@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import "./Farmer.css";
 import * as Utils from "web3-utils";
 import { loadWeb3, loadBlockchainData } from "../Web3/web3Component";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
 
 const amountRegex = RegExp(/^[0-9]+$/);
 
@@ -92,7 +95,7 @@ export default class SecurityDeposit extends Component {
       );
     } else {
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
-      alert("Please fill all the fields");
+      toast("Please fill all the fields");
     }
   }
 

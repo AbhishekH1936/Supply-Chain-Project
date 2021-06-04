@@ -6,6 +6,10 @@ import {
   formValid,
 } from "../Web3/web3Component";
 
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
+
 export default class RateFarmer extends Component {
   async componentWillMount() {
     let account_contract_ratings;
@@ -56,7 +60,7 @@ export default class RateFarmer extends Component {
     let len;
 
     if (this.state.cropid === null || this.state.farmerid === null) {
-      alert("Please fill all the fields");
+      toast("Please fill all the fields");
       return;
     }
 
@@ -69,7 +73,7 @@ export default class RateFarmer extends Component {
         len = hashes.length;
         console.log("length :", len);
         if (len !== 3) {
-          alert("Please finish ratings for all the stages for this crop");
+          toast("Please finish ratings for all the stages for this crop");
           return;
         }
 
@@ -80,7 +84,7 @@ export default class RateFarmer extends Component {
           this.state.question4 === "0" ||
           this.state.question5 === "0"
         ) {
-          alert("Please answer all the questions");
+          toast("Please answer all the questions");
           return;
         }
 
@@ -106,7 +110,7 @@ export default class RateFarmer extends Component {
               console.log("cropValid :", cropValid);
             });
             if (cropValid === false) {
-              alert(
+              toast(
                 "Something is wrong with your Farmer Id or Crop Id, Please Check!"
               );
             } else {
@@ -138,20 +142,20 @@ export default class RateFarmer extends Component {
                       .setFarmerRatings(this.state.cropid, result[0].hash)
                       .send({ from: this.state.account }, (res) => {
                         if (res === false) {
-                          alert(
+                          toast(
                             "Rating for the farmer with Farmer Id " +
                               this.state.farmerid +
                               " and crop with Crop Id " +
                               this.state.cropid +
                               " is submitted"
-                          );
+                              ,{position: toast.POSITION.TOP_CENTER, className:"toast"});
                         }
                       });
                   }
                 });
               } else {
                 console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
-                alert("Please fill all the fields");
+                toast("Please fill all the fields");
               }
             }
           });

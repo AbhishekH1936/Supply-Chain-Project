@@ -7,6 +7,9 @@ import status from "../media/status.jpg";
 import stopfunding from "../media/stopfunding.jpg";
 import food_grains from "../media/food-grains.jpg";
 import { Link } from "react-router-dom";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
 
 export default class FarmerHome extends Component {
   constructor(props) {
@@ -42,7 +45,7 @@ export default class FarmerHome extends Component {
         console.log("hash from solidity", ipfs_hash);
         ipfs.cat(ipfs_hash, (error, result) => {
           if (result === undefined) {
-            alert("There is an issue with your credentials");
+            toast("There is an issue with your credentials");
             return;
           }
           let userData = JSON.parse(result.toString());

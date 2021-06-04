@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import "./Farmer.css";
 import * as Utils from "web3-utils";
 import { ipfs, loadWeb3, loadBlockchainData } from "../Web3/web3Component";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
 
 export default class BookConsultant extends Component {
   constructor(props) {
@@ -135,16 +138,16 @@ export default class BookConsultant extends Component {
             value: Utils.toWei("0.015", "ether"),
           },
           () => {
-            alert(
+            toast(
               "Your consultant " +
                 agroPublicKey +
                 "is booked and your keyPhrase is " +
-                farmerKey
+                farmerKey,{position: toast.POSITION.TOP_CENTER, className:"toast"}
             );
           }
         );
     } else {
-      alert("try other consultants");
+      toast("try other consultants");
     }
   }
 

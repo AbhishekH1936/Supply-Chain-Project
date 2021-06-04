@@ -8,6 +8,9 @@ import {
 } from "../Web3/web3Component";
 import * as Utils from "web3-utils";
     
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
 
 export default class RateCrops extends Component {
   async componentWillMount() {
@@ -68,7 +71,7 @@ export default class RateCrops extends Component {
     e.preventDefault();
     let len;
     if (this.state.cropid === null) {
-      alert("Please fill all the fields");
+      toast("Please fill all the fields");
       return;
     }
 
@@ -82,27 +85,27 @@ export default class RateCrops extends Component {
         console.log("length :", len);
         if (len === 0) {
           if (this.state.stage !== "Pre-Harvest") {
-            alert(
+            toast(
               "You have not submitted ratings for Pre-Harvest Stage, Please submit rating for Pre-Harvest Stage"
-            );
+              ,{position: toast.POSITION.TOP_CENTER, className:"toast"});
             return;
           }
         } else if (len === 1) {
           if (this.state.stage !== "Harvest") {
-            alert(
+            toast(
               "You have already submitted ratings for Pre-Harvest Stage, Please submit rating for Harvest Stage"
-            );
+              ,{position: toast.POSITION.TOP_CENTER, className:"toast"});
             return;
           }
         } else if (len === 2) {
           if (this.state.stage !== "Post-Harvest") {
-            alert(
+            toast(
               "You have already submitted ratings for Harvest Stage, Please submit rating for Post-Harvest Stage"
-            );
+              ,{position: toast.POSITION.TOP_CENTER, className:"toast"});
             return;
           }
         } else if (len > 2) {
-          alert("You have submitted ratings for all Stages");
+          toast("You have submitted ratings for all Stages",{position: toast.POSITION.TOP_CENTER, className:"toast"});
           return;
         }
 
@@ -113,7 +116,7 @@ export default class RateCrops extends Component {
           this.state.question4 === "0" ||
           this.state.question5 === "0"
         ) {
-          alert("Please answer all the questions");
+          toast("Please answer all the questions");
           return;
         }
 
@@ -131,11 +134,11 @@ export default class RateCrops extends Component {
               }
             });
             if (cropValid === false) {
-              alert(
+              toast(
                 "CropId " +
                   this.state.cropid +
                   " is not under your consultation"
-              );
+                  ,{position: toast.POSITION.TOP_CENTER, className:"toast"});
             } else {
               console.log(`--SUBMITTING-- : `);
 
@@ -211,20 +214,20 @@ export default class RateCrops extends Component {
                       .setCropRatings(this.state.cropid, result[0].hash)
                       .send({ from: this.state.account }, (res) => {
                         if (res === false) {
-                          alert(
+                          toast(
                             "Crop Rating for " +
                               this.state.cropid +
                               " and stage " +
                               this.state.stage +
                               " is submitted"
-                          );
+                              ,{position: toast.POSITION.TOP_CENTER, className:"toast"});
                         }
                       });
                   }
                 });
               } else {
                 console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
-                alert("Please fill all the fields");
+                toast("Please fill all the fields");
               }
             }
           });

@@ -8,6 +8,9 @@ import {
   loadBlockchainData,
   formValid,
 } from "../Web3/web3Component";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
 
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
@@ -110,7 +113,7 @@ class FarmerEditProfile extends Component {
                   .send({ from: this.state.account }, (res) => {
                     console.log("res :",res);
                     if (res === false) {
-                      alert("Your Profile is Updated");
+                      toast("Your Profile is Updated");
                     }
                   });
               }
@@ -207,7 +210,7 @@ class FarmerEditProfile extends Component {
               .then((url) => {
                 this.setUrl(url);
               });
-            alert("Upload Complete");
+            toast("Upload Complete");
           }
         );
       }
@@ -222,7 +225,7 @@ class FarmerEditProfile extends Component {
         console.log("hash from solidity", ipfs_hash);
         ipfs.cat(ipfs_hash, (error, result) => {
           if (result === undefined) {
-            alert("There is an issue with your credentials");
+            toast("There is an issue with your credentials");
             return;
           }
           let userData = JSON.parse(result.toString());

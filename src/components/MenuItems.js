@@ -20,11 +20,6 @@ export const MenuItems = [
     cName: "dropdown-link",
   },
   {
-    title: "Storage",
-    path: "/storage",
-    cName: "dropdown-link",
-  },
-  {
     title: "Supplier",
     path: "/supplier",
     cName: "dropdown-link",
@@ -33,10 +28,5 @@ export const MenuItems = [
     title: "Transporter",
     path: "/transporter",
     cName: "dropdown-link",
-  },
-  {
-    title: "Retailer",
-    path: "/retailer",
-    cName: "dropdown-link",
-  },
+  }
 ];

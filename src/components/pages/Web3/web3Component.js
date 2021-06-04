@@ -6,6 +6,9 @@ import Ratings from "../../../abis/Ratings.json";
 import SecurityDeposit from "../../../abis/SecurityDeposit.json";
 import UserData from "../../../abis/UserData.json";
 import Transportation from "../../../abis/Transportation.json"
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
 
 const ipfsClient = require("ipfs-api");
 const ipfs = ipfsClient({
@@ -22,7 +25,7 @@ export async function loadWeb3() {
   } else if (window.web3) {
     window.web3 = new Web3(window.web3.currentProvider);
   } else {
-    window.alert(
+    window.toast(
       "Non-Ethereum browser detected. You should consider trying MetaMask!"
     );
   }
@@ -41,7 +44,7 @@ export async function loadBlockchainData(contract) {
         const contract = web3.eth.Contract(Scm.abi, scmNetworkData.address);
         return [accounts[0], contract];
       } else {
-        window.alert("SCM Smart contract not deployed to detected network.");
+        window.toast("SCM Smart contract not deployed to detected network.");
       }
       break;
 
@@ -54,7 +57,7 @@ export async function loadBlockchainData(contract) {
         );
         return [accounts[0], contract];
       } else {
-        window.alert(
+        window.toast(
           "UserData Smart contract not deployed to detected network."
         );
       }
@@ -70,7 +73,7 @@ export async function loadBlockchainData(contract) {
         );
         return [accounts[0], contract];
       } else {
-        window.alert(
+        window.toast(
           "ConsultationContract Smart contract not deployed to detected network."
         );
       }
@@ -82,7 +85,7 @@ export async function loadBlockchainData(contract) {
         const contract = web3.eth.Contract(Crops.abi, CropsNetworkdata.address);
         return [accounts[0], contract];
       } else {
-        window.alert("Crops Smart contract not deployed to detected network.");
+        window.toast("Crops Smart contract not deployed to detected network.");
       }
       break;
 
@@ -95,7 +98,7 @@ export async function loadBlockchainData(contract) {
         );
         return [accounts[0], contract];
       } else {
-        window.alert(
+        window.toast(
           "Ratings Smart contract not deployed to detected network."
         );
       }
@@ -110,7 +113,7 @@ export async function loadBlockchainData(contract) {
         );
         return [accounts[0], contract];
       } else {
-        window.alert(
+        window.toast(
           "SecurityDeposit Smart contract not deployed to detected network."
         );
       }
@@ -125,7 +128,7 @@ export async function loadBlockchainData(contract) {
           );
           return [accounts[0], contract];
         } else {
-          window.alert(
+          window.toast(
             "Transportation Smart contract not deployed to detected network."
           );
         }

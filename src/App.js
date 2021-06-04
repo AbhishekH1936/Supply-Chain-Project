@@ -39,6 +39,12 @@ import FarmerEditProfile from "./components/pages/Farmer/FarmerEditProfile";
 import DistributorHome from "./components/pages/Distributor/DistributorHome";
 import hireTransporter from "./components/pages/Distributor/hireTransporter";
 import buyGoods from "./components/pages/Distributor/buyGoods";
+import ViewExisting from "./components/pages/main/ViewExisting";
+
+import {toast} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+toast.configure()
 
 function App() {
   return (
@@ -57,6 +63,7 @@ function App() {
         <Route path="/agro-consultant" component={AgroConsultant} />
         <Route path="/login" component={login} />
         <Route path="/main/:name" component={main} />
+        <Route path="/ViewExisting" component={ViewExisting} />
         <Route path="/UnverifiedUsers" component={UnverifiedUsers} />
         <Route path="/FarmerHome/:publickey" component={FarmerHome} />
         <Route path="/ProposeCrops/:publickey" component={ProposeCrops} />

@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { ipfs, loadWeb3, loadBlockchainData } from "../Web3/web3Component";
 import * as Utils from "web3-utils";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
 
 export default class buyGoods extends Component {
   constructor(props) {
@@ -135,17 +138,17 @@ export default class buyGoods extends Component {
                 to: cropData.cropId.slice(0, 42),
                 value: Utils.toWei("" + quant * cropData.price, "ether"),
               });
-              alert(
+              toast(
                 "You bought " +
                   cropData.cropId +
                   " for " +
-                  quant * cropData.price+" ethers"
+                  quant * cropData.price+" ethers",{position: toast.POSITION.TOP_CENTER, className:"toast"}
               );
             });
         }
       });
     } else {
-      alert("Your requested quantity is more than, available quantity");
+      toast("Your requested quantity is more than, available quantity");
     }
   }
 

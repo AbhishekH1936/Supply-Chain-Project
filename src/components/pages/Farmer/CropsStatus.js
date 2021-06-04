@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import "./Farmer.css";
+import QRCode from "react-qr-code";
 import { ipfs, loadWeb3, loadBlockchainData } from "../Web3/web3Component";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
 
 export default class CropsStatus extends Component {
   constructor(props) {
@@ -8,6 +12,7 @@ export default class CropsStatus extends Component {
 
     this.state = {
       crops: [],
+     
     };
 
     this.rendertable = this.rendertable.bind(this);
@@ -62,12 +67,21 @@ export default class CropsStatus extends Component {
       });
   }
 
+
   renderTableData(record, index) {
     console.log("in render table data");
     let firstHyphen = record.cropId.indexOf("-", 44);
 
     return (
       <tr className="active-row" key={record.cropId}>
+        <td>
+        <QRCode
+            ref={this.myRef}
+            level="Q"
+            style={{ width: 128 }}
+            value={JSON.stringify(record)}
+          />
+        </td>
         <td>{record.cropId.slice(firstHyphen + 1)}</td>
         <td>{record.cropType}</td>
         <td>{record.cropVariant}</td>
@@ -78,9 +92,7 @@ export default class CropsStatus extends Component {
         <td>
           {record.quantity === undefined ? "No yeild yet" : record.quantity}
         </td>
-        <td>
-          {record.price === undefined ? "No yeild yet" : record.price}
-        </td>
+        <td>{record.price === undefined ? "No yeild yet" : record.price}</td>
         <td>
           <button
             className="btn btn-danger"
@@ -97,7 +109,7 @@ export default class CropsStatus extends Component {
     if (crop.cropStatus === "Ready to sell") {
       if (crop.quantity === undefined) {
         let quant = parseInt(prompt("Enter the quantity of yeild in tons"));
-        let price = parseInt(prompt("Enter price per ton"))
+        let price = parseInt(prompt("Enter price per ton"));
         this.state.contract.methods
           .getCropByCropId(crop.cropId)
           .call({ from: this.state.account })
@@ -125,10 +137,10 @@ export default class CropsStatus extends Component {
                       cropData.keyPhrase
                     )
                     .send({ from: this.state.account }, () => {
-                      alert(
+                      toast(
                         crop.cropId +
                           " has been updatec with quantity of " +
-                          quant
+                          quant,{position: toast.POSITION.TOP_CENTER, className:"toast"}
                       );
                     });
                 }
@@ -136,10 +148,12 @@ export default class CropsStatus extends Component {
             });
           });
       } else {
-        alert("quantity already added");
+        toast("quantity already added");
       }
     } else {
-      alert("You cant add yeild quantity until you reach 'Ready to sell' state");
+      toast(
+        "You cant add yeild quantity until you reach 'Ready to sell' state"
+      );
     }
   }
 
@@ -150,6 +164,7 @@ export default class CropsStatus extends Component {
         <table className="styled-table-crop">
           <thead>
             <tr>
+              <th>Qr Code</th>
               <th>Crop Id</th>
               <th>Crop Variant</th>
               <th>Crop Type</th>

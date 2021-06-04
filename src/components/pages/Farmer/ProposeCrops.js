@@ -6,6 +6,9 @@ import {
   loadBlockchainData,
   formValid,
 } from "../Web3/web3Component";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
 
 const publickeyRegex = RegExp(/^[0-9A-Za-z]{42}-[a-zA-Z0-9]+$/);
 const cropIdRegex = RegExp(/^[a-zA-Z0-9]{6}$/);
@@ -163,7 +166,7 @@ export default class ProposeCrops extends Component {
                 console.log("Ipfs result", result);
                 if (error) {
                   console.error(error);
-                  alert(
+                  toast(
                     "contact administrator, IPFS is down, Error message : ",
                     error
                   );
@@ -181,22 +184,22 @@ export default class ProposeCrops extends Component {
                       this.state.keyPhrase
                     )
                     .send({ from: this.state.account }, () => {
-                      alert("Crop inserted. crop Id :  " + this.state.cropId);
+                      toast("Crop inserted. crop Id :  " + this.state.cropId,{position: toast.POSITION.TOP_CENTER, className:"toast"});
                     });
                 }
               });
             } else {
-              alert(
-                "Your consultant credentials are wrong or may already be used for other crop. Please cross verify"
+              toast(
+                "Your consultant credentials are wrong or may already be used for other crop. Please cross verify",{position: toast.POSITION.TOP_CENTER, className:"toast"}
               );
             }
           } else {
-            alert("This crop Id is not available for usage, Try another one.");
+            toast("This crop Id is not available for usage, Try another one.",{position: toast.POSITION.TOP_CENTER, className:"toast"});
             return;
           }
         } else {
           console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
-          alert("Please fill all the fields");
+          toast("Please fill all the fields");
         }
       });
   };

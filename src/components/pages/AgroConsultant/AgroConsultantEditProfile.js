@@ -1,5 +1,9 @@
-import React, { Component, useRef } from "react";
-import { Link } from "react-router-dom";
+import React, { Component} from "react";
+
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+
+
 //import "./style.css";
 import { storage } from "../../Firebase";
 import {
@@ -8,7 +12,7 @@ import {
   loadBlockchainData,
   formValid,
 } from "../Web3/web3Component";
-
+toast.configure();
 const emailRegex = RegExp(
   /^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
 );
@@ -114,7 +118,7 @@ class AgroConsultantEditProfile extends Component {
                   .send({ from: this.state.account }, (res) => {
                     console.log("res :",res);
                     if (res === false) {
-                      alert("Your Profile is Updated");
+                      toast("Your Profile is Updated",{position: toast.POSITION.TOP_CENTER, className:"toast"});
                     }
                   });
               }
@@ -221,7 +225,7 @@ class AgroConsultantEditProfile extends Component {
               .then((url) => {
                 this.setUrl(url);
               });
-            alert("Upload Complete");
+            toast("Upload Complete");
           }
         );
       }
@@ -236,7 +240,7 @@ class AgroConsultantEditProfile extends Component {
         console.log("hash from solidity", ipfs_hash);
         ipfs.cat(ipfs_hash, (error, result) => {
           if (result === undefined) {
-            alert("There is an issue with your credentials");
+            toast("There is an issue with your credentials");
             return;
           }
           let userData = JSON.parse(result.toString());

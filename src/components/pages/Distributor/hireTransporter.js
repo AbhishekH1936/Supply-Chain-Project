@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import * as Utils from "web3-utils";
 import { ipfs, loadWeb3, loadBlockchainData } from "../Web3/web3Component";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
 
 export default class hireTransporter extends Component {
   constructor(props) {
@@ -147,18 +150,18 @@ export default class hireTransporter extends Component {
                     to: recPublicKey,
                     value: Utils.toWei("" + enteredKm*km + enteredKg*kg, "ether"),
                   });
-                  alert(
+                  toast(
                     "Your have hired" +
                       transPublicKey +
                       "for transportation for" +
-                      km * kg
+                      km * kg,{position: toast.POSITION.TOP_CENTER, className:"toast"}
                   );
                 }
               );
           }
         );
     } else {
-      alert("try again later, intenal error");
+      toast("try again later, intenal error");
     }
   }
 

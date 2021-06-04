@@ -3,6 +3,10 @@ import { Link } from "react-router-dom";
 import "./login.css";
 import { ipfs, loadWeb3, loadBlockchainData } from "../Web3/web3Component";
 
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
+
 const publickeyRegex = RegExp(/^[0-9A-Za-z]{42}-[a-zA-Z0-9]+$/);
 
 const passRegex = RegExp(
@@ -58,7 +62,7 @@ export default class login extends Component {
       " ",
       this.state.account
     );
-    //if(this.state.account === this.state.publickey.slice(0,42))
+
     if (formValid(this.state)) {
       console.log("sdcsc");
 
@@ -70,81 +74,86 @@ export default class login extends Component {
             if (valid) {
               this.props.history.push(`/main/${this.state.publickey}`);
             } else {
-              alert("You are not authorized");
+              toast("You are not authorized");
             }
           });
       } else {
-        this.state.contract.methods.get_usernames
-          .call({ from: this.state.account })
-          .then((r) => {
-            console.log("User  :", r, "length", r.length);
-          });
+        if (this.state.account === this.state.publickey.slice(0, 42)) {
+          this.state.contract.methods.get_usernames
+            .call({ from: this.state.account })
+            .then((r) => {
+              console.log("User  :", r, "length", r.length);
+            });
 
-        console.log("public key", this.state.publickey);
+          console.log("public key", this.state.publickey);
 
-        this.state.contract.methods
-          .match_usernames(this.state.publickey)
-          .call({ from: this.state.account })
-          .then((r) => {
-            console.log("username match :", r);
+          this.state.contract.methods
+            .match_usernames(this.state.publickey)
+            .call({ from: this.state.account })
+            .then((r) => {
+              console.log("username match :", r);
 
-            if (r) {
-              // fetch record from ipfs and compare password and role
-              this.state.contract.methods
-                .get_signup(this.state.publickey)
-                .call({ from: this.state.account })
-                .then((ipfs_hash) => {
-                  console.log("hash from solidity", ipfs_hash);
-                  ipfs.cat(ipfs_hash, (error, result) => {
-                    if (result === undefined) {
-                      alert("There is an issue with your credentials");
-                      return;
-                    }
-                    let userData = JSON.parse(result.toString());
-                    console.log("ipfs result", userData);
-                    if (
-                      this.state.publickey === userData["PublicKey"] &&
-                      this.state.password === userData["Password"]
-                      // this.state.role === userData["Role"]
-                    ) {
-                      if (userData["Verified"] === "not verified") {
-                        alert(
-                          "Your credentials are right, but you are still not verified"
-                        );
-                      } else {
-                        if (this.state.role === "Farmer") {
-                          this.props.history.push(
-                            `/FarmerHome/${this.state.publickey}`
-                          );
-                        } else if (this.state.role === "Agro Consultant") {
-                          this.props.history.push(
-                            `/AgroConsultantHome/${this.state.publickey}`
-                          );
-                        } else if (this.state.role === "Supplier") {
-                          this.props.history.push(
-                            `/SupplierHome/${this.state.publickey}`
-                          );
-                        } else if (this.state.role === "Distributor") {
-                          this.props.history.push(
-                            `/DistributorHome/${this.state.publickey}`
-                          );
-                        }
+              if (r) {
+                // fetch record from ipfs and compare password and role
+                this.state.contract.methods
+                  .get_signup(this.state.publickey)
+                  .call({ from: this.state.account })
+                  .then((ipfs_hash) => {
+                    console.log("hash from solidity", ipfs_hash);
+                    ipfs.cat(ipfs_hash, (error, result) => {
+                      if (result === undefined) {
+                        toast("There is an issue with your credentials");
+                        return;
                       }
-                    } else {
-                      alert(
-                        "Credentials submitted do not match to any legit record"
-                      );
-                    }
+                      let userData = JSON.parse(result.toString());
+                      console.log("ipfs result", userData);
+                      if (
+                        this.state.publickey === userData["PublicKey"] &&
+                        this.state.password === userData["Password"] &&
+                        userData["Verified"] === "Verified"
+                        // this.state.role === userData["Role"]
+                      ) {
+                        if (userData["Verified"] === "not verified") {
+                          toast(
+                            "Your credentials are right, but you are still not verified"
+                          );
+                        } else {
+                          if (this.state.role === "Farmer") {
+                            this.props.history.push(
+                              `/FarmerHome/${this.state.publickey}`
+                            );
+                          } else if (this.state.role === "Agro Consultant") {
+                            this.props.history.push(
+                              `/AgroConsultantHome/${this.state.publickey}`
+                            );
+                          } else if (this.state.role === "Supplier") {
+                            this.props.history.push(
+                              `/SupplierHome/${this.state.publickey}`
+                            );
+                          } else if (this.state.role === "Distributor") {
+                            this.props.history.push(
+                              `/DistributorHome/${this.state.publickey}`
+                            );
+                          }
+                        }
+                      } else {
+                        toast(
+                          "Credentials submitted do not match to any legit record"
+                        );
+                      }
+                    });
                   });
-                });
-            } else {
-              alert(`${this.state.publickey} doesn't have an account`);
-            }
-          });
+              } else {
+                toast(`${this.state.publickey} doesn't have an account`);
+              }
+            });
+        } else {
+          toast("Ethereum active account doen't match your username");
+        }
       }
     } else {
       console.error("FORM INVALID - DISPLAY ERROR MESSAGE");
-      alert("Please fill all the fields");
+      toast("Please fill all the fields");
     }
   };
 
@@ -191,9 +200,7 @@ export default class login extends Component {
       "Agro Consultant",
       "Supplier",
       "Distributor",
-      "Storage",
       "Transporter",
-      "retailer",
       "Investor",
       "Governing Authority",
     ];

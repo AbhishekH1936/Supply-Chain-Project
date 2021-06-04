@@ -26,6 +26,13 @@ function MainNavbar(props) {
             >
               Verify New Applications
             </Link>
+            <Link
+              to="/ViewExisting"
+              className="nav-links_admin"
+              onClick={closeMobileMenu}
+            >
+              View Existing Users
+            </Link>
             <Link to="/" className="nav-links_admin" onClick={closeMobileMenu}>
               logout
             </Link>

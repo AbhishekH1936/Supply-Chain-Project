@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "./main.css";
 import { ipfs, loadWeb3, loadBlockchainData } from "../Web3/web3Component";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
 
 export default class UnverifiedUsers extends Component {
   constructor(props) {
@@ -38,6 +41,7 @@ export default class UnverifiedUsers extends Component {
     this.state.contract.methods.get_usernames
       .call({ from: this.state.account })
       .then((usernames) => {
+        
         console.log("User  :", usernames);
         // eslint-disable-next-line array-callback-return
         usernames.map((username) => {
@@ -125,17 +129,17 @@ export default class UnverifiedUsers extends Component {
           this.state.contract.methods
             .set_signup(userData.PublicKey, result[0].hash)
             .send({ from: this.state.account }, () => {
-              alert(
+              toast(
                 userData.First_Name +
                   " " +
                   userData.Last_Name +
-                  " is now a legit user"
+                  " is now a legit user",{position: toast.POSITION.TOP_CENTER, className:"toast"}
               );
             });
         }
       });
     } else {
-      alert("User not verified ....! Try again");
+      toast("User not verified ....! Try again");
     }
   }
 

@@ -2,6 +2,9 @@ import Web3 from "web3";
 import React, { Component } from "react";
 import * as Utils from "web3-utils";
 import { ipfs, loadWeb3, loadBlockchainData } from "../Web3/web3Component";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
 
 export default class BuySupplies extends Component {
   constructor(props) {
@@ -40,10 +43,10 @@ export default class BuySupplies extends Component {
       window.web3 = new Web3(window.ethereum);
       await window.ethereum.enable();
     } else if (window.web3) {
-      alert("provider");
+      toast("provider");
       window.web3 = new Web3(window.web3.currentProvider);
     } else {
-      window.alert(
+      window.toast(
         "Non-Ethereum browser detected. You should consider trying MetaMask!"
       );
     }
@@ -150,7 +153,7 @@ export default class BuySupplies extends Component {
             "" + available_quantity,
             "" + available_quantity - quantity_entered
           );
-          alert(updated_specialization);
+          toast(updated_specialization);
           console.log("updated record : ", record);
           record["Specialisation"] = updated_specialization;
           console.log("upadted record : ", record);
@@ -198,7 +201,7 @@ export default class BuySupplies extends Component {
             }
           });
         } else {
-          alert("Please enter the value less than or equal to avilable value");
+          toast("Please enter the value less than or equal to avilable value");
         }
       }
     });

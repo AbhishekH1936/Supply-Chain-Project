@@ -1,0 +1,39 @@
+ol {
+    list-style: none;
+    counter-reset: steps;
+    font-size: 20pt;
+    margin-top: 2%;
+    margin-bottom: 2%;
+  }
+
+  ol li {
+    counter-increment: steps;
+  }
+  ol li::before {
+    content: counter(steps);
+    margin-right: 0.5rem;
+    background: #ff6f00;
+    color: white;
+    width: 1.2em;
+    height: 1.2em;
+    border-radius: 50%;
+    display: inline-grid;
+    place-items: center;
+    line-height: 1.2em;
+  }
+  ol ol li::before {
+    background: darkorchid;
+  }
+  .step {
+      margin-left: 50px;
+      font-size: 16pt;
+  }
+
+  .step2 {
+    margin-left: 100px;
+    font-size: 13pt;
+  }
+
+  .textHeading {
+      margin-top: 0;
+  }

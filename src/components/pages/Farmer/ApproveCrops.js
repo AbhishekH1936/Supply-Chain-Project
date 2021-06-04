@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "./Farmer.css";
 import { ipfs, loadWeb3, loadBlockchainData } from "../Web3/web3Component";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
 
 export default class ApproveCrops extends Component {
   constructor(props) {
@@ -120,12 +123,12 @@ export default class ApproveCrops extends Component {
               cropData.keyPhrase
             )
             .send({ from: this.state.account }, () => {
-              alert(cropData.cropId + " will not receive any funds here after");
+              toast(cropData.cropId + " will not receive any funds here after",{position: toast.POSITION.TOP_CENTER, className:"toast"});
             });
         }
       });
     } else {
-      alert("Try another crop ....!");
+      toast("Try another crop ....!");
     }
   }
 

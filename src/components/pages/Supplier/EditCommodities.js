@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "./Supplier.css";
 import { ipfs, loadWeb3, loadBlockchainData } from "../Web3/web3Component";
+import {toast} from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
+toast.configure()
 
 export default class EditCommodities extends Component {
   constructor(props) {
@@ -145,7 +148,7 @@ export default class EditCommodities extends Component {
       console.log(`--ADDING COMMODITY-- : `);
       var array = this.state.specialization;
       if (array.includes(this.state.commodity_name)) {
-        alert(this.state.commodity_name + " already exists");
+        toast(this.state.commodity_name + " already exists");
       } else {
         array.push(
           this.state.commodity_name +
@@ -175,14 +178,14 @@ export default class EditCommodities extends Component {
               .set_signup(this.props.match.params.publickey, result[0].hash)
               .send({ from: this.state.account }, (res) => {
                 if (res === false) {
-                  alert(this.state.commodity_name + " added to commodity list");
+                  toast(this.state.commodity_name + " added to commodity list");
                 }
               });
           }
         });
       }
     } else {
-      alert("Please enter proper/valid commodity name");
+      toast("Please enter proper/valid commodity name");
     }
   }
 
@@ -214,7 +217,7 @@ export default class EditCommodities extends Component {
             .set_signup(username, result[0].hash)
             .send({ from: this.state.account }, (res) => {
               if (res === false) {
-                alert(value + " removed from the commodity list");
+                toast(value + " removed from the commodity list");
               }
             });
         }
@@ -231,12 +234,12 @@ export default class EditCommodities extends Component {
       quant = parseInt(quant) + parseInt(this.state[value]);
     } else {
       if (parseInt(quant) < parseInt(this.state[value])) {
-        alert(
+        toast(
           "You have " +
             parseInt(quant) +
             "kg ,hence you can't remove " +
             parseInt(this.state[value]) +
-            "kg"
+            "kg",{position: toast.POSITION.TOP_CENTER, className:"toast"}
         );
       } else {
         quant = parseInt(quant) - parseInt(this.state[value]);
@@ -275,7 +278,7 @@ export default class EditCommodities extends Component {
           .set_signup(this.props.match.params.publickey, result[0].hash)
           .send({ from: this.state.account }, (res) => {
             if (res === false) {
-              alert(
+              toast(
                 "Quantity of " +
                   value.slice(0, brace_index) +
                   " changed to " +
