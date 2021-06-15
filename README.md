@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+# Install Visual Studio
+# Install Ganache
+# Add metamask Wallet
+# Install React-Js and required libraries(specified in package.json file).
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Import accounts from ganache to metamask
+Here we copy the private key and import the required no of accounts and connect the required account.
 
-## Available Scripts
+# open Visual Studio.
+Open commandline ,
+Use Truffle compile- to compile the contracts.
+Use Truffle migrate - to migrate the contracts.
+Now do npm start- to run the app.
 
-In the project directory, you can run:
+# Running Application
+Read the insteuctions.
+## Signup
+All actors should signup by providing the required  generalized credentials.
+1) Firstname
+2) Lastname
+3) Address
+4) email
+5) password
+6) Document(PDF only)
+7) Public key
+8) Contact no
+## Additional Details  for few actors:
+Agro-Consultant
+  1) Specialization
+  2) qualification 
+  3) College name
+  
+Transporter
+  1) Price per kg
+  2) Price per km
 
-### `npm start`
+# Approval of actors from Governing Authority
+Governing authority will login and checks all credentials and verifies the documents.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# For all the below mentioned actors,the metamask notification will pop-up to confirm the transaction.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Farmer
+# Investor:
+ Investor Displays funding status of crops i.e. Funding Activated or Waiting for Funding.
+ ## Activate Funding:
+For all the crops whose investment has not reached maximum amount over crop duration, investor activates the funding by making investment of his choice. Transfer of ethers take place from investor to farmer
+## Returns back to Investor: 
+Investor will get back money, in which he might gain profit or incur loss depending on the  selling price. 
 
-### `npm test`
+# Transporter:
+Transporter transports the goods to the concerned retailer based on his requirements.Retailer makes a request to distributor to supply goods to his location.Distributor takes all required information from the retailer like the crop he want to buy,the type of storage he needs ,the distance of his location and the quantity of crops he needs(in kg).These requirements are validated by distributor and he sends the transportation request to the list of transporters available.
+## Accept or Reject Request:
+The Transporter accepts the request the  moment the required amount is transferred  to  his  account.The transporter  may  reject the request if the amount has not been transferred to his account or if he is unavailable for transporting goods in that particular location.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+  
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
-## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
